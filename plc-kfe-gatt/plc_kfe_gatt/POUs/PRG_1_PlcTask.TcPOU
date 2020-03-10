@@ -3,7 +3,9 @@
   <POU Name="PRG_1_PlcTask" Id="{974f2793-1abb-41d3-ab47-a860d1c380f6}" SpecialFunc="None">
     <Declaration><![CDATA[PROGRAM PRG_1_PlcTask
 VAR
-	
+
+bDebug : Bool :=true;
+fbLogHandler: FB_LogHandler;
 	
 END_VAR
 
@@ -22,8 +24,14 @@ PRG_GATT();
 // Injector
 PRG_INJ();
 
-//PRG_VGP();
+if (NOT bDebug)Then
+	PRG_VGP();
+END_IF
 
+
+
+//Logger
+//fbLogHandler();
 
 ]]></ST>
     </Implementation>
@@ -33,9 +41,14 @@ PRG_INJ();
       <LineId Id="58" Count="3" />
       <LineId Id="64" Count="3" />
       <LineId Id="2" Count="0" />
+      <LineId Id="130" Count="0" />
       <LineId Id="112" Count="0" />
+      <LineId Id="131" Count="1" />
       <LineId Id="111" Count="0" />
-      <LineId Id="69" Count="1" />
+      <LineId Id="119" Count="1" />
+      <LineId Id="69" Count="0" />
+      <LineId Id="121" Count="0" />
+      <LineId Id="70" Count="0" />
       <LineId Id="68" Count="0" />
     </LineIds>
   </POU>

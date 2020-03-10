@@ -918,6 +918,13 @@ External Setpoint Generation:
 					<Type GUID="{18071995-0000-0000-0000-000000000041}">AMSNETID</Type>
 				</Var>
 				<Var>
+					<Name>L2SI_Vacuum_Library.PMPS.LCLS_General.DefaultGlobals.stSys.I_EcatMaster1</Name>
+					<Comment>
+						<![CDATA[ AMS Net ID used for FB_EcatDiag, among others ]]>
+					</Comment>
+					<Type GUID="{18071995-0000-0000-0000-000000000041}">AMSNETID</Type>
+				</Var>
+				<Var>
 					<Name>PRG_Motors_Test.Y1_ENC</Name>
 					<Type>INT</Type>
 				</Var>
@@ -1412,7 +1419,7 @@ External Setpoint Generation:
 				<Var>
 					<Name>GVL_Devices.fb_AT1K0_GAS_PTM_10.i_xNCFault</Name>
 					<Comment>
-						<![CDATA[ remove?]]>
+						<![CDATA[ ]]>
 					</Comment>
 					<Type>BOOL</Type>
 				</Var>
@@ -1426,10 +1433,6 @@ External Setpoint Generation:
 						<![CDATA[ Link to Analog input]]>
 					</Comment>
 					<Type>INT</Type>
-				</Var>
-				<Var>
-					<Name>GVL_Devices.fb_AT1K0_GAS_PTM_10.i_xAlarm</Name>
-					<Type>BOOL</Type>
 				</Var>
 				<Var>
 					<Name>GVL_Devices.fb_AT1K0_GAS_PTM_10.i_iTempMon</Name>
@@ -1463,7 +1466,7 @@ External Setpoint Generation:
 				<Var>
 					<Name>GVL_Devices.fb_AT1K0_GAS_PTM_20.i_xNCFault</Name>
 					<Comment>
-						<![CDATA[ remove?]]>
+						<![CDATA[ ]]>
 					</Comment>
 					<Type>BOOL</Type>
 				</Var>
@@ -1477,10 +1480,6 @@ External Setpoint Generation:
 						<![CDATA[ Link to Analog input]]>
 					</Comment>
 					<Type>INT</Type>
-				</Var>
-				<Var>
-					<Name>GVL_Devices.fb_AT1K0_GAS_PTM_20.i_xAlarm</Name>
-					<Type>BOOL</Type>
 				</Var>
 				<Var>
 					<Name>GVL_Devices.fb_AT1K0_GAS_PTM_20.i_iTempMon</Name>
@@ -1514,7 +1513,7 @@ External Setpoint Generation:
 				<Var>
 					<Name>GVL_Devices.fb_AT1K0_GAS_PTM_30.i_xNCFault</Name>
 					<Comment>
-						<![CDATA[ remove?]]>
+						<![CDATA[ ]]>
 					</Comment>
 					<Type>BOOL</Type>
 				</Var>
@@ -1528,10 +1527,6 @@ External Setpoint Generation:
 						<![CDATA[ Link to Analog input]]>
 					</Comment>
 					<Type>INT</Type>
-				</Var>
-				<Var>
-					<Name>GVL_Devices.fb_AT1K0_GAS_PTM_30.i_xAlarm</Name>
-					<Type>BOOL</Type>
 				</Var>
 				<Var>
 					<Name>GVL_Devices.fb_AT1K0_GAS_PTM_30.i_iTempMon</Name>
@@ -1565,7 +1560,7 @@ External Setpoint Generation:
 				<Var>
 					<Name>GVL_Devices.fb_AT1K0_GAS_PTM_40.i_xNCFault</Name>
 					<Comment>
-						<![CDATA[ remove?]]>
+						<![CDATA[ ]]>
 					</Comment>
 					<Type>BOOL</Type>
 				</Var>
@@ -1579,10 +1574,6 @@ External Setpoint Generation:
 						<![CDATA[ Link to Analog input]]>
 					</Comment>
 					<Type>INT</Type>
-				</Var>
-				<Var>
-					<Name>GVL_Devices.fb_AT1K0_GAS_PTM_40.i_xAlarm</Name>
-					<Type>BOOL</Type>
 				</Var>
 				<Var>
 					<Name>GVL_Devices.fb_AT1K0_GAS_PTM_40.i_iTempMon</Name>
@@ -1630,7 +1621,7 @@ External Setpoint Generation:
 				<Var>
 					<Name>GVL_Devices.fb_AT1K0_GAS_PTM_120.i_xNCFault</Name>
 					<Comment>
-						<![CDATA[ remove?]]>
+						<![CDATA[ ]]>
 					</Comment>
 					<Type>BOOL</Type>
 				</Var>
@@ -1644,10 +1635,6 @@ External Setpoint Generation:
 						<![CDATA[ Link to Analog input]]>
 					</Comment>
 					<Type>INT</Type>
-				</Var>
-				<Var>
-					<Name>GVL_Devices.fb_AT1K0_GAS_PTM_120.i_xAlarm</Name>
-					<Type>BOOL</Type>
 				</Var>
 				<Var>
 					<Name>GVL_Devices.fb_AT1K0_GAS_PTM_120.i_iTempMon</Name>
@@ -1681,7 +1668,7 @@ External Setpoint Generation:
 				<Var>
 					<Name>GVL_Devices.fb_AT1K0_GAS_PTM_130.i_xNCFault</Name>
 					<Comment>
-						<![CDATA[ remove?]]>
+						<![CDATA[ ]]>
 					</Comment>
 					<Type>BOOL</Type>
 				</Var>
@@ -1695,10 +1682,6 @@ External Setpoint Generation:
 						<![CDATA[ Link to Analog input]]>
 					</Comment>
 					<Type>INT</Type>
-				</Var>
-				<Var>
-					<Name>GVL_Devices.fb_AT1K0_GAS_PTM_130.i_xAlarm</Name>
-					<Type>BOOL</Type>
 				</Var>
 				<Var>
 					<Name>GVL_Devices.fb_AT1K0_GAS_PTM_130.i_iTempMon</Name>
@@ -1732,7 +1715,7 @@ External Setpoint Generation:
 				<Var>
 					<Name>GVL_Devices.fb_AT1K0_GAS_PTM_140.i_xNCFault</Name>
 					<Comment>
-						<![CDATA[ remove?]]>
+						<![CDATA[ ]]>
 					</Comment>
 					<Type>BOOL</Type>
 				</Var>
@@ -1746,10 +1729,6 @@ External Setpoint Generation:
 						<![CDATA[ Link to Analog input]]>
 					</Comment>
 					<Type>INT</Type>
-				</Var>
-				<Var>
-					<Name>GVL_Devices.fb_AT1K0_GAS_PTM_140.i_xAlarm</Name>
-					<Type>BOOL</Type>
 				</Var>
 				<Var>
 					<Name>GVL_Devices.fb_AT1K0_GAS_PTM_140.i_iTempMon</Name>
@@ -3098,6 +3077,27 @@ IO]]>
 					<Type>BOOL</Type>
 				</Var>
 				<Var>
+					<Name>GVL_Devices.fb_AT1K0_GAS_VVC_110.q_xOPN_DO</Name>
+					<Comment>
+						<![CDATA[IO]]>
+					</Comment>
+					<Type>BOOL</Type>
+				</Var>
+				<Var>
+					<Name>GVL_Devices.fb_AT1K0_GAS_VVC_120.q_xOPN_DO</Name>
+					<Comment>
+						<![CDATA[IO]]>
+					</Comment>
+					<Type>BOOL</Type>
+				</Var>
+				<Var>
+					<Name>GVL_Devices.fb_AT1K0_GAS_VVC_140.q_xOPN_DO</Name>
+					<Comment>
+						<![CDATA[IO]]>
+					</Comment>
+					<Type>BOOL</Type>
+				</Var>
+				<Var>
 					<Name>GVL_ILK.g_FastFaultOutput1.q_xFastFaultOut</Name>
 					<Type>BOOL</Type>
 				</Var>
@@ -3542,6 +3542,13 @@ IO]]>
 			<OwnerB Name="TIID^=+-CX2020/EtherCAT1^=+-EK1100_05_00^=+-ES2004_05_07">
 				<Link VarA="PlcTask Outputs^GVL_Devices.fb_AT1K0_GAS_VRC_130.q_xOPN_DO" VarB="Channel 1^fb_AT1K0_GAS_VRC_130.q_xOPN_DO"/>
 				<Link VarA="PlcTask Outputs^GVL_Devices.fb_AT1K0_GAS_VRC_140.q_xOPN_DO" VarB="Channel 2^fb_AT1K0_GAS_VRC_140.q_xOPN_DO"/>
+			</OwnerB>
+			<OwnerB Name="TIID^=+-CX2020/EtherCAT1^=+-EK1100_06_00^=+-EL2212_06_25">
+				<Link VarA="PlcTask Outputs^GVL_Devices.fb_AT1K0_GAS_VVC_110.q_xOPN_DO" VarB="DOX Control Channel 1^Control^Output" AutoLink="true"/>
+				<Link VarA="PlcTask Outputs^GVL_Devices.fb_AT1K0_GAS_VVC_120.q_xOPN_DO" VarB="DOX Control Channel 2^Control^Output" AutoLink="true"/>
+			</OwnerB>
+			<OwnerB Name="TIID^=+-CX2020/EtherCAT1^=+-EK1100_06_00^=+-EL2212_06_26">
+				<Link VarA="PlcTask Outputs^GVL_Devices.fb_AT1K0_GAS_VVC_140.q_xOPN_DO" VarB="DOX Control Channel 1^Control^Output" AutoLink="true"/>
 			</OwnerB>
 			<OwnerB Name="TIID^=+-CX2020/EtherCAT1^=+-EK1100_06_00^=+-EL2794_06_22">
 				<Link VarA="PlcTask Outputs^GVL_Devices.fb_AT1K0_GAS_PMF_100.q_xBPStart" VarB="Channel 4^fb_AT1K0_GAS_PMF_100.q_xBPStart"/>

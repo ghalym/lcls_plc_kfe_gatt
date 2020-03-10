@@ -153,9 +153,6 @@
     <PlaceholderResolution Include="Tc2_ControllerToolbox">
       <Resolution>Tc2_ControllerToolbox, 3.4.1.4 (Beckhoff Automation GmbH)</Resolution>
     </PlaceholderResolution>
-    <PlaceholderResolution Include="Tc2_DataExchange">
-      <Resolution>Tc2_DataExchange, 3.3.2.0 (Beckhoff Automation GmbH)</Resolution>
-    </PlaceholderResolution>
     <PlaceholderResolution Include="Tc2_EtherCAT">
       <Resolution>Tc2_EtherCAT, 3.3.13.0 (Beckhoff Automation GmbH)</Resolution>
     </PlaceholderResolution>
