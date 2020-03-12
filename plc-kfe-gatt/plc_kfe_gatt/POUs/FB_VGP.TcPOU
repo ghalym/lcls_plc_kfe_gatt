@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4022.16">
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4022.18">
   <POU Name="FB_VGP" Id="{7843698b-889d-4cb9-a659-0a84e4308c25}" SpecialFunc="None">
     <Declaration><![CDATA[(* This function implements the Basic functions for the Vat Motorized valve*)
 FUNCTION_BLOCK FB_VGP
@@ -147,6 +147,10 @@ ACT_AXIS();
 AXIS();
 q_stVGP.rEnoder_Position := LREAL_TO_REAL(Axis.NcToPlc.ActPos); // encoder position
 
+
+IF NOT (i_xExtIlkOK) THEN
+	q_stVGP.state := MOVESTATE_NEWTARGETPOSITION;
+END_IF
 //Homing STATE is missing
 
 // state machine for axis motion
@@ -758,7 +762,10 @@ END_VAR
     <LineIds Name="FB_VGP.ACT_AXIS">
       <LineId Id="309" Count="0" />
       <LineId Id="7" Count="1" />
-      <LineId Id="5" Count="1" />
+      <LineId Id="324" Count="1" />
+      <LineId Id="5" Count="0" />
+      <LineId Id="326" Count="1" />
+      <LineId Id="6" Count="0" />
       <LineId Id="142" Count="0" />
       <LineId Id="1" Count="0" />
       <LineId Id="80" Count="5" />

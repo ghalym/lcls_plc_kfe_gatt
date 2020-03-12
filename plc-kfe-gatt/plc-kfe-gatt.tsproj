@@ -1325,6 +1325,7 @@ External Setpoint Generation:
 		<System>
 			<Licenses>
 				<Target>
+					<ManualSelect>{3EBB9639-5FF3-42B6-8847-35C70DC013C8}</ManualSelect>
 					<ManualSelect>{D59230D3-7C55-4138-859C-234C1C6CFDA8}</ManualSelect>
 				</Target>
 			</Licenses>
@@ -1356,13 +1357,10 @@ External Setpoint Generation:
 					<AxisPara>
 						<Velo Maximum="5"/>
 						<OtherSettings AllowMotionCmdToSlave="true"/>
-						<ParameterChanged>39</ParameterChanged>
-						<ParameterChanged>257</ParameterChanged>
 					</AxisPara>
 					<Encoder Name="Enc" EncType="4">
 						<EncPara ScaleFactorNumerator="6.1991875e-05" MaxCount="#x0000ffff">
 							<Inc RefSoftSyncMask="#x0000ffff"/>
-							<ParameterChanged>35</ParameterChanged>
 						</EncPara>
 						<Vars VarGrpType="1">
 							<Name>Inputs</Name>
@@ -1590,15 +1588,10 @@ External Setpoint Generation:
 						<Dynamic AccelerationMaximum="30" DecelerationMaximum="30"/>
 						<Velo Maximum="40"/>
 						<OtherSettings AllowMotionCmdToSlave="true"/>
-						<ParameterChanged>39</ParameterChanged>
-						<ParameterChanged>257</ParameterChanged>
-						<ParameterChanged>242</ParameterChanged>
-						<ParameterChanged>241</ParameterChanged>
 					</AxisPara>
 					<Encoder Name="Enc" EncType="4">
 						<EncPara ScaleFactorNumerator="0.000390625" MaxCount="#x0000ffff">
 							<Inc RefSoftSyncMask="#x0000ffff"/>
-							<ParameterChanged>35</ParameterChanged>
 						</EncPara>
 						<Vars VarGrpType="1">
 							<Name>Inputs</Name>
@@ -1827,13 +1820,10 @@ External Setpoint Generation:
 					<AxisPara>
 						<Velo Maximum="5"/>
 						<OtherSettings AllowMotionCmdToSlave="true"/>
-						<ParameterChanged>39</ParameterChanged>
-						<ParameterChanged>257</ParameterChanged>
 					</AxisPara>
 					<Encoder Name="Enc" EncType="4">
 						<EncPara ScaleFactorNumerator="6.1991875e-05" MaxCount="#x0000ffff">
 							<Inc RefSoftSyncMask="#x0000ffff"/>
-							<ParameterChanged>35</ParameterChanged>
 						</EncPara>
 						<Vars VarGrpType="1">
 							<Name>Inputs</Name>
@@ -2063,15 +2053,10 @@ External Setpoint Generation:
 						<Dynamic AccelerationMaximum="30" DecelerationMaximum="30"/>
 						<Velo Maximum="40"/>
 						<OtherSettings AllowMotionCmdToSlave="true"/>
-						<ParameterChanged>39</ParameterChanged>
-						<ParameterChanged>257</ParameterChanged>
-						<ParameterChanged>242</ParameterChanged>
-						<ParameterChanged>241</ParameterChanged>
 					</AxisPara>
 					<Encoder Name="Enc" EncType="4">
 						<EncPara ScaleFactorNumerator="0.000390625" MaxCount="#x0000ffff">
 							<Inc RefSoftSyncMask="#x0000ffff"/>
-							<ParameterChanged>35</ParameterChanged>
 						</EncPara>
 						<Vars VarGrpType="1">
 							<Name>Inputs</Name>
@@ -2300,13 +2285,10 @@ External Setpoint Generation:
 					<AxisPara>
 						<Velo Maximum="5"/>
 						<OtherSettings AllowMotionCmdToSlave="true"/>
-						<ParameterChanged>39</ParameterChanged>
-						<ParameterChanged>257</ParameterChanged>
 					</AxisPara>
 					<Encoder Name="Enc" EncType="4">
 						<EncPara ScaleFactorNumerator="6.1991875e-05" MaxCount="#x0000ffff">
 							<Inc RefSoftSyncMask="#x0000ffff"/>
-							<ParameterChanged>35</ParameterChanged>
 						</EncPara>
 						<Vars VarGrpType="1">
 							<Name>Inputs</Name>
@@ -2536,15 +2518,15 @@ External Setpoint Generation:
 						<Dynamic AccelerationMaximum="30" DecelerationMaximum="30"/>
 						<Velo Maximum="40"/>
 						<OtherSettings AllowMotionCmdToSlave="true"/>
-						<ParameterChanged>39</ParameterChanged>
-						<ParameterChanged>257</ParameterChanged>
-						<ParameterChanged>242</ParameterChanged>
-						<ParameterChanged>241</ParameterChanged>
 					</AxisPara>
 					<Encoder Name="Enc" EncType="4">
 						<EncPara ScaleFactorNumerator="0.000390625" MaxCount="#x0000ffff">
+							<SoftEndMinControl Enable="true"/>
+							<SoftEndMaxControl Enable="true" Range="47.5"/>
 							<Inc RefSoftSyncMask="#x0000ffff"/>
-							<ParameterChanged>35</ParameterChanged>
+							<ParameterChanged>14</ParameterChanged>
+							<ParameterChanged>11</ParameterChanged>
+							<ParameterChanged>12</ParameterChanged>
 						</EncPara>
 						<Vars VarGrpType="1">
 							<Name>Inputs</Name>
@@ -2773,13 +2755,10 @@ External Setpoint Generation:
 					<AxisPara>
 						<Velo Maximum="5"/>
 						<OtherSettings AllowMotionCmdToSlave="true"/>
-						<ParameterChanged>39</ParameterChanged>
-						<ParameterChanged>257</ParameterChanged>
 					</AxisPara>
 					<Encoder Name="Enc" EncType="4">
 						<EncPara ScaleFactorNumerator="6.1991875e-05" MaxCount="#x0000ffff">
 							<Inc RefSoftSyncMask="#x0000ffff"/>
-							<ParameterChanged>35</ParameterChanged>
 						</EncPara>
 						<Vars VarGrpType="1">
 							<Name>Inputs</Name>
@@ -3009,15 +2988,10 @@ External Setpoint Generation:
 						<Dynamic AccelerationMaximum="30" DecelerationMaximum="30"/>
 						<Velo Maximum="40"/>
 						<OtherSettings AllowMotionCmdToSlave="true"/>
-						<ParameterChanged>39</ParameterChanged>
-						<ParameterChanged>257</ParameterChanged>
-						<ParameterChanged>242</ParameterChanged>
-						<ParameterChanged>241</ParameterChanged>
 					</AxisPara>
 					<Encoder Name="Enc" EncType="4">
 						<EncPara ScaleFactorNumerator="0.000390625" MaxCount="#x0000ffff">
 							<Inc RefSoftSyncMask="#x0000ffff"/>
-							<ParameterChanged>35</ParameterChanged>
 						</EncPara>
 						<Vars VarGrpType="1">
 							<Name>Inputs</Name>
@@ -3246,16 +3220,12 @@ External Setpoint Generation:
 					<AxisPara>
 						<Velo Maximum="1800"/>
 						<OtherSettings AllowMotionCmdToSlave="true"/>
-						<ParameterChanged>39</ParameterChanged>
-						<ParameterChanged>257</ParameterChanged>
 					</AxisPara>
 					<Encoder Name="Enc" EncType="4">
 						<EncPara ScaleFactorNumerator="0.0390625" Inverse="true" MaxCount="#x0000ffff">
 							<SoftEndMinControl Enable="true" Range="-15"/>
 							<SoftEndMaxControl Enable="true" Range="1695"/>
 							<Inc RefSoftSyncMask="#x0000ffff"/>
-							<ParameterChanged>8</ParameterChanged>
-							<ParameterChanged>35</ParameterChanged>
 						</EncPara>
 						<Vars VarGrpType="1">
 							<Name>Inputs</Name>
@@ -3414,6 +3384,7 @@ Drive Status 4 (manually linked):
 					</Drive>
 					<Controller Name="Ctrl" CtrType="1">
 						<CtrPara PriorControlFactor="1">
+							<PosDiffControl Range="75"/>
 							<Observer BandWidth="20"/>
 						</CtrPara>
 					</Controller>
@@ -3861,6 +3832,25 @@ External Setpoint Generation:
 				<Link VarA="Drive^Inputs^In^nState1" VarB="STM Status^Status^Error" Size="1" OffsA="3"/>
 				<Link VarA="Drive^Inputs^In^nState1" VarB="STM Status^Status^Moving negative" Size="1" OffsA="5"/>
 				<Link VarA="Drive^Inputs^In^nState1" VarB="STM Status^Status^Moving positive" Size="1" OffsA="4"/>
+				<Link VarA="Drive^Inputs^In^nState1" VarB="STM Status^Status^Ready" Size="1" OffsA="1"/>
+				<Link VarA="Drive^Inputs^In^nState1" VarB="STM Status^Status^Ready to enable"/>
+				<Link VarA="Drive^Inputs^In^nState1" VarB="STM Status^Status^Torque reduced" Size="1" OffsA="6"/>
+				<Link VarA="Drive^Inputs^In^nState1" VarB="STM Status^Status^Warning" Size="1" OffsA="2"/>
+				<Link VarA="Drive^Inputs^In^nState2" VarB="STM Status^Status^Digital input 1" Size="1" OffsA="3"/>
+				<Link VarA="Drive^Inputs^In^nState2" VarB="STM Status^Status^Digital input 2" Size="1" OffsA="4"/>
+				<Link VarA="Drive^Inputs^In^nState2" VarB="STM Status^Status^Sync error" Size="1" OffsA="5"/>
+				<Link VarA="Drive^Inputs^In^nState2" VarB="STM Status^Status^TxPDO Toggle" Size="1" OffsA="7"/>
+				<Link VarA="Drive^Inputs^In^nState4" VarB="WcState^InputToggle" Size="1" OffsA="1"/>
+				<Link VarA="Drive^Inputs^In^nState4" VarB="WcState^WcState"/>
+				<Link VarA="Drive^Outputs^Out^nCtrl1" VarB="STM Control^Control^Enable"/>
+				<Link VarA="Drive^Outputs^Out^nCtrl1" VarB="STM Control^Control^Reduce torque" Size="1" OffsA="2"/>
+				<Link VarA="Drive^Outputs^Out^nCtrl1" VarB="STM Control^Control^Reset" Size="1" OffsA="1"/>
+				<Link VarA="Drive^Outputs^Out^nDataOut2[0]" VarB="STM Velocity^Velocity"/>
+			</OwnerB>
+		</OwnerA>
+	</Mappings>
+</TcSmProject>
+>
 				<Link VarA="Drive^Inputs^In^nState1" VarB="STM Status^Status^Ready" Size="1" OffsA="1"/>
 				<Link VarA="Drive^Inputs^In^nState1" VarB="STM Status^Status^Ready to enable"/>
 				<Link VarA="Drive^Inputs^In^nState1" VarB="STM Status^Status^Torque reduced" Size="1" OffsA="6"/>
