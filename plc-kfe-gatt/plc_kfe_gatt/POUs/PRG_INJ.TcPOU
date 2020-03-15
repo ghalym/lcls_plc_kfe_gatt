@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4022.12">
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4022.18">
   <POU Name="PRG_INJ" Id="{8b858f89-a705-4da6-a8c0-4cd0b412d38f}" SpecialFunc="None">
     <Declaration><![CDATA[PROGRAM PRG_INJ
 VAR
@@ -14,10 +14,13 @@ VVC_71(i_xExtILK_OK:= VVC_72.M_IsClosed(), i_xOverrideMode:= , iq_stValve=> );
 VVC_72(i_xExtILK_OK:= VVC_71.M_IsClosed(), i_xOverrideMode:= , iq_stValve=> );
 
 //Gauges
-GCM_70(VG=> , i_rFULL_SCALE:= 2000);
-GCM_80(VG=> , i_rFULL_SCALE:= 20);
-GCM_81(VG=> , i_rFULL_SCALE:= 0.25);
-
+GCM_70(PG=> , i_rFULL_SCALE:= 2000);
+GCM_80(PG=> , i_rFULL_SCALE:= 20);
+GCM_81(PG=> , i_rFULL_SCALE:= 0.25);
+// Set bits for EL3174-0002
+GCM_70.M_SetBits(30518);
+GCM_80.M_SetBits(30518);
+GCM_81.M_SetBits(30518);
 ]]></ST>
     </Implementation>
     <LineIds Name="PRG_INJ">
@@ -29,7 +32,9 @@ GCM_81(VG=> , i_rFULL_SCALE:= 0.25);
       <LineId Id="12" Count="0" />
       <LineId Id="11" Count="0" />
       <LineId Id="13" Count="2" />
+      <LineId Id="21" Count="0" />
       <LineId Id="17" Count="0" />
+      <LineId Id="22" Count="1" />
       <LineId Id="16" Count="0" />
     </LineIds>
   </POU>
