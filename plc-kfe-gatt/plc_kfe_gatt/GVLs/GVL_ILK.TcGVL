@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4022.18">
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.3">
   <GVL Name="GVL_ILK" Id="{21709cf7-f577-4665-94fd-fe0531e0ad62}">
     <Declaration><![CDATA[VAR_GLOBAL
 	
@@ -28,15 +28,15 @@
 
 
 (* Interlock related bits, local to the PLC*)
-	US_Turbo_Valves_Closed:  BOOL;
+	US_MAA_OK:  BOOL;
 	US_Turbo_Valves_Open:  BOOL;
-	DS_Turbo_Valves_Closed: BOOL;
+	DS_MAA_OK: BOOL;
 	DS_Turbo_Valves_Open:  BOOL;
 	US_Turbo_Running:  BOOL;
 	DS_Turbo_Running:  BOOL;
 	TwinscrewPumps_Valves_Closed: BOOL;
-	US_TwinscrewPumps_Valves_Open : BOOL;
-	DS_TwinscrewPumps_Valves_Open : BOOL;
+	US_Roughing_Valves_Open : BOOL;
+	DS_Roughing_Valves_Open : BOOL;
 	US_Aperture_Closed: BOOL;
 	DS_Aperture_Closed: BOOL;
 	
