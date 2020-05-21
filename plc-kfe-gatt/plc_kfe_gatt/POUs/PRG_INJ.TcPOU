@@ -5,11 +5,23 @@
 VAR
 	{attribute 'pytmc' :=' pv: AT1K0:GATT:CNTRL:SP '}
 	fSetpointValue :FLOAT; 
-	{attribute 'pytmc' :=' pv: AT1K0:GATT:CNTRL:GO '}
+	{attribute 'pytmc' :=' pv: AT1K0:GATT:CNTRL:GO;
+	 field: ZNAM STOP; 
+	 field: ONAM START; 
+	 io: io;
+	'}
 	bGo: BOOL; 
- {attribute 'pytmc' :=' pv: AT1K0:GATT:CNTRL:RESET '}
+ 	{attribute 'pytmc' :=' pv: AT1K0:GATT:CNTRL:RESET;
+	 field: ZNAM FALSE; 
+	 field: ONAM TRUE; 
+	 io: io;
+	 '}
 	bReset : BOOL; 
-	{attribute 'pytmc' :=' pv: AT1K0:GATT:CNTRL:ERROR '}
+	{attribute 'pytmc' :=' pv: AT1K0:GATT:CNTRL:ERROR;
+    field: ZNAM FALSE; 
+	 field: ONAM TRUE; 
+	 io: io;
+	 '}
 	bError : BOOL; 
 	{attribute 'pytmc' :=' pv: AT1K0:GATT:CNTRL:Kp1 '}
 	fKp1 : REAL:= 0.04; 
@@ -36,14 +48,13 @@ VAR
 	stCTRL_LIN_INTERPOLATION_PARAMS_GEM	: ST_CTRL_LIN_INTERPOLATION_PARAMS;
 	fbCTRL_DEADBAND						: FB_CTRL_DEADBAND;
 	stCTRL_DEADBAND_PARAMS			: ST_CTRL_DEADBAND_PARAMS;
-		//timer to switch the pid from manual to active 5seconds??? 10 seconds???
+
 	pid_on :TON;
 	wait : time := T#10S;
 	FTrig: F_TRIG;
 		
 
-	i_xExtIlkOK: INT;
-	GEM2_Aperture_Closed: INT;
+	
 END_VAR
 ]]></Declaration>
     <Implementation>
@@ -61,6 +72,11 @@ VVC_72(i_xExtILK_OK:= VVC_71.M_IsClosed(), i_xOverrideMode:= , iq_stValve=> );
 GCM_70(PG=> , i_rFULL_SCALE:= 2000);
 GCM_80(PG=> , i_rFULL_SCALE:= 20);
 GCM_81(PG=> , i_rFULL_SCALE:= 0.25);
+(*Assign reading to psuedo gauge*)
+IF (GCM_81.PG.rPRESS >=0.22) THEN GCM_82 := GCM_80.PG;
+	ELSE
+	GCM_82 := GCM_81.PG;	
+END_IF
 // Set ADC bits for EL3174-0002
 GCM_70.M_SetBits(30518);
 GCM_80.M_SetBits(30518);
@@ -163,7 +179,7 @@ fbCTRL_LIN_INTERPOLATION(
 
 
 (* Gauge selection *)
-IF (fSetpointValue >=0.25) THEN
+IF (fSetpointValue >=0.22) THEN
 	fbCTRL_PID.fActualValue := GCM_80.PG.rPRESS;
 ELSE
 	fbCTRL_PID.fActualValue := GCM_81.PG.rPRESS;

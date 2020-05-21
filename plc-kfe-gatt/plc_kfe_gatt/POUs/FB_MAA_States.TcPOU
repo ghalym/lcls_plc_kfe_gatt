@@ -55,7 +55,7 @@ VAR CONSTANT
 	
 	
     fInDelta: LREAL := 0.1;
-    fOutDelta: LREAL := 10;
+    fOutDelta: LREAL := 0.1;
     fInVelocity: LREAL := 5;
     fOutVelocity: LREAL := 5;
     fAccel: LREAL := 200;

@@ -1,10 +1,10 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4022.18">
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.3">
   <POU Name="PRG_1_PlcTask" Id="{974f2793-1abb-41d3-ab47-a860d1c380f6}" SpecialFunc="None">
     <Declaration><![CDATA[PROGRAM PRG_1_PlcTask
 VAR
 
-bDebug : Bool :=true;
+bDebug : Bool := TRUE;
 fbLogHandler: FB_LogHandler;
 	
 END_VAR
@@ -12,20 +12,19 @@ END_VAR
     ]]></Declaration>
     <Implementation>
       <ST><![CDATA[(*Ethercat Diagnostics*)
-//DIAGNOSTICS();
-
-PRG_Motors_Test();
-
-// Functionblock for PTP motion between different appertures
-//PRG_Motion();
-
+DIAGNOSTICS();
 // Vacuum and differential pumping
 PRG_GATT();
 // Injector
 PRG_INJ();
 
 if (NOT bDebug)Then
+	// Functionblock for PTP motion between different appertures
+	PRG_Motion();
+	// Motorised valve
 	PRG_VGP();
+ELSE
+	PRG_Motors_Test();
 END_IF
 
 
@@ -35,21 +34,5 @@ fbLogHandler();
 
 ]]></ST>
     </Implementation>
-    <LineIds Name="PRG_1_PlcTask">
-      <LineId Id="71" Count="0" />
-      <LineId Id="45" Count="1" />
-      <LineId Id="58" Count="3" />
-      <LineId Id="64" Count="3" />
-      <LineId Id="2" Count="0" />
-      <LineId Id="130" Count="0" />
-      <LineId Id="112" Count="0" />
-      <LineId Id="131" Count="1" />
-      <LineId Id="111" Count="0" />
-      <LineId Id="119" Count="1" />
-      <LineId Id="69" Count="0" />
-      <LineId Id="121" Count="0" />
-      <LineId Id="70" Count="0" />
-      <LineId Id="68" Count="0" />
-    </LineIds>
   </POU>
 </TcPlcObject>

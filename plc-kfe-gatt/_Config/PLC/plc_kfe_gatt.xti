@@ -1,5 +1,5 @@
-<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<TcSmItem xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://www.beckhoff.com/schemas/2012/07/TcSmItem" TcSmVersion="1.0" TcVersion="3.1.4022.30" ClassName="CNestedPlcProjDef">
+<?xml version="1.0"?>
+<TcSmItem xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://www.beckhoff.com/schemas/2012/07/TcSmProject" TcSmVersion="1.0" TcVersion="3.1.4024.7" ClassName="CNestedPlcProjDef">
 	<DataTypes>
 		<DataType>
 			<Name GUID="{18071995-0000-0000-0000-000000000041}" TcBaseType="true" HideSubItems="true" CName="AmsNetId">AMSNETID</Name>
@@ -20,7 +20,7 @@
 			</Format>
 		</DataType>
 		<DataType>
-			<Name GUID="{4C3FC5AC-D5AA-44C6-AC5A-159774BA0F6D}" Namespace="MC" TcBaseType="true" HideType="true" IecDeclaration="DWORD;">NCTOPLC_AXIS_REF_STATE</Name>
+			<Name GUID="{CBC83B73-B816-4597-A9E5-2B03263CA131}" Namespace="MC" TcBaseType="true" HideType="true" IecDeclaration="DWORD;">NCTOPLC_AXIS_REF_STATE</Name>
 			<BitSize>32</BitSize>
 			<SubItem>
 				<Name>Operational</Name>
@@ -131,6 +131,12 @@
 				<BitOffs>17</BitOffs>
 			</SubItem>
 			<SubItem>
+				<Name>IsDriveLimitActive</Name>
+				<Type GUID="{18071995-0000-0000-0000-000000000010}">BIT</Type>
+				<BitSize>1</BitSize>
+				<BitOffs>18</BitOffs>
+			</SubItem>
+			<SubItem>
 				<Name>ContinuousMotion</Name>
 				<Type GUID="{18071995-0000-0000-0000-000000000010}">BIT</Type>
 				<BitSize>1</BitSize>
@@ -217,6 +223,11 @@
 			<Format Name="IEC">
 				<Printf>16#%08X</Printf>
 			</Format>
+			<Relations>
+				<Relation Priority="100">
+					<Type>{4C3FC5AC-D5AA-44C6-AC5A-159774BA0F6D}</Type>
+				</Relation>
+			</Relations>
 		</DataType>
 		<DataType>
 			<Name GUID="{6EF49753-C72C-4F50-AA44-3C7498E76CFE}" Namespace="MC" TcBaseType="true" HideType="true" IecDeclaration="DWORD;">NCTOPLC_AXIS_REF_OPMODE</Name>
@@ -412,11 +423,11 @@
 			</ArrayInfo>
 		</DataType>
 		<DataType>
-			<Name GUID="{6A65C767-34E5-42BF-AD87-E1A503EAC7BE}" Namespace="MC" TcBaseType="true">NCTOPLC_AXIS_REF</Name>
+			<Name GUID="{72F5AAAA-16DF-4ED3-8367-F6C8C3ADAE99}" Namespace="MC" TcBaseType="true">NCTOPLC_AXIS_REF</Name>
 			<BitSize>2048</BitSize>
 			<SubItem>
 				<Name>StateDWord</Name>
-				<Type GUID="{4C3FC5AC-D5AA-44C6-AC5A-159774BA0F6D}" Namespace="MC">NCTOPLC_AXIS_REF_STATE</Type>
+				<Type GUID="{CBC83B73-B816-4597-A9E5-2B03263CA131}" Namespace="MC">NCTOPLC_AXIS_REF_STATE</Type>
 				<BitSize>32</BitSize>
 				<BitOffs>0</BitOffs>
 			</SubItem>
@@ -429,8 +440,7 @@
 			<SubItem>
 				<Name>AxisState</Name>
 				<Type GUID="{18071995-0000-0000-0000-000000000008}">UDINT</Type>
-				<Comment>
-					<![CDATA[Present State Of The Axis Movement (continuous axis):
+				<Comment><![CDATA[Present State Of The Axis Movement (continuous axis):
 0  = INACTIVE:		axis has no job
 1  = RUNNING:		axis is executing a motion job
 2  = OVERRIDE_ZERO:	axis is executing a job but override is zero
@@ -444,8 +454,7 @@ Slaves only:
 External Setpoint Generation:
 41 = EXTSETGEN_MODE1:	external setpoint generation active
 42 = EXTSETGEN_MODE2:	internal and external setpoint gen. active
-]]>
-				</Comment>
+]]></Comment>
 				<BitSize>32</BitSize>
 				<BitOffs>64</BitOffs>
 			</SubItem>
@@ -458,8 +467,7 @@ External Setpoint Generation:
 			<SubItem>
 				<Name>HomingState</Name>
 				<Type GUID="{18071995-0000-0000-0000-000000000008}">UDINT</Type>
-				<Comment>
-					<![CDATA[Axis Homing Status:
+				<Comment><![CDATA[Axis Homing Status:
 0: idle
 1: start homing
 2: searching home switch
@@ -467,22 +475,19 @@ External Setpoint Generation:
 4: moving off home switch
 5: searching sync pulse
 6: stopping after homing
-]]>
-				</Comment>
+]]></Comment>
 				<BitSize>32</BitSize>
 				<BitOffs>128</BitOffs>
 			</SubItem>
 			<SubItem>
 				<Name>CoupleState</Name>
 				<Type GUID="{18071995-0000-0000-0000-000000000008}">UDINT</Type>
-				<Comment>
-					<![CDATA[Axis Coupling Status:
+				<Comment><![CDATA[Axis Coupling Status:
 0: axis is a single axis (not coupled)
 1: axis is a master axis
 2: axis is master and slave
 3: axis is a slave axis
-]]>
-				</Comment>
+]]></Comment>
 				<BitSize>32</BitSize>
 				<BitOffs>160</BitOffs>
 			</SubItem>
@@ -671,6 +676,18 @@ External Setpoint Generation:
 				<BitOffs>1600</BitOffs>
 			</SubItem>
 			<SubItem>
+				<Name>AbsPhasingPos</Name>
+				<Type GUID="{18071995-0000-0000-0000-00000000000E}">LREAL</Type>
+				<BitSize>64</BitSize>
+				<BitOffs>1664</BitOffs>
+			</SubItem>
+			<SubItem>
+				<Name>TorqueOffset</Name>
+				<Type GUID="{18071995-0000-0000-0000-00000000000E}">LREAL</Type>
+				<BitSize>64</BitSize>
+				<BitOffs>1728</BitOffs>
+			</SubItem>
+			<SubItem>
 				<Name>ActPosWithoutPosCorrection</Name>
 				<Type GUID="{18071995-0000-0000-0000-00000000000E}">LREAL</Type>
 				<BitSize>64</BitSize>
@@ -708,13 +725,16 @@ External Setpoint Generation:
 					<Type GUID="{F794B740-82D7-4637-848E-4F74A711D038}">NCAXLESTRUCT_TOPLC4</Type>
 				</Relation>
 				<Relation Priority="100">
-					<Type GUID="{40BD39B0-C3EA-4F74-9F4F-5F1982786F7C}"/>
+					<Type GUID="{40BD39B0-C3EA-4F74-9F4F-5F1982786F7C}"></Type>
 				</Relation>
 				<Relation Priority="100">
-					<Type GUID="{40BD39B2-C3EA-4F74-9F4F-5F1982786F7C}"/>
+					<Type GUID="{40BD39B2-C3EA-4F74-9F4F-5F1982786F7C}"></Type>
 				</Relation>
 				<Relation Priority="100">
-					<Type GUID="{8CDE0C45-AB9D-42DB-BC94-1CF7521AB268}"/>
+					<Type GUID="{8CDE0C45-AB9D-42DB-BC94-1CF7521AB268}"></Type>
+				</Relation>
+				<Relation Priority="100">
+					<Type GUID="{6A65C767-34E5-42BF-AD87-E1A503EAC7BE}"></Type>
 				</Relation>
 			</Relations>
 		</DataType>
@@ -904,25 +924,56 @@ External Setpoint Generation:
 			<Vars VarGrpType="1">
 				<Name>PlcTask Inputs</Name>
 				<Var>
-					<Name>L2SI_Vacuum_Library.Global_Variables.g_stSystem.I_EcatMaster1</Name>
-					<Comment>
-						<![CDATA[ AMS Net ID used for FB_EcatDiag, among others ]]>
-					</Comment>
-					<Type GUID="{18071995-0000-0000-0000-000000000041}">AMSNETID</Type>
-				</Var>
-				<Var>
 					<Name>LCLS_General.DefaultGlobals.stSys.I_EcatMaster1</Name>
-					<Comment>
-						<![CDATA[ AMS Net ID used for FB_EcatDiag, among others ]]>
-					</Comment>
+					<Comment><![CDATA[ AMS Net ID used for FB_EcatDiag, among others ]]></Comment>
 					<Type GUID="{18071995-0000-0000-0000-000000000041}">AMSNETID</Type>
 				</Var>
 				<Var>
-					<Name>L2SI_Vacuum_Library.PMPS.LCLS_General.DefaultGlobals.stSys.I_EcatMaster1</Name>
-					<Comment>
-						<![CDATA[ AMS Net ID used for FB_EcatDiag, among others ]]>
-					</Comment>
+					<Name>lcls_twincat_vacuum.Global_Variables.g_stSystem.I_EcatMaster1</Name>
+					<Comment><![CDATA[ AMS Net ID used for FB_EcatDiag, among others ]]></Comment>
 					<Type GUID="{18071995-0000-0000-0000-000000000041}">AMSNETID</Type>
+				</Var>
+				<Var>
+					<Name>DIAGNOSTICS.i_sAMSNetID</Name>
+					<Comment><![CDATA[Link the sAMSNetID to the Etherat Master netID]]></Comment>
+					<Type GUID="{18071995-0000-0000-0000-000000000041}">AMSNETID</Type>
+				</Var>
+				<Var>
+					<Name>DIAGNOSTICS.fbEcatDiag.I_AMSNetId</Name>
+					<Comment><![CDATA[Link to the AMSNETID name in the ethercat master info.]]></Comment>
+					<Type GUID="{18071995-0000-0000-0000-000000000041}">AMSNETID</Type>
+				</Var>
+				<Var>
+					<Name>PRG_Motion.fbMAA_1_States.fbYStage.fbDriveVirtual.MasterAxis.NcToPlc</Name>
+					<Type GUID="{72F5AAAA-16DF-4ED3-8367-F6C8C3ADAE99}" Namespace="MC">NCTOPLC_AXIS_REF</Type>
+				</Var>
+				<Var>
+					<Name>PRG_Motion.fbMAA_1_States.fbXStage.fbDriveVirtual.MasterAxis.NcToPlc</Name>
+					<Type GUID="{72F5AAAA-16DF-4ED3-8367-F6C8C3ADAE99}" Namespace="MC">NCTOPLC_AXIS_REF</Type>
+				</Var>
+				<Var>
+					<Name>PRG_Motion.fbMAA_2_States.fbYStage.fbDriveVirtual.MasterAxis.NcToPlc</Name>
+					<Type GUID="{72F5AAAA-16DF-4ED3-8367-F6C8C3ADAE99}" Namespace="MC">NCTOPLC_AXIS_REF</Type>
+				</Var>
+				<Var>
+					<Name>PRG_Motion.fbMAA_2_States.fbXStage.fbDriveVirtual.MasterAxis.NcToPlc</Name>
+					<Type GUID="{72F5AAAA-16DF-4ED3-8367-F6C8C3ADAE99}" Namespace="MC">NCTOPLC_AXIS_REF</Type>
+				</Var>
+				<Var>
+					<Name>PRG_Motion.fbMAA_3_States.fbYStage.fbDriveVirtual.MasterAxis.NcToPlc</Name>
+					<Type GUID="{72F5AAAA-16DF-4ED3-8367-F6C8C3ADAE99}" Namespace="MC">NCTOPLC_AXIS_REF</Type>
+				</Var>
+				<Var>
+					<Name>PRG_Motion.fbMAA_3_States.fbXStage.fbDriveVirtual.MasterAxis.NcToPlc</Name>
+					<Type GUID="{72F5AAAA-16DF-4ED3-8367-F6C8C3ADAE99}" Namespace="MC">NCTOPLC_AXIS_REF</Type>
+				</Var>
+				<Var>
+					<Name>PRG_Motion.fbMAA_4_States.fbYStage.fbDriveVirtual.MasterAxis.NcToPlc</Name>
+					<Type GUID="{72F5AAAA-16DF-4ED3-8367-F6C8C3ADAE99}" Namespace="MC">NCTOPLC_AXIS_REF</Type>
+				</Var>
+				<Var>
+					<Name>PRG_Motion.fbMAA_4_States.fbXStage.fbDriveVirtual.MasterAxis.NcToPlc</Name>
+					<Type GUID="{72F5AAAA-16DF-4ED3-8367-F6C8C3ADAE99}" Namespace="MC">NCTOPLC_AXIS_REF</Type>
 				</Var>
 				<Var>
 					<Name>PRG_Motors_Test.Y1_ENC</Name>
@@ -958,52 +1009,7 @@ External Setpoint Generation:
 				</Var>
 				<Var>
 					<Name>GVL_Devices.VGP_80.Axis.NcToPlc</Name>
-					<Type GUID="{6A65C767-34E5-42BF-AD87-E1A503EAC7BE}" Namespace="MC">NCTOPLC_AXIS_REF</Type>
-					<SubVar>
-						<Name>AxisState</Name>
-						<Comment>
-							<![CDATA[Present State Of The Axis Movement (continuous axis):
-0  = INACTIVE:		axis has no job
-1  = RUNNING:		axis is executing a motion job
-2  = OVERRIDE_ZERO:	axis is executing a job but override is zero
-3  = PHASE_VELOCONST:	axis is moving at constant velocity
-4  = PHASE_ACCPOS:	axis is accelerating
-5  = PHASE_ACCNEG:	axis is decelerating
-Slaves only:
-11 = PREPHASE:		slave axis is in a motion pre-phase
-12 = SYNCHRONIZING:	slave axis is synchronizing
-13 = SYNCHRONOUS:	slave axis is moving synchronously
-External Setpoint Generation:
-41 = EXTSETGEN_MODE1:	external setpoint generation active
-42 = EXTSETGEN_MODE2:	internal and external setpoint gen. active
-]]>
-						</Comment>
-					</SubVar>
-					<SubVar>
-						<Name>HomingState</Name>
-						<Comment>
-							<![CDATA[Axis Homing Status:
-0: idle
-1: start homing
-2: searching home switch
-3: stopping on home switch
-4: moving off home switch
-5: searching sync pulse
-6: stopping after homing
-]]>
-						</Comment>
-					</SubVar>
-					<SubVar>
-						<Name>CoupleState</Name>
-						<Comment>
-							<![CDATA[Axis Coupling Status:
-0: axis is a single axis (not coupled)
-1: axis is a master axis
-2: axis is master and slave
-3: axis is a slave axis
-]]>
-						</Comment>
-					</SubVar>
+					<Type GUID="{72F5AAAA-16DF-4ED3-8367-F6C8C3ADAE99}" Namespace="MC">NCTOPLC_AXIS_REF</Type>
 				</Var>
 				<Var>
 					<Name>GVL_Devices.VGP_80.InfoData_State</Name>
@@ -1011,247 +1017,177 @@ External Setpoint Generation:
 				</Var>
 				<Var>
 					<Name>GVL_Devices.GCM_70.i_iPRESS_R</Name>
-					<Comment>
-						<![CDATA[ input Pressure // Link to analog Input]]>
-					</Comment>
+					<Comment><![CDATA[ input Pressure // Link to analog Input]]></Comment>
 					<Type>INT</Type>
 				</Var>
 				<Var>
 					<Name>GVL_Devices.GCM_80.i_iPRESS_R</Name>
-					<Comment>
-						<![CDATA[ input Pressure // Link to analog Input]]>
-					</Comment>
+					<Comment><![CDATA[ input Pressure // Link to analog Input]]></Comment>
 					<Type>INT</Type>
 				</Var>
 				<Var>
 					<Name>GVL_Devices.GCM_81.i_iPRESS_R</Name>
-					<Comment>
-						<![CDATA[ input Pressure // Link to analog Input]]>
-					</Comment>
+					<Comment><![CDATA[ input Pressure // Link to analog Input]]></Comment>
 					<Type>INT</Type>
 				</Var>
 				<Var>
 					<Name>GVL_Devices.fb_AT1K0_GAS_GPI_111.i_iPRESS_R</Name>
-					<Comment>
-						<![CDATA[ input Pressure // Link to analog Input]]>
-					</Comment>
+					<Comment><![CDATA[ input Pressure // Link to analog Input]]></Comment>
 					<Type>INT</Type>
 				</Var>
 				<Var>
 					<Name>GVL_Devices.fb_AT1K0_GAS_GPI_121.i_iPRESS_R</Name>
-					<Comment>
-						<![CDATA[ input Pressure // Link to analog Input]]>
-					</Comment>
+					<Comment><![CDATA[ input Pressure // Link to analog Input]]></Comment>
 					<Type>INT</Type>
 				</Var>
 				<Var>
 					<Name>GVL_Devices.fb_AT1K0_GAS_GPI_141.i_iPRESS_R</Name>
-					<Comment>
-						<![CDATA[ input Pressure // Link to analog Input]]>
-					</Comment>
+					<Comment><![CDATA[ input Pressure // Link to analog Input]]></Comment>
 					<Type>INT</Type>
 				</Var>
 				<Var>
 					<Name>GVL_Devices.fb_AT1K0_GAS_GPI_10.i_iPRESS_R</Name>
-					<Comment>
-						<![CDATA[ input Pressure // Link to analog Input]]>
-					</Comment>
+					<Comment><![CDATA[ input Pressure // Link to analog Input]]></Comment>
 					<Type>INT</Type>
 				</Var>
 				<Var>
 					<Name>GVL_Devices.fb_AT1K0_GAS_GPI_20.i_iPRESS_R</Name>
-					<Comment>
-						<![CDATA[ input Pressure // Link to analog Input]]>
-					</Comment>
+					<Comment><![CDATA[ input Pressure // Link to analog Input]]></Comment>
 					<Type>INT</Type>
 				</Var>
 				<Var>
 					<Name>GVL_Devices.fb_AT1K0_GAS_GPI_11.i_iPRESS_R</Name>
-					<Comment>
-						<![CDATA[ input Pressure // Link to analog Input]]>
-					</Comment>
+					<Comment><![CDATA[ input Pressure // Link to analog Input]]></Comment>
 					<Type>INT</Type>
 				</Var>
 				<Var>
 					<Name>GVL_Devices.fb_AT1K0_GAS_GPI_30.i_iPRESS_R</Name>
-					<Comment>
-						<![CDATA[ input Pressure // Link to analog Input]]>
-					</Comment>
+					<Comment><![CDATA[ input Pressure // Link to analog Input]]></Comment>
 					<Type>INT</Type>
 				</Var>
 				<Var>
 					<Name>GVL_Devices.fb_AT1K0_GAS_GPI_40.i_iPRESS_R</Name>
-					<Comment>
-						<![CDATA[ input Pressure // Link to analog Input]]>
-					</Comment>
+					<Comment><![CDATA[ input Pressure // Link to analog Input]]></Comment>
 					<Type>INT</Type>
 				</Var>
 				<Var>
 					<Name>GVL_Devices.fb_AT1K0_GAS_GPI_50.i_iPRESS_R</Name>
-					<Comment>
-						<![CDATA[ input Pressure // Link to analog Input]]>
-					</Comment>
+					<Comment><![CDATA[ input Pressure // Link to analog Input]]></Comment>
 					<Type>INT</Type>
 				</Var>
 				<Var>
 					<Name>GVL_Devices.fb_AT1K0_GAS_GPI_60.i_iPRESS_R</Name>
-					<Comment>
-						<![CDATA[ input Pressure // Link to analog Input]]>
-					</Comment>
+					<Comment><![CDATA[ input Pressure // Link to analog Input]]></Comment>
 					<Type>INT</Type>
 				</Var>
 				<Var>
 					<Name>GVL_Devices.fb_AT1K0_GAS_GPI_51.i_iPRESS_R</Name>
-					<Comment>
-						<![CDATA[ input Pressure // Link to analog Input]]>
-					</Comment>
+					<Comment><![CDATA[ input Pressure // Link to analog Input]]></Comment>
 					<Type>INT</Type>
 				</Var>
 				<Var>
 					<Name>GVL_Devices.fb_AT1K0_GAS_GPI_80.i_iPRESS_R</Name>
-					<Comment>
-						<![CDATA[ input Pressure // Link to analog Input]]>
-					</Comment>
+					<Comment><![CDATA[ input Pressure // Link to analog Input]]></Comment>
 					<Type>INT</Type>
 				</Var>
 				<Var>
 					<Name>GVL_Devices.fb_AT1K0_GAS_GPI_90.i_iPRESS_R</Name>
-					<Comment>
-						<![CDATA[ input Pressure // Link to analog Input]]>
-					</Comment>
+					<Comment><![CDATA[ input Pressure // Link to analog Input]]></Comment>
 					<Type>INT</Type>
 				</Var>
 				<Var>
 					<Name>GVL_Devices.fb_AT1K0_GAS_GPI_100.i_iPRESS_R</Name>
-					<Comment>
-						<![CDATA[ input Pressure // Link to analog Input]]>
-					</Comment>
+					<Comment><![CDATA[ input Pressure // Link to analog Input]]></Comment>
 					<Type>INT</Type>
 				</Var>
 				<Var>
 					<Name>GVL_Devices.fb_AT1K0_GAS_GPI_110.i_iPRESS_R</Name>
-					<Comment>
-						<![CDATA[ input Pressure // Link to analog Input]]>
-					</Comment>
+					<Comment><![CDATA[ input Pressure // Link to analog Input]]></Comment>
 					<Type>INT</Type>
 				</Var>
 				<Var>
 					<Name>GVL_Devices.fb_AT1K0_GAS_GPI_120.i_iPRESS_R</Name>
-					<Comment>
-						<![CDATA[ input Pressure // Link to analog Input]]>
-					</Comment>
+					<Comment><![CDATA[ input Pressure // Link to analog Input]]></Comment>
 					<Type>INT</Type>
 				</Var>
 				<Var>
 					<Name>GVL_Devices.fb_AT1K0_GAS_GPI_130.i_iPRESS_R</Name>
-					<Comment>
-						<![CDATA[ input Pressure // Link to analog Input]]>
-					</Comment>
+					<Comment><![CDATA[ input Pressure // Link to analog Input]]></Comment>
 					<Type>INT</Type>
 				</Var>
 				<Var>
 					<Name>GVL_Devices.fb_AT1K0_GAS_GPI_140.i_iPRESS_R</Name>
-					<Comment>
-						<![CDATA[ input Pressure // Link to analog Input]]>
-					</Comment>
+					<Comment><![CDATA[ input Pressure // Link to analog Input]]></Comment>
 					<Type>INT</Type>
 				</Var>
 				<Var>
 					<Name>GVL_Devices.fb_AT1K0_GAS_GCC_10.i_iPRESS_R</Name>
-					<Comment>
-						<![CDATA[ Controls and I/Os]]>
-					</Comment>
+					<Comment><![CDATA[ Controls and I/Os]]></Comment>
 					<Type>INT</Type>
 				</Var>
 				<Var>
 					<Name>GVL_Devices.fb_AT1K0_GAS_GCC_20.i_iPRESS_R</Name>
-					<Comment>
-						<![CDATA[ Controls and I/Os]]>
-					</Comment>
+					<Comment><![CDATA[ Controls and I/Os]]></Comment>
 					<Type>INT</Type>
 				</Var>
 				<Var>
 					<Name>GVL_Devices.fb_AT1K0_GAS_GCC_30.i_iPRESS_R</Name>
-					<Comment>
-						<![CDATA[ Controls and I/Os]]>
-					</Comment>
+					<Comment><![CDATA[ Controls and I/Os]]></Comment>
 					<Type>INT</Type>
 				</Var>
 				<Var>
 					<Name>GVL_Devices.fb_AT1K0_GAS_GCC_40.i_iPRESS_R</Name>
-					<Comment>
-						<![CDATA[ Controls and I/Os]]>
-					</Comment>
+					<Comment><![CDATA[ Controls and I/Os]]></Comment>
 					<Type>INT</Type>
 				</Var>
 				<Var>
 					<Name>GVL_Devices.fb_AT1K0_GAS_GCC_50.i_iPRESS_R</Name>
-					<Comment>
-						<![CDATA[ Controls and I/Os]]>
-					</Comment>
+					<Comment><![CDATA[ Controls and I/Os]]></Comment>
 					<Type>INT</Type>
 				</Var>
 				<Var>
 					<Name>GVL_Devices.fb_AT1K0_GAS_GCC_60.i_iPRESS_R</Name>
-					<Comment>
-						<![CDATA[ Controls and I/Os]]>
-					</Comment>
+					<Comment><![CDATA[ Controls and I/Os]]></Comment>
 					<Type>INT</Type>
 				</Var>
 				<Var>
 					<Name>GVL_Devices.fb_AT1K0_GAS_GCC_80.i_iPRESS_R</Name>
-					<Comment>
-						<![CDATA[ Controls and I/Os]]>
-					</Comment>
+					<Comment><![CDATA[ Controls and I/Os]]></Comment>
 					<Type>INT</Type>
 				</Var>
 				<Var>
 					<Name>GVL_Devices.fb_AT1K0_GAS_GCC_90.i_iPRESS_R</Name>
-					<Comment>
-						<![CDATA[ Controls and I/Os]]>
-					</Comment>
+					<Comment><![CDATA[ Controls and I/Os]]></Comment>
 					<Type>INT</Type>
 				</Var>
 				<Var>
 					<Name>GVL_Devices.fb_AT1K0_GAS_GCC_100.i_iPRESS_R</Name>
-					<Comment>
-						<![CDATA[ Controls and I/Os]]>
-					</Comment>
+					<Comment><![CDATA[ Controls and I/Os]]></Comment>
 					<Type>INT</Type>
 				</Var>
 				<Var>
 					<Name>GVL_Devices.fb_AT1K0_GAS_GCC_110.i_iPRESS_R</Name>
-					<Comment>
-						<![CDATA[ Controls and I/Os]]>
-					</Comment>
+					<Comment><![CDATA[ Controls and I/Os]]></Comment>
 					<Type>INT</Type>
 				</Var>
 				<Var>
 					<Name>GVL_Devices.fb_AT1K0_GAS_GCC_120.i_iPRESS_R</Name>
-					<Comment>
-						<![CDATA[ Controls and I/Os]]>
-					</Comment>
+					<Comment><![CDATA[ Controls and I/Os]]></Comment>
 					<Type>INT</Type>
 				</Var>
 				<Var>
 					<Name>GVL_Devices.fb_AT1K0_GAS_GCC_130.i_iPRESS_R</Name>
-					<Comment>
-						<![CDATA[ Controls and I/Os]]>
-					</Comment>
+					<Comment><![CDATA[ Controls and I/Os]]></Comment>
 					<Type>INT</Type>
 				</Var>
 				<Var>
 					<Name>GVL_Devices.fb_AT1K0_GAS_GCC_140.i_iPRESS_R</Name>
-					<Comment>
-						<![CDATA[ Controls and I/Os]]>
-					</Comment>
+					<Comment><![CDATA[ Controls and I/Os]]></Comment>
 					<Type>INT</Type>
 				</Var>
 				<Var>
 					<Name>GVL_Devices.fb_AT1K0_GAS_VRC_10.i_xOpnLS</Name>
-					<Comment>
-						<![CDATA[IO]]>
-					</Comment>
+					<Comment><![CDATA[IO]]></Comment>
 					<Type>BOOL</Type>
 				</Var>
 				<Var>
@@ -1260,9 +1196,7 @@ External Setpoint Generation:
 				</Var>
 				<Var>
 					<Name>GVL_Devices.fb_AT1K0_GAS_VRC_20.i_xOpnLS</Name>
-					<Comment>
-						<![CDATA[IO]]>
-					</Comment>
+					<Comment><![CDATA[IO]]></Comment>
 					<Type>BOOL</Type>
 				</Var>
 				<Var>
@@ -1271,9 +1205,7 @@ External Setpoint Generation:
 				</Var>
 				<Var>
 					<Name>GVL_Devices.fb_AT1K0_GAS_VRC_30.i_xOpnLS</Name>
-					<Comment>
-						<![CDATA[IO]]>
-					</Comment>
+					<Comment><![CDATA[IO]]></Comment>
 					<Type>BOOL</Type>
 				</Var>
 				<Var>
@@ -1282,9 +1214,7 @@ External Setpoint Generation:
 				</Var>
 				<Var>
 					<Name>GVL_Devices.fb_AT1K0_GAS_VRC_40.i_xOpnLS</Name>
-					<Comment>
-						<![CDATA[IO]]>
-					</Comment>
+					<Comment><![CDATA[IO]]></Comment>
 					<Type>BOOL</Type>
 				</Var>
 				<Var>
@@ -1293,9 +1223,7 @@ External Setpoint Generation:
 				</Var>
 				<Var>
 					<Name>GVL_Devices.fb_AT1K0_GAS_VRC_50.i_xOpnLS</Name>
-					<Comment>
-						<![CDATA[IO]]>
-					</Comment>
+					<Comment><![CDATA[IO]]></Comment>
 					<Type>BOOL</Type>
 				</Var>
 				<Var>
@@ -1304,9 +1232,7 @@ External Setpoint Generation:
 				</Var>
 				<Var>
 					<Name>GVL_Devices.fb_AT1K0_GAS_VRC_60.i_xOpnLS</Name>
-					<Comment>
-						<![CDATA[IO]]>
-					</Comment>
+					<Comment><![CDATA[IO]]></Comment>
 					<Type>BOOL</Type>
 				</Var>
 				<Var>
@@ -1315,9 +1241,7 @@ External Setpoint Generation:
 				</Var>
 				<Var>
 					<Name>GVL_Devices.fb_AT1K0_GAS_VRC_70.i_xOpnLS</Name>
-					<Comment>
-						<![CDATA[IO]]>
-					</Comment>
+					<Comment><![CDATA[IO]]></Comment>
 					<Type>BOOL</Type>
 				</Var>
 				<Var>
@@ -1326,9 +1250,7 @@ External Setpoint Generation:
 				</Var>
 				<Var>
 					<Name>GVL_Devices.fb_AT1K0_GAS_VRC_80.i_xOpnLS</Name>
-					<Comment>
-						<![CDATA[IO]]>
-					</Comment>
+					<Comment><![CDATA[IO]]></Comment>
 					<Type>BOOL</Type>
 				</Var>
 				<Var>
@@ -1337,9 +1259,7 @@ External Setpoint Generation:
 				</Var>
 				<Var>
 					<Name>GVL_Devices.fb_AT1K0_GAS_VRC_90.i_xOpnLS</Name>
-					<Comment>
-						<![CDATA[IO]]>
-					</Comment>
+					<Comment><![CDATA[IO]]></Comment>
 					<Type>BOOL</Type>
 				</Var>
 				<Var>
@@ -1348,9 +1268,7 @@ External Setpoint Generation:
 				</Var>
 				<Var>
 					<Name>GVL_Devices.fb_AT1K0_GAS_VRC_100.i_xOpnLS</Name>
-					<Comment>
-						<![CDATA[IO]]>
-					</Comment>
+					<Comment><![CDATA[IO]]></Comment>
 					<Type>BOOL</Type>
 				</Var>
 				<Var>
@@ -1359,9 +1277,7 @@ External Setpoint Generation:
 				</Var>
 				<Var>
 					<Name>GVL_Devices.fb_AT1K0_GAS_VRC_110.i_xOpnLS</Name>
-					<Comment>
-						<![CDATA[IO]]>
-					</Comment>
+					<Comment><![CDATA[IO]]></Comment>
 					<Type>BOOL</Type>
 				</Var>
 				<Var>
@@ -1370,9 +1286,7 @@ External Setpoint Generation:
 				</Var>
 				<Var>
 					<Name>GVL_Devices.fb_AT1K0_GAS_VRC_120.i_xOpnLS</Name>
-					<Comment>
-						<![CDATA[IO]]>
-					</Comment>
+					<Comment><![CDATA[IO]]></Comment>
 					<Type>BOOL</Type>
 				</Var>
 				<Var>
@@ -1381,9 +1295,7 @@ External Setpoint Generation:
 				</Var>
 				<Var>
 					<Name>GVL_Devices.fb_AT1K0_GAS_VRC_130.i_xOpnLS</Name>
-					<Comment>
-						<![CDATA[IO]]>
-					</Comment>
+					<Comment><![CDATA[IO]]></Comment>
 					<Type>BOOL</Type>
 				</Var>
 				<Var>
@@ -1392,9 +1304,7 @@ External Setpoint Generation:
 				</Var>
 				<Var>
 					<Name>GVL_Devices.fb_AT1K0_GAS_VRC_140.i_xOpnLS</Name>
-					<Comment>
-						<![CDATA[IO]]>
-					</Comment>
+					<Comment><![CDATA[IO]]></Comment>
 					<Type>BOOL</Type>
 				</Var>
 				<Var>
@@ -1403,9 +1313,7 @@ External Setpoint Generation:
 				</Var>
 				<Var>
 					<Name>GVL_Devices.fb_AT1K0_GAS_PTM_10.i_xDecel</Name>
-					<Comment>
-						<![CDATA[Link to brake input]]>
-					</Comment>
+					<Comment><![CDATA[Link to brake input]]></Comment>
 					<Type>BOOL</Type>
 				</Var>
 				<Var>
@@ -1418,9 +1326,7 @@ External Setpoint Generation:
 				</Var>
 				<Var>
 					<Name>GVL_Devices.fb_AT1K0_GAS_PTM_10.i_xNCFault</Name>
-					<Comment>
-						<![CDATA[ ]]>
-					</Comment>
+					<Comment><![CDATA[ ]]></Comment>
 					<Type>BOOL</Type>
 				</Var>
 				<Var>
@@ -1429,30 +1335,22 @@ External Setpoint Generation:
 				</Var>
 				<Var>
 					<Name>GVL_Devices.fb_AT1K0_GAS_PTM_10.i_iRawSpeed</Name>
-					<Comment>
-						<![CDATA[ Link to Analog input]]>
-					</Comment>
+					<Comment><![CDATA[ Link to Analog input]]></Comment>
 					<Type>INT</Type>
 				</Var>
 				<Var>
 					<Name>GVL_Devices.fb_AT1K0_GAS_PTM_10.i_iTempMon</Name>
-					<Comment>
-						<![CDATA[ Link to Analog input -- input Voltage according to the pump temprature 0->5V 0->100C]]>
-					</Comment>
+					<Comment><![CDATA[ Link to Analog input -- input Voltage according to the pump temprature 0->5V 0->100C]]></Comment>
 					<Type>INT</Type>
 				</Var>
 				<Var>
 					<Name>GVL_Devices.fb_AT1K0_GAS_PTM_10.i_iCurrentMon</Name>
-					<Comment>
-						<![CDATA[Link to Analog -- input Voltage to the output current of motor 0->5V 0->10A]]>
-					</Comment>
+					<Comment><![CDATA[Link to Analog -- input Voltage to the output current of motor 0->5V 0->10A]]></Comment>
 					<Type>INT</Type>
 				</Var>
 				<Var>
 					<Name>GVL_Devices.fb_AT1K0_GAS_PTM_20.i_xDecel</Name>
-					<Comment>
-						<![CDATA[Link to brake input]]>
-					</Comment>
+					<Comment><![CDATA[Link to brake input]]></Comment>
 					<Type>BOOL</Type>
 				</Var>
 				<Var>
@@ -1465,9 +1363,7 @@ External Setpoint Generation:
 				</Var>
 				<Var>
 					<Name>GVL_Devices.fb_AT1K0_GAS_PTM_20.i_xNCFault</Name>
-					<Comment>
-						<![CDATA[ ]]>
-					</Comment>
+					<Comment><![CDATA[ ]]></Comment>
 					<Type>BOOL</Type>
 				</Var>
 				<Var>
@@ -1476,30 +1372,22 @@ External Setpoint Generation:
 				</Var>
 				<Var>
 					<Name>GVL_Devices.fb_AT1K0_GAS_PTM_20.i_iRawSpeed</Name>
-					<Comment>
-						<![CDATA[ Link to Analog input]]>
-					</Comment>
+					<Comment><![CDATA[ Link to Analog input]]></Comment>
 					<Type>INT</Type>
 				</Var>
 				<Var>
 					<Name>GVL_Devices.fb_AT1K0_GAS_PTM_20.i_iTempMon</Name>
-					<Comment>
-						<![CDATA[ Link to Analog input -- input Voltage according to the pump temprature 0->5V 0->100C]]>
-					</Comment>
+					<Comment><![CDATA[ Link to Analog input -- input Voltage according to the pump temprature 0->5V 0->100C]]></Comment>
 					<Type>INT</Type>
 				</Var>
 				<Var>
 					<Name>GVL_Devices.fb_AT1K0_GAS_PTM_20.i_iCurrentMon</Name>
-					<Comment>
-						<![CDATA[Link to Analog -- input Voltage to the output current of motor 0->5V 0->10A]]>
-					</Comment>
+					<Comment><![CDATA[Link to Analog -- input Voltage to the output current of motor 0->5V 0->10A]]></Comment>
 					<Type>INT</Type>
 				</Var>
 				<Var>
 					<Name>GVL_Devices.fb_AT1K0_GAS_PTM_30.i_xDecel</Name>
-					<Comment>
-						<![CDATA[Link to brake input]]>
-					</Comment>
+					<Comment><![CDATA[Link to brake input]]></Comment>
 					<Type>BOOL</Type>
 				</Var>
 				<Var>
@@ -1512,9 +1400,7 @@ External Setpoint Generation:
 				</Var>
 				<Var>
 					<Name>GVL_Devices.fb_AT1K0_GAS_PTM_30.i_xNCFault</Name>
-					<Comment>
-						<![CDATA[ ]]>
-					</Comment>
+					<Comment><![CDATA[ ]]></Comment>
 					<Type>BOOL</Type>
 				</Var>
 				<Var>
@@ -1523,30 +1409,22 @@ External Setpoint Generation:
 				</Var>
 				<Var>
 					<Name>GVL_Devices.fb_AT1K0_GAS_PTM_30.i_iRawSpeed</Name>
-					<Comment>
-						<![CDATA[ Link to Analog input]]>
-					</Comment>
+					<Comment><![CDATA[ Link to Analog input]]></Comment>
 					<Type>INT</Type>
 				</Var>
 				<Var>
 					<Name>GVL_Devices.fb_AT1K0_GAS_PTM_30.i_iTempMon</Name>
-					<Comment>
-						<![CDATA[ Link to Analog input -- input Voltage according to the pump temprature 0->5V 0->100C]]>
-					</Comment>
+					<Comment><![CDATA[ Link to Analog input -- input Voltage according to the pump temprature 0->5V 0->100C]]></Comment>
 					<Type>INT</Type>
 				</Var>
 				<Var>
 					<Name>GVL_Devices.fb_AT1K0_GAS_PTM_30.i_iCurrentMon</Name>
-					<Comment>
-						<![CDATA[Link to Analog -- input Voltage to the output current of motor 0->5V 0->10A]]>
-					</Comment>
+					<Comment><![CDATA[Link to Analog -- input Voltage to the output current of motor 0->5V 0->10A]]></Comment>
 					<Type>INT</Type>
 				</Var>
 				<Var>
 					<Name>GVL_Devices.fb_AT1K0_GAS_PTM_40.i_xDecel</Name>
-					<Comment>
-						<![CDATA[Link to brake input]]>
-					</Comment>
+					<Comment><![CDATA[Link to brake input]]></Comment>
 					<Type>BOOL</Type>
 				</Var>
 				<Var>
@@ -1559,9 +1437,7 @@ External Setpoint Generation:
 				</Var>
 				<Var>
 					<Name>GVL_Devices.fb_AT1K0_GAS_PTM_40.i_xNCFault</Name>
-					<Comment>
-						<![CDATA[ ]]>
-					</Comment>
+					<Comment><![CDATA[ ]]></Comment>
 					<Type>BOOL</Type>
 				</Var>
 				<Var>
@@ -1570,44 +1446,32 @@ External Setpoint Generation:
 				</Var>
 				<Var>
 					<Name>GVL_Devices.fb_AT1K0_GAS_PTM_40.i_iRawSpeed</Name>
-					<Comment>
-						<![CDATA[ Link to Analog input]]>
-					</Comment>
+					<Comment><![CDATA[ Link to Analog input]]></Comment>
 					<Type>INT</Type>
 				</Var>
 				<Var>
 					<Name>GVL_Devices.fb_AT1K0_GAS_PTM_40.i_iTempMon</Name>
-					<Comment>
-						<![CDATA[ Link to Analog input -- input Voltage according to the pump temprature 0->5V 0->100C]]>
-					</Comment>
+					<Comment><![CDATA[ Link to Analog input -- input Voltage according to the pump temprature 0->5V 0->100C]]></Comment>
 					<Type>INT</Type>
 				</Var>
 				<Var>
 					<Name>GVL_Devices.fb_AT1K0_GAS_PTM_40.i_iCurrentMon</Name>
-					<Comment>
-						<![CDATA[Link to Analog -- input Voltage to the output current of motor 0->5V 0->10A]]>
-					</Comment>
+					<Comment><![CDATA[Link to Analog -- input Voltage to the output current of motor 0->5V 0->10A]]></Comment>
 					<Type>INT</Type>
 				</Var>
 				<Var>
 					<Name>GVL_Devices.fb_AT1K0_GAS_PTM_80.i_xAtSpd</Name>
-					<Comment>
-						<![CDATA[ Normaml operation when true]]>
-					</Comment>
+					<Comment><![CDATA[ Normaml operation when true]]></Comment>
 					<Type>BOOL</Type>
 				</Var>
 				<Var>
 					<Name>GVL_Devices.fb_AT1K0_GAS_PTM_80.i_xFault</Name>
-					<Comment>
-						<![CDATA[ Error // this open collector output signal is ON when a system fault condition is detected]]>
-					</Comment>
+					<Comment><![CDATA[ Error // this open collector output signal is ON when a system fault condition is detected]]></Comment>
 					<Type>BOOL</Type>
 				</Var>
 				<Var>
 					<Name>GVL_Devices.fb_AT1K0_GAS_PTM_120.i_xDecel</Name>
-					<Comment>
-						<![CDATA[Link to brake input]]>
-					</Comment>
+					<Comment><![CDATA[Link to brake input]]></Comment>
 					<Type>BOOL</Type>
 				</Var>
 				<Var>
@@ -1620,9 +1484,7 @@ External Setpoint Generation:
 				</Var>
 				<Var>
 					<Name>GVL_Devices.fb_AT1K0_GAS_PTM_120.i_xNCFault</Name>
-					<Comment>
-						<![CDATA[ ]]>
-					</Comment>
+					<Comment><![CDATA[ ]]></Comment>
 					<Type>BOOL</Type>
 				</Var>
 				<Var>
@@ -1631,30 +1493,22 @@ External Setpoint Generation:
 				</Var>
 				<Var>
 					<Name>GVL_Devices.fb_AT1K0_GAS_PTM_120.i_iRawSpeed</Name>
-					<Comment>
-						<![CDATA[ Link to Analog input]]>
-					</Comment>
+					<Comment><![CDATA[ Link to Analog input]]></Comment>
 					<Type>INT</Type>
 				</Var>
 				<Var>
 					<Name>GVL_Devices.fb_AT1K0_GAS_PTM_120.i_iTempMon</Name>
-					<Comment>
-						<![CDATA[ Link to Analog input -- input Voltage according to the pump temprature 0->5V 0->100C]]>
-					</Comment>
+					<Comment><![CDATA[ Link to Analog input -- input Voltage according to the pump temprature 0->5V 0->100C]]></Comment>
 					<Type>INT</Type>
 				</Var>
 				<Var>
 					<Name>GVL_Devices.fb_AT1K0_GAS_PTM_120.i_iCurrentMon</Name>
-					<Comment>
-						<![CDATA[Link to Analog -- input Voltage to the output current of motor 0->5V 0->10A]]>
-					</Comment>
+					<Comment><![CDATA[Link to Analog -- input Voltage to the output current of motor 0->5V 0->10A]]></Comment>
 					<Type>INT</Type>
 				</Var>
 				<Var>
 					<Name>GVL_Devices.fb_AT1K0_GAS_PTM_130.i_xDecel</Name>
-					<Comment>
-						<![CDATA[Link to brake input]]>
-					</Comment>
+					<Comment><![CDATA[Link to brake input]]></Comment>
 					<Type>BOOL</Type>
 				</Var>
 				<Var>
@@ -1667,9 +1521,7 @@ External Setpoint Generation:
 				</Var>
 				<Var>
 					<Name>GVL_Devices.fb_AT1K0_GAS_PTM_130.i_xNCFault</Name>
-					<Comment>
-						<![CDATA[ ]]>
-					</Comment>
+					<Comment><![CDATA[ ]]></Comment>
 					<Type>BOOL</Type>
 				</Var>
 				<Var>
@@ -1678,30 +1530,22 @@ External Setpoint Generation:
 				</Var>
 				<Var>
 					<Name>GVL_Devices.fb_AT1K0_GAS_PTM_130.i_iRawSpeed</Name>
-					<Comment>
-						<![CDATA[ Link to Analog input]]>
-					</Comment>
+					<Comment><![CDATA[ Link to Analog input]]></Comment>
 					<Type>INT</Type>
 				</Var>
 				<Var>
 					<Name>GVL_Devices.fb_AT1K0_GAS_PTM_130.i_iTempMon</Name>
-					<Comment>
-						<![CDATA[ Link to Analog input -- input Voltage according to the pump temprature 0->5V 0->100C]]>
-					</Comment>
+					<Comment><![CDATA[ Link to Analog input -- input Voltage according to the pump temprature 0->5V 0->100C]]></Comment>
 					<Type>INT</Type>
 				</Var>
 				<Var>
 					<Name>GVL_Devices.fb_AT1K0_GAS_PTM_130.i_iCurrentMon</Name>
-					<Comment>
-						<![CDATA[Link to Analog -- input Voltage to the output current of motor 0->5V 0->10A]]>
-					</Comment>
+					<Comment><![CDATA[Link to Analog -- input Voltage to the output current of motor 0->5V 0->10A]]></Comment>
 					<Type>INT</Type>
 				</Var>
 				<Var>
 					<Name>GVL_Devices.fb_AT1K0_GAS_PTM_140.i_xDecel</Name>
-					<Comment>
-						<![CDATA[Link to brake input]]>
-					</Comment>
+					<Comment><![CDATA[Link to brake input]]></Comment>
 					<Type>BOOL</Type>
 				</Var>
 				<Var>
@@ -1714,9 +1558,7 @@ External Setpoint Generation:
 				</Var>
 				<Var>
 					<Name>GVL_Devices.fb_AT1K0_GAS_PTM_140.i_xNCFault</Name>
-					<Comment>
-						<![CDATA[ ]]>
-					</Comment>
+					<Comment><![CDATA[ ]]></Comment>
 					<Type>BOOL</Type>
 				</Var>
 				<Var>
@@ -1725,30 +1567,22 @@ External Setpoint Generation:
 				</Var>
 				<Var>
 					<Name>GVL_Devices.fb_AT1K0_GAS_PTM_140.i_iRawSpeed</Name>
-					<Comment>
-						<![CDATA[ Link to Analog input]]>
-					</Comment>
+					<Comment><![CDATA[ Link to Analog input]]></Comment>
 					<Type>INT</Type>
 				</Var>
 				<Var>
 					<Name>GVL_Devices.fb_AT1K0_GAS_PTM_140.i_iTempMon</Name>
-					<Comment>
-						<![CDATA[ Link to Analog input -- input Voltage according to the pump temprature 0->5V 0->100C]]>
-					</Comment>
+					<Comment><![CDATA[ Link to Analog input -- input Voltage according to the pump temprature 0->5V 0->100C]]></Comment>
 					<Type>INT</Type>
 				</Var>
 				<Var>
 					<Name>GVL_Devices.fb_AT1K0_GAS_PTM_140.i_iCurrentMon</Name>
-					<Comment>
-						<![CDATA[Link to Analog -- input Voltage to the output current of motor 0->5V 0->10A]]>
-					</Comment>
+					<Comment><![CDATA[Link to Analog -- input Voltage to the output current of motor 0->5V 0->10A]]></Comment>
 					<Type>INT</Type>
 				</Var>
 				<Var>
 					<Name>GVL_Devices.fb_AT1K0_GAS_PTM_110.i_xDecel</Name>
-					<Comment>
-						<![CDATA[Link to brake input]]>
-					</Comment>
+					<Comment><![CDATA[Link to brake input]]></Comment>
 					<Type>BOOL</Type>
 				</Var>
 				<Var>
@@ -1761,9 +1595,7 @@ External Setpoint Generation:
 				</Var>
 				<Var>
 					<Name>GVL_Devices.fb_AT1K0_GAS_PTM_110.i_xFaultNC</Name>
-					<Comment>
-						<![CDATA[ remove?]]>
-					</Comment>
+					<Comment><![CDATA[ remove?]]></Comment>
 					<Type>BOOL</Type>
 				</Var>
 				<Var>
@@ -1772,763 +1604,331 @@ External Setpoint Generation:
 				</Var>
 				<Var>
 					<Name>GVL_Devices.fb_AT1K0_GAS_PTM_110.i_iRawSpeed</Name>
-					<Comment>
-						<![CDATA[ Link to Analog input]]>
-					</Comment>
+					<Comment><![CDATA[ Link to Analog input]]></Comment>
 					<Type>INT</Type>
 				</Var>
 				<Var>
 					<Name>GVL_Devices.fb_AT1K0_GAS_PMF_90.i_xMPStatus</Name>
-					<Comment>
-						<![CDATA[MP status]]>
-					</Comment>
+					<Comment><![CDATA[MP status]]></Comment>
 					<Type>BOOL</Type>
 				</Var>
 				<Var>
 					<Name>GVL_Devices.fb_AT1K0_GAS_PMF_90.i_xBPStatus</Name>
-					<Comment>
-						<![CDATA[BP status]]>
-					</Comment>
+					<Comment><![CDATA[BP status]]></Comment>
 					<Type>BOOL</Type>
 				</Var>
 				<Var>
 					<Name>GVL_Devices.fb_AT1K0_GAS_PMF_90.i_xWarning</Name>
-					<Comment>
-						<![CDATA[Warning status]]>
-					</Comment>
+					<Comment><![CDATA[Warning status]]></Comment>
 					<Type>BOOL</Type>
 				</Var>
 				<Var>
 					<Name>GVL_Devices.fb_AT1K0_GAS_PMF_90.i_xAlarmOK</Name>
-					<Comment>
-						<![CDATA[Alarm, maps to error]]>
-					</Comment>
+					<Comment><![CDATA[Alarm, maps to error]]></Comment>
 					<Type>BOOL</Type>
 				</Var>
 				<Var>
 					<Name>GVL_Devices.fb_AT1K0_GAS_PMF_90.i_xRemote</Name>
-					<Comment>
-						<![CDATA[Remote control status]]>
-					</Comment>
+					<Comment><![CDATA[Remote control status]]></Comment>
 					<Type>BOOL</Type>
 				</Var>
 				<Var>
 					<Name>GVL_Devices.fb_AT1K0_GAS_PMF_100.i_xMPStatus</Name>
-					<Comment>
-						<![CDATA[MP status]]>
-					</Comment>
+					<Comment><![CDATA[MP status]]></Comment>
 					<Type>BOOL</Type>
 				</Var>
 				<Var>
 					<Name>GVL_Devices.fb_AT1K0_GAS_PMF_100.i_xBPStatus</Name>
-					<Comment>
-						<![CDATA[BP status]]>
-					</Comment>
+					<Comment><![CDATA[BP status]]></Comment>
 					<Type>BOOL</Type>
 				</Var>
 				<Var>
 					<Name>GVL_Devices.fb_AT1K0_GAS_PMF_100.i_xWarning</Name>
-					<Comment>
-						<![CDATA[Warning status]]>
-					</Comment>
+					<Comment><![CDATA[Warning status]]></Comment>
 					<Type>BOOL</Type>
 				</Var>
 				<Var>
 					<Name>GVL_Devices.fb_AT1K0_GAS_PMF_100.i_xAlarmOK</Name>
-					<Comment>
-						<![CDATA[Alarm, maps to error]]>
-					</Comment>
+					<Comment><![CDATA[Alarm, maps to error]]></Comment>
 					<Type>BOOL</Type>
 				</Var>
 				<Var>
 					<Name>GVL_Devices.fb_AT1K0_GAS_PMF_100.i_xRemote</Name>
-					<Comment>
-						<![CDATA[Remote control status]]>
-					</Comment>
+					<Comment><![CDATA[Remote control status]]></Comment>
 					<Type>BOOL</Type>
 				</Var>
 				<Var>
 					<Name>GVL_Devices.fb_AT1K0_GAS_PMF_110.i_xAlarmOK</Name>
-					<Comment>
-						<![CDATA[ Normally closed Alarm bit]]>
-					</Comment>
+					<Comment><![CDATA[ Normally closed Alarm bit]]></Comment>
 					<Type>BOOL</Type>
 				</Var>
 				<Var>
 					<Name>GVL_Devices.fb_AT1K0_GAS_PMF_110.i_xIsRun</Name>
-					<Comment>
-						<![CDATA[ Input status]]>
-					</Comment>
+					<Comment><![CDATA[ Input status]]></Comment>
 					<Type>BOOL</Type>
 				</Var>
 				<Var>
 					<Name>GVL_Devices.fb_AT1K0_GAS_PMF_120.i_xAlarmOK</Name>
-					<Comment>
-						<![CDATA[ Normally closed Alarm bit]]>
-					</Comment>
+					<Comment><![CDATA[ Normally closed Alarm bit]]></Comment>
 					<Type>BOOL</Type>
 				</Var>
 				<Var>
 					<Name>GVL_Devices.fb_AT1K0_GAS_PMF_120.i_xIsRun</Name>
-					<Comment>
-						<![CDATA[ Input status]]>
-					</Comment>
+					<Comment><![CDATA[ Input status]]></Comment>
 					<Type>BOOL</Type>
 				</Var>
 				<Var>
 					<Name>GVL_Devices.fb_AT1K0_GAS_PMF_140.i_xAlarmOK</Name>
-					<Comment>
-						<![CDATA[ Normally closed Alarm bit]]>
-					</Comment>
+					<Comment><![CDATA[ Normally closed Alarm bit]]></Comment>
 					<Type>BOOL</Type>
 				</Var>
 				<Var>
 					<Name>GVL_Devices.fb_AT1K0_GAS_PMF_140.i_xIsRun</Name>
-					<Comment>
-						<![CDATA[ Input status]]>
-					</Comment>
+					<Comment><![CDATA[ Input status]]></Comment>
 					<Type>BOOL</Type>
 				</Var>
 				<Var>
 					<Name>Main.M1.Axis.NcToPlc</Name>
-					<Type GUID="{6A65C767-34E5-42BF-AD87-E1A503EAC7BE}" Namespace="MC">NCTOPLC_AXIS_REF</Type>
-					<SubVar>
-						<Name>AxisState</Name>
-						<Comment>
-							<![CDATA[Present State Of The Axis Movement (continuous axis):
-0  = INACTIVE:		axis has no job
-1  = RUNNING:		axis is executing a motion job
-2  = OVERRIDE_ZERO:	axis is executing a job but override is zero
-3  = PHASE_VELOCONST:	axis is moving at constant velocity
-4  = PHASE_ACCPOS:	axis is accelerating
-5  = PHASE_ACCNEG:	axis is decelerating
-Slaves only:
-11 = PREPHASE:		slave axis is in a motion pre-phase
-12 = SYNCHRONIZING:	slave axis is synchronizing
-13 = SYNCHRONOUS:	slave axis is moving synchronously
-External Setpoint Generation:
-41 = EXTSETGEN_MODE1:	external setpoint generation active
-42 = EXTSETGEN_MODE2:	internal and external setpoint gen. active
-]]>
-						</Comment>
-					</SubVar>
-					<SubVar>
-						<Name>HomingState</Name>
-						<Comment>
-							<![CDATA[Axis Homing Status:
-0: idle
-1: start homing
-2: searching home switch
-3: stopping on home switch
-4: moving off home switch
-5: searching sync pulse
-6: stopping after homing
-]]>
-						</Comment>
-					</SubVar>
-					<SubVar>
-						<Name>CoupleState</Name>
-						<Comment>
-							<![CDATA[Axis Coupling Status:
-0: axis is a single axis (not coupled)
-1: axis is a master axis
-2: axis is master and slave
-3: axis is a slave axis
-]]>
-						</Comment>
-					</SubVar>
+					<Type GUID="{72F5AAAA-16DF-4ED3-8367-F6C8C3ADAE99}" Namespace="MC">NCTOPLC_AXIS_REF</Type>
 				</Var>
 				<Var>
 					<Name>Main.M1.bLimitForwardEnable</Name>
-					<Comment>
-						<![CDATA[ NC Forward Limit Switch: TRUE if ok to move]]>
-					</Comment>
+					<Comment><![CDATA[ NC Forward Limit Switch: TRUE if ok to move]]></Comment>
 					<Type>BOOL</Type>
 				</Var>
 				<Var>
 					<Name>Main.M1.bLimitBackwardEnable</Name>
-					<Comment>
-						<![CDATA[ NC Backward Limit Switch: TRUE if ok to move]]>
-					</Comment>
+					<Comment><![CDATA[ NC Backward Limit Switch: TRUE if ok to move]]></Comment>
 					<Type>BOOL</Type>
 				</Var>
 				<Var>
 					<Name>Main.M1.bHome</Name>
-					<Comment>
-						<![CDATA[ NO Home Switch: TRUE if at home]]>
-					</Comment>
+					<Comment><![CDATA[ NO Home Switch: TRUE if at home]]></Comment>
 					<Type>BOOL</Type>
 				</Var>
 				<Var>
 					<Name>Main.M1.bHardwareEnable</Name>
-					<Comment>
-						<![CDATA[ NC STO Input: TRUE if ok to move]]>
-					</Comment>
+					<Comment><![CDATA[ NC STO Input: TRUE if ok to move]]></Comment>
 					<Type>BOOL</Type>
 				</Var>
 				<Var>
 					<Name>Main.M2.Axis.NcToPlc</Name>
-					<Type GUID="{6A65C767-34E5-42BF-AD87-E1A503EAC7BE}" Namespace="MC">NCTOPLC_AXIS_REF</Type>
-					<SubVar>
-						<Name>AxisState</Name>
-						<Comment>
-							<![CDATA[Present State Of The Axis Movement (continuous axis):
-0  = INACTIVE:		axis has no job
-1  = RUNNING:		axis is executing a motion job
-2  = OVERRIDE_ZERO:	axis is executing a job but override is zero
-3  = PHASE_VELOCONST:	axis is moving at constant velocity
-4  = PHASE_ACCPOS:	axis is accelerating
-5  = PHASE_ACCNEG:	axis is decelerating
-Slaves only:
-11 = PREPHASE:		slave axis is in a motion pre-phase
-12 = SYNCHRONIZING:	slave axis is synchronizing
-13 = SYNCHRONOUS:	slave axis is moving synchronously
-External Setpoint Generation:
-41 = EXTSETGEN_MODE1:	external setpoint generation active
-42 = EXTSETGEN_MODE2:	internal and external setpoint gen. active
-]]>
-						</Comment>
-					</SubVar>
-					<SubVar>
-						<Name>HomingState</Name>
-						<Comment>
-							<![CDATA[Axis Homing Status:
-0: idle
-1: start homing
-2: searching home switch
-3: stopping on home switch
-4: moving off home switch
-5: searching sync pulse
-6: stopping after homing
-]]>
-						</Comment>
-					</SubVar>
-					<SubVar>
-						<Name>CoupleState</Name>
-						<Comment>
-							<![CDATA[Axis Coupling Status:
-0: axis is a single axis (not coupled)
-1: axis is a master axis
-2: axis is master and slave
-3: axis is a slave axis
-]]>
-						</Comment>
-					</SubVar>
+					<Type GUID="{72F5AAAA-16DF-4ED3-8367-F6C8C3ADAE99}" Namespace="MC">NCTOPLC_AXIS_REF</Type>
 				</Var>
 				<Var>
 					<Name>Main.M2.bLimitForwardEnable</Name>
-					<Comment>
-						<![CDATA[ NC Forward Limit Switch: TRUE if ok to move]]>
-					</Comment>
+					<Comment><![CDATA[ NC Forward Limit Switch: TRUE if ok to move]]></Comment>
 					<Type>BOOL</Type>
 				</Var>
 				<Var>
 					<Name>Main.M2.bLimitBackwardEnable</Name>
-					<Comment>
-						<![CDATA[ NC Backward Limit Switch: TRUE if ok to move]]>
-					</Comment>
+					<Comment><![CDATA[ NC Backward Limit Switch: TRUE if ok to move]]></Comment>
 					<Type>BOOL</Type>
 				</Var>
 				<Var>
 					<Name>Main.M2.bHome</Name>
-					<Comment>
-						<![CDATA[ NO Home Switch: TRUE if at home]]>
-					</Comment>
+					<Comment><![CDATA[ NO Home Switch: TRUE if at home]]></Comment>
 					<Type>BOOL</Type>
 				</Var>
 				<Var>
 					<Name>Main.M2.bHardwareEnable</Name>
-					<Comment>
-						<![CDATA[ NC STO Input: TRUE if ok to move]]>
-					</Comment>
+					<Comment><![CDATA[ NC STO Input: TRUE if ok to move]]></Comment>
 					<Type>BOOL</Type>
 				</Var>
 				<Var>
 					<Name>Main.M3.Axis.NcToPlc</Name>
-					<Type GUID="{6A65C767-34E5-42BF-AD87-E1A503EAC7BE}" Namespace="MC">NCTOPLC_AXIS_REF</Type>
-					<SubVar>
-						<Name>AxisState</Name>
-						<Comment>
-							<![CDATA[Present State Of The Axis Movement (continuous axis):
-0  = INACTIVE:		axis has no job
-1  = RUNNING:		axis is executing a motion job
-2  = OVERRIDE_ZERO:	axis is executing a job but override is zero
-3  = PHASE_VELOCONST:	axis is moving at constant velocity
-4  = PHASE_ACCPOS:	axis is accelerating
-5  = PHASE_ACCNEG:	axis is decelerating
-Slaves only:
-11 = PREPHASE:		slave axis is in a motion pre-phase
-12 = SYNCHRONIZING:	slave axis is synchronizing
-13 = SYNCHRONOUS:	slave axis is moving synchronously
-External Setpoint Generation:
-41 = EXTSETGEN_MODE1:	external setpoint generation active
-42 = EXTSETGEN_MODE2:	internal and external setpoint gen. active
-]]>
-						</Comment>
-					</SubVar>
-					<SubVar>
-						<Name>HomingState</Name>
-						<Comment>
-							<![CDATA[Axis Homing Status:
-0: idle
-1: start homing
-2: searching home switch
-3: stopping on home switch
-4: moving off home switch
-5: searching sync pulse
-6: stopping after homing
-]]>
-						</Comment>
-					</SubVar>
-					<SubVar>
-						<Name>CoupleState</Name>
-						<Comment>
-							<![CDATA[Axis Coupling Status:
-0: axis is a single axis (not coupled)
-1: axis is a master axis
-2: axis is master and slave
-3: axis is a slave axis
-]]>
-						</Comment>
-					</SubVar>
+					<Type GUID="{72F5AAAA-16DF-4ED3-8367-F6C8C3ADAE99}" Namespace="MC">NCTOPLC_AXIS_REF</Type>
 				</Var>
 				<Var>
 					<Name>Main.M3.bLimitForwardEnable</Name>
-					<Comment>
-						<![CDATA[ NC Forward Limit Switch: TRUE if ok to move]]>
-					</Comment>
+					<Comment><![CDATA[ NC Forward Limit Switch: TRUE if ok to move]]></Comment>
 					<Type>BOOL</Type>
 				</Var>
 				<Var>
 					<Name>Main.M3.bLimitBackwardEnable</Name>
-					<Comment>
-						<![CDATA[ NC Backward Limit Switch: TRUE if ok to move]]>
-					</Comment>
+					<Comment><![CDATA[ NC Backward Limit Switch: TRUE if ok to move]]></Comment>
 					<Type>BOOL</Type>
 				</Var>
 				<Var>
 					<Name>Main.M3.bHome</Name>
-					<Comment>
-						<![CDATA[ NO Home Switch: TRUE if at home]]>
-					</Comment>
+					<Comment><![CDATA[ NO Home Switch: TRUE if at home]]></Comment>
 					<Type>BOOL</Type>
 				</Var>
 				<Var>
 					<Name>Main.M3.bHardwareEnable</Name>
-					<Comment>
-						<![CDATA[ NC STO Input: TRUE if ok to move]]>
-					</Comment>
+					<Comment><![CDATA[ NC STO Input: TRUE if ok to move]]></Comment>
 					<Type>BOOL</Type>
 				</Var>
 				<Var>
 					<Name>Main.M4.Axis.NcToPlc</Name>
-					<Type GUID="{6A65C767-34E5-42BF-AD87-E1A503EAC7BE}" Namespace="MC">NCTOPLC_AXIS_REF</Type>
-					<SubVar>
-						<Name>AxisState</Name>
-						<Comment>
-							<![CDATA[Present State Of The Axis Movement (continuous axis):
-0  = INACTIVE:		axis has no job
-1  = RUNNING:		axis is executing a motion job
-2  = OVERRIDE_ZERO:	axis is executing a job but override is zero
-3  = PHASE_VELOCONST:	axis is moving at constant velocity
-4  = PHASE_ACCPOS:	axis is accelerating
-5  = PHASE_ACCNEG:	axis is decelerating
-Slaves only:
-11 = PREPHASE:		slave axis is in a motion pre-phase
-12 = SYNCHRONIZING:	slave axis is synchronizing
-13 = SYNCHRONOUS:	slave axis is moving synchronously
-External Setpoint Generation:
-41 = EXTSETGEN_MODE1:	external setpoint generation active
-42 = EXTSETGEN_MODE2:	internal and external setpoint gen. active
-]]>
-						</Comment>
-					</SubVar>
-					<SubVar>
-						<Name>HomingState</Name>
-						<Comment>
-							<![CDATA[Axis Homing Status:
-0: idle
-1: start homing
-2: searching home switch
-3: stopping on home switch
-4: moving off home switch
-5: searching sync pulse
-6: stopping after homing
-]]>
-						</Comment>
-					</SubVar>
-					<SubVar>
-						<Name>CoupleState</Name>
-						<Comment>
-							<![CDATA[Axis Coupling Status:
-0: axis is a single axis (not coupled)
-1: axis is a master axis
-2: axis is master and slave
-3: axis is a slave axis
-]]>
-						</Comment>
-					</SubVar>
+					<Type GUID="{72F5AAAA-16DF-4ED3-8367-F6C8C3ADAE99}" Namespace="MC">NCTOPLC_AXIS_REF</Type>
 				</Var>
 				<Var>
 					<Name>Main.M4.bLimitForwardEnable</Name>
-					<Comment>
-						<![CDATA[ NC Forward Limit Switch: TRUE if ok to move]]>
-					</Comment>
+					<Comment><![CDATA[ NC Forward Limit Switch: TRUE if ok to move]]></Comment>
 					<Type>BOOL</Type>
 				</Var>
 				<Var>
 					<Name>Main.M4.bLimitBackwardEnable</Name>
-					<Comment>
-						<![CDATA[ NC Backward Limit Switch: TRUE if ok to move]]>
-					</Comment>
+					<Comment><![CDATA[ NC Backward Limit Switch: TRUE if ok to move]]></Comment>
 					<Type>BOOL</Type>
 				</Var>
 				<Var>
 					<Name>Main.M4.bHome</Name>
-					<Comment>
-						<![CDATA[ NO Home Switch: TRUE if at home]]>
-					</Comment>
+					<Comment><![CDATA[ NO Home Switch: TRUE if at home]]></Comment>
 					<Type>BOOL</Type>
 				</Var>
 				<Var>
 					<Name>Main.M4.bHardwareEnable</Name>
-					<Comment>
-						<![CDATA[ NC STO Input: TRUE if ok to move]]>
-					</Comment>
+					<Comment><![CDATA[ NC STO Input: TRUE if ok to move]]></Comment>
 					<Type>BOOL</Type>
 				</Var>
 				<Var>
 					<Name>Main.M5.Axis.NcToPlc</Name>
-					<Type GUID="{6A65C767-34E5-42BF-AD87-E1A503EAC7BE}" Namespace="MC">NCTOPLC_AXIS_REF</Type>
-					<SubVar>
-						<Name>AxisState</Name>
-						<Comment>
-							<![CDATA[Present State Of The Axis Movement (continuous axis):
-0  = INACTIVE:		axis has no job
-1  = RUNNING:		axis is executing a motion job
-2  = OVERRIDE_ZERO:	axis is executing a job but override is zero
-3  = PHASE_VELOCONST:	axis is moving at constant velocity
-4  = PHASE_ACCPOS:	axis is accelerating
-5  = PHASE_ACCNEG:	axis is decelerating
-Slaves only:
-11 = PREPHASE:		slave axis is in a motion pre-phase
-12 = SYNCHRONIZING:	slave axis is synchronizing
-13 = SYNCHRONOUS:	slave axis is moving synchronously
-External Setpoint Generation:
-41 = EXTSETGEN_MODE1:	external setpoint generation active
-42 = EXTSETGEN_MODE2:	internal and external setpoint gen. active
-]]>
-						</Comment>
-					</SubVar>
-					<SubVar>
-						<Name>HomingState</Name>
-						<Comment>
-							<![CDATA[Axis Homing Status:
-0: idle
-1: start homing
-2: searching home switch
-3: stopping on home switch
-4: moving off home switch
-5: searching sync pulse
-6: stopping after homing
-]]>
-						</Comment>
-					</SubVar>
-					<SubVar>
-						<Name>CoupleState</Name>
-						<Comment>
-							<![CDATA[Axis Coupling Status:
-0: axis is a single axis (not coupled)
-1: axis is a master axis
-2: axis is master and slave
-3: axis is a slave axis
-]]>
-						</Comment>
-					</SubVar>
+					<Type GUID="{72F5AAAA-16DF-4ED3-8367-F6C8C3ADAE99}" Namespace="MC">NCTOPLC_AXIS_REF</Type>
 				</Var>
 				<Var>
 					<Name>Main.M5.bLimitForwardEnable</Name>
-					<Comment>
-						<![CDATA[ NC Forward Limit Switch: TRUE if ok to move]]>
-					</Comment>
+					<Comment><![CDATA[ NC Forward Limit Switch: TRUE if ok to move]]></Comment>
 					<Type>BOOL</Type>
 				</Var>
 				<Var>
 					<Name>Main.M5.bLimitBackwardEnable</Name>
-					<Comment>
-						<![CDATA[ NC Backward Limit Switch: TRUE if ok to move]]>
-					</Comment>
+					<Comment><![CDATA[ NC Backward Limit Switch: TRUE if ok to move]]></Comment>
 					<Type>BOOL</Type>
 				</Var>
 				<Var>
 					<Name>Main.M5.bHome</Name>
-					<Comment>
-						<![CDATA[ NO Home Switch: TRUE if at home]]>
-					</Comment>
+					<Comment><![CDATA[ NO Home Switch: TRUE if at home]]></Comment>
 					<Type>BOOL</Type>
 				</Var>
 				<Var>
 					<Name>Main.M5.bHardwareEnable</Name>
-					<Comment>
-						<![CDATA[ NC STO Input: TRUE if ok to move]]>
-					</Comment>
+					<Comment><![CDATA[ NC STO Input: TRUE if ok to move]]></Comment>
 					<Type>BOOL</Type>
 				</Var>
 				<Var>
 					<Name>Main.M6.Axis.NcToPlc</Name>
-					<Type GUID="{6A65C767-34E5-42BF-AD87-E1A503EAC7BE}" Namespace="MC">NCTOPLC_AXIS_REF</Type>
-					<SubVar>
-						<Name>AxisState</Name>
-						<Comment>
-							<![CDATA[Present State Of The Axis Movement (continuous axis):
-0  = INACTIVE:		axis has no job
-1  = RUNNING:		axis is executing a motion job
-2  = OVERRIDE_ZERO:	axis is executing a job but override is zero
-3  = PHASE_VELOCONST:	axis is moving at constant velocity
-4  = PHASE_ACCPOS:	axis is accelerating
-5  = PHASE_ACCNEG:	axis is decelerating
-Slaves only:
-11 = PREPHASE:		slave axis is in a motion pre-phase
-12 = SYNCHRONIZING:	slave axis is synchronizing
-13 = SYNCHRONOUS:	slave axis is moving synchronously
-External Setpoint Generation:
-41 = EXTSETGEN_MODE1:	external setpoint generation active
-42 = EXTSETGEN_MODE2:	internal and external setpoint gen. active
-]]>
-						</Comment>
-					</SubVar>
-					<SubVar>
-						<Name>HomingState</Name>
-						<Comment>
-							<![CDATA[Axis Homing Status:
-0: idle
-1: start homing
-2: searching home switch
-3: stopping on home switch
-4: moving off home switch
-5: searching sync pulse
-6: stopping after homing
-]]>
-						</Comment>
-					</SubVar>
-					<SubVar>
-						<Name>CoupleState</Name>
-						<Comment>
-							<![CDATA[Axis Coupling Status:
-0: axis is a single axis (not coupled)
-1: axis is a master axis
-2: axis is master and slave
-3: axis is a slave axis
-]]>
-						</Comment>
-					</SubVar>
+					<Type GUID="{72F5AAAA-16DF-4ED3-8367-F6C8C3ADAE99}" Namespace="MC">NCTOPLC_AXIS_REF</Type>
 				</Var>
 				<Var>
 					<Name>Main.M6.bLimitForwardEnable</Name>
-					<Comment>
-						<![CDATA[ NC Forward Limit Switch: TRUE if ok to move]]>
-					</Comment>
+					<Comment><![CDATA[ NC Forward Limit Switch: TRUE if ok to move]]></Comment>
 					<Type>BOOL</Type>
 				</Var>
 				<Var>
 					<Name>Main.M6.bLimitBackwardEnable</Name>
-					<Comment>
-						<![CDATA[ NC Backward Limit Switch: TRUE if ok to move]]>
-					</Comment>
+					<Comment><![CDATA[ NC Backward Limit Switch: TRUE if ok to move]]></Comment>
 					<Type>BOOL</Type>
 				</Var>
 				<Var>
 					<Name>Main.M6.bHome</Name>
-					<Comment>
-						<![CDATA[ NO Home Switch: TRUE if at home]]>
-					</Comment>
+					<Comment><![CDATA[ NO Home Switch: TRUE if at home]]></Comment>
 					<Type>BOOL</Type>
 				</Var>
 				<Var>
 					<Name>Main.M6.bHardwareEnable</Name>
-					<Comment>
-						<![CDATA[ NC STO Input: TRUE if ok to move]]>
-					</Comment>
+					<Comment><![CDATA[ NC STO Input: TRUE if ok to move]]></Comment>
 					<Type>BOOL</Type>
 				</Var>
 				<Var>
 					<Name>Main.M7.Axis.NcToPlc</Name>
-					<Type GUID="{6A65C767-34E5-42BF-AD87-E1A503EAC7BE}" Namespace="MC">NCTOPLC_AXIS_REF</Type>
-					<SubVar>
-						<Name>AxisState</Name>
-						<Comment>
-							<![CDATA[Present State Of The Axis Movement (continuous axis):
-0  = INACTIVE:		axis has no job
-1  = RUNNING:		axis is executing a motion job
-2  = OVERRIDE_ZERO:	axis is executing a job but override is zero
-3  = PHASE_VELOCONST:	axis is moving at constant velocity
-4  = PHASE_ACCPOS:	axis is accelerating
-5  = PHASE_ACCNEG:	axis is decelerating
-Slaves only:
-11 = PREPHASE:		slave axis is in a motion pre-phase
-12 = SYNCHRONIZING:	slave axis is synchronizing
-13 = SYNCHRONOUS:	slave axis is moving synchronously
-External Setpoint Generation:
-41 = EXTSETGEN_MODE1:	external setpoint generation active
-42 = EXTSETGEN_MODE2:	internal and external setpoint gen. active
-]]>
-						</Comment>
-					</SubVar>
-					<SubVar>
-						<Name>HomingState</Name>
-						<Comment>
-							<![CDATA[Axis Homing Status:
-0: idle
-1: start homing
-2: searching home switch
-3: stopping on home switch
-4: moving off home switch
-5: searching sync pulse
-6: stopping after homing
-]]>
-						</Comment>
-					</SubVar>
-					<SubVar>
-						<Name>CoupleState</Name>
-						<Comment>
-							<![CDATA[Axis Coupling Status:
-0: axis is a single axis (not coupled)
-1: axis is a master axis
-2: axis is master and slave
-3: axis is a slave axis
-]]>
-						</Comment>
-					</SubVar>
+					<Type GUID="{72F5AAAA-16DF-4ED3-8367-F6C8C3ADAE99}" Namespace="MC">NCTOPLC_AXIS_REF</Type>
 				</Var>
 				<Var>
 					<Name>Main.M7.bLimitForwardEnable</Name>
-					<Comment>
-						<![CDATA[ NC Forward Limit Switch: TRUE if ok to move]]>
-					</Comment>
+					<Comment><![CDATA[ NC Forward Limit Switch: TRUE if ok to move]]></Comment>
 					<Type>BOOL</Type>
 				</Var>
 				<Var>
 					<Name>Main.M7.bLimitBackwardEnable</Name>
-					<Comment>
-						<![CDATA[ NC Backward Limit Switch: TRUE if ok to move]]>
-					</Comment>
+					<Comment><![CDATA[ NC Backward Limit Switch: TRUE if ok to move]]></Comment>
 					<Type>BOOL</Type>
 				</Var>
 				<Var>
 					<Name>Main.M7.bHome</Name>
-					<Comment>
-						<![CDATA[ NO Home Switch: TRUE if at home]]>
-					</Comment>
+					<Comment><![CDATA[ NO Home Switch: TRUE if at home]]></Comment>
 					<Type>BOOL</Type>
 				</Var>
 				<Var>
 					<Name>Main.M7.bHardwareEnable</Name>
-					<Comment>
-						<![CDATA[ NC STO Input: TRUE if ok to move]]>
-					</Comment>
+					<Comment><![CDATA[ NC STO Input: TRUE if ok to move]]></Comment>
 					<Type>BOOL</Type>
 				</Var>
 				<Var>
 					<Name>Main.M8.Axis.NcToPlc</Name>
-					<Type GUID="{6A65C767-34E5-42BF-AD87-E1A503EAC7BE}" Namespace="MC">NCTOPLC_AXIS_REF</Type>
-					<SubVar>
-						<Name>AxisState</Name>
-						<Comment>
-							<![CDATA[Present State Of The Axis Movement (continuous axis):
-0  = INACTIVE:		axis has no job
-1  = RUNNING:		axis is executing a motion job
-2  = OVERRIDE_ZERO:	axis is executing a job but override is zero
-3  = PHASE_VELOCONST:	axis is moving at constant velocity
-4  = PHASE_ACCPOS:	axis is accelerating
-5  = PHASE_ACCNEG:	axis is decelerating
-Slaves only:
-11 = PREPHASE:		slave axis is in a motion pre-phase
-12 = SYNCHRONIZING:	slave axis is synchronizing
-13 = SYNCHRONOUS:	slave axis is moving synchronously
-External Setpoint Generation:
-41 = EXTSETGEN_MODE1:	external setpoint generation active
-42 = EXTSETGEN_MODE2:	internal and external setpoint gen. active
-]]>
-						</Comment>
-					</SubVar>
-					<SubVar>
-						<Name>HomingState</Name>
-						<Comment>
-							<![CDATA[Axis Homing Status:
-0: idle
-1: start homing
-2: searching home switch
-3: stopping on home switch
-4: moving off home switch
-5: searching sync pulse
-6: stopping after homing
-]]>
-						</Comment>
-					</SubVar>
-					<SubVar>
-						<Name>CoupleState</Name>
-						<Comment>
-							<![CDATA[Axis Coupling Status:
-0: axis is a single axis (not coupled)
-1: axis is a master axis
-2: axis is master and slave
-3: axis is a slave axis
-]]>
-						</Comment>
-					</SubVar>
+					<Type GUID="{72F5AAAA-16DF-4ED3-8367-F6C8C3ADAE99}" Namespace="MC">NCTOPLC_AXIS_REF</Type>
 				</Var>
 				<Var>
 					<Name>Main.M8.bLimitForwardEnable</Name>
-					<Comment>
-						<![CDATA[ NC Forward Limit Switch: TRUE if ok to move]]>
-					</Comment>
+					<Comment><![CDATA[ NC Forward Limit Switch: TRUE if ok to move]]></Comment>
 					<Type>BOOL</Type>
 				</Var>
 				<Var>
 					<Name>Main.M8.bLimitBackwardEnable</Name>
-					<Comment>
-						<![CDATA[ NC Backward Limit Switch: TRUE if ok to move]]>
-					</Comment>
+					<Comment><![CDATA[ NC Backward Limit Switch: TRUE if ok to move]]></Comment>
 					<Type>BOOL</Type>
 				</Var>
 				<Var>
 					<Name>Main.M8.bHome</Name>
-					<Comment>
-						<![CDATA[ NO Home Switch: TRUE if at home]]>
-					</Comment>
+					<Comment><![CDATA[ NO Home Switch: TRUE if at home]]></Comment>
 					<Type>BOOL</Type>
 				</Var>
 				<Var>
 					<Name>Main.M8.bHardwareEnable</Name>
-					<Comment>
-						<![CDATA[ NC STO Input: TRUE if ok to move]]>
-					</Comment>
+					<Comment><![CDATA[ NC STO Input: TRUE if ok to move]]></Comment>
 					<Type>BOOL</Type>
 				</Var>
 			</Vars>
 			<Vars VarGrpType="2">
 				<Name>PlcTask Outputs</Name>
 				<Var>
+					<Name>PRG_Motion.fbMAA_1_States.fbYStage.fbDriveVirtual.MasterAxis.PlcToNc</Name>
+					<Type GUID="{63A84524-72E3-41C8-BEAB-4CCE44690A13}" Namespace="MC">PLCTONC_AXIS_REF</Type>
+				</Var>
+				<Var>
+					<Name>PRG_Motion.fbMAA_1_States.fbXStage.fbDriveVirtual.MasterAxis.PlcToNc</Name>
+					<Type GUID="{63A84524-72E3-41C8-BEAB-4CCE44690A13}" Namespace="MC">PLCTONC_AXIS_REF</Type>
+				</Var>
+				<Var>
+					<Name>PRG_Motion.fbMAA_2_States.fbYStage.fbDriveVirtual.MasterAxis.PlcToNc</Name>
+					<Type GUID="{63A84524-72E3-41C8-BEAB-4CCE44690A13}" Namespace="MC">PLCTONC_AXIS_REF</Type>
+				</Var>
+				<Var>
+					<Name>PRG_Motion.fbMAA_2_States.fbXStage.fbDriveVirtual.MasterAxis.PlcToNc</Name>
+					<Type GUID="{63A84524-72E3-41C8-BEAB-4CCE44690A13}" Namespace="MC">PLCTONC_AXIS_REF</Type>
+				</Var>
+				<Var>
+					<Name>PRG_Motion.fbMAA_3_States.fbYStage.fbDriveVirtual.MasterAxis.PlcToNc</Name>
+					<Type GUID="{63A84524-72E3-41C8-BEAB-4CCE44690A13}" Namespace="MC">PLCTONC_AXIS_REF</Type>
+				</Var>
+				<Var>
+					<Name>PRG_Motion.fbMAA_3_States.fbXStage.fbDriveVirtual.MasterAxis.PlcToNc</Name>
+					<Type GUID="{63A84524-72E3-41C8-BEAB-4CCE44690A13}" Namespace="MC">PLCTONC_AXIS_REF</Type>
+				</Var>
+				<Var>
+					<Name>PRG_Motion.fbMAA_4_States.fbYStage.fbDriveVirtual.MasterAxis.PlcToNc</Name>
+					<Type GUID="{63A84524-72E3-41C8-BEAB-4CCE44690A13}" Namespace="MC">PLCTONC_AXIS_REF</Type>
+				</Var>
+				<Var>
+					<Name>PRG_Motion.fbMAA_4_States.fbXStage.fbDriveVirtual.MasterAxis.PlcToNc</Name>
+					<Type GUID="{63A84524-72E3-41C8-BEAB-4CCE44690A13}" Namespace="MC">PLCTONC_AXIS_REF</Type>
+				</Var>
+				<Var>
 					<Name>GVL_Devices.VCN_70.q_iRawPosition</Name>
-					<Comment>
-						<![CDATA[iResolution: INT :=16;
+					<Comment><![CDATA[iResolution: INT :=16;
  
-IO]]>
-					</Comment>
+IO]]></Comment>
 					<Type>INT</Type>
 				</Var>
 				<Var>
 					<Name>GVL_Devices.VVC_71.q_xOPN_DO</Name>
-					<Comment>
-						<![CDATA[IO]]>
-					</Comment>
+					<Comment><![CDATA[IO]]></Comment>
 					<Type>BOOL</Type>
 				</Var>
 				<Var>
 					<Name>GVL_Devices.VVC_72.q_xOPN_DO</Name>
-					<Comment>
-						<![CDATA[IO]]>
-					</Comment>
+					<Comment><![CDATA[IO]]></Comment>
 					<Type>BOOL</Type>
 				</Var>
 				<Var>
@@ -2537,93 +1937,67 @@ IO]]>
 				</Var>
 				<Var>
 					<Name>GVL_Devices.fb_AT1K0_GAS_GCC_10.q_xHV_DIS</Name>
-					<Comment>
-						<![CDATA[ Disable Gauge High Voltage when True // 'TcLinkTo' (EL2794) ^Output]]>
-					</Comment>
+					<Comment><![CDATA[ Disable Gauge High Voltage when True // 'TcLinkTo' (EL2794) ^Output]]></Comment>
 					<Type>BOOL</Type>
 				</Var>
 				<Var>
 					<Name>GVL_Devices.fb_AT1K0_GAS_GCC_20.q_xHV_DIS</Name>
-					<Comment>
-						<![CDATA[ Disable Gauge High Voltage when True // 'TcLinkTo' (EL2794) ^Output]]>
-					</Comment>
+					<Comment><![CDATA[ Disable Gauge High Voltage when True // 'TcLinkTo' (EL2794) ^Output]]></Comment>
 					<Type>BOOL</Type>
 				</Var>
 				<Var>
 					<Name>GVL_Devices.fb_AT1K0_GAS_GCC_30.q_xHV_DIS</Name>
-					<Comment>
-						<![CDATA[ Disable Gauge High Voltage when True // 'TcLinkTo' (EL2794) ^Output]]>
-					</Comment>
+					<Comment><![CDATA[ Disable Gauge High Voltage when True // 'TcLinkTo' (EL2794) ^Output]]></Comment>
 					<Type>BOOL</Type>
 				</Var>
 				<Var>
 					<Name>GVL_Devices.fb_AT1K0_GAS_GCC_40.q_xHV_DIS</Name>
-					<Comment>
-						<![CDATA[ Disable Gauge High Voltage when True // 'TcLinkTo' (EL2794) ^Output]]>
-					</Comment>
+					<Comment><![CDATA[ Disable Gauge High Voltage when True // 'TcLinkTo' (EL2794) ^Output]]></Comment>
 					<Type>BOOL</Type>
 				</Var>
 				<Var>
 					<Name>GVL_Devices.fb_AT1K0_GAS_GCC_50.q_xHV_DIS</Name>
-					<Comment>
-						<![CDATA[ Disable Gauge High Voltage when True // 'TcLinkTo' (EL2794) ^Output]]>
-					</Comment>
+					<Comment><![CDATA[ Disable Gauge High Voltage when True // 'TcLinkTo' (EL2794) ^Output]]></Comment>
 					<Type>BOOL</Type>
 				</Var>
 				<Var>
 					<Name>GVL_Devices.fb_AT1K0_GAS_GCC_60.q_xHV_DIS</Name>
-					<Comment>
-						<![CDATA[ Disable Gauge High Voltage when True // 'TcLinkTo' (EL2794) ^Output]]>
-					</Comment>
+					<Comment><![CDATA[ Disable Gauge High Voltage when True // 'TcLinkTo' (EL2794) ^Output]]></Comment>
 					<Type>BOOL</Type>
 				</Var>
 				<Var>
 					<Name>GVL_Devices.fb_AT1K0_GAS_GCC_80.q_xHV_DIS</Name>
-					<Comment>
-						<![CDATA[ Disable Gauge High Voltage when True // 'TcLinkTo' (EL2794) ^Output]]>
-					</Comment>
+					<Comment><![CDATA[ Disable Gauge High Voltage when True // 'TcLinkTo' (EL2794) ^Output]]></Comment>
 					<Type>BOOL</Type>
 				</Var>
 				<Var>
 					<Name>GVL_Devices.fb_AT1K0_GAS_GCC_90.q_xHV_DIS</Name>
-					<Comment>
-						<![CDATA[ Disable Gauge High Voltage when True // 'TcLinkTo' (EL2794) ^Output]]>
-					</Comment>
+					<Comment><![CDATA[ Disable Gauge High Voltage when True // 'TcLinkTo' (EL2794) ^Output]]></Comment>
 					<Type>BOOL</Type>
 				</Var>
 				<Var>
 					<Name>GVL_Devices.fb_AT1K0_GAS_GCC_100.q_xHV_DIS</Name>
-					<Comment>
-						<![CDATA[ Disable Gauge High Voltage when True // 'TcLinkTo' (EL2794) ^Output]]>
-					</Comment>
+					<Comment><![CDATA[ Disable Gauge High Voltage when True // 'TcLinkTo' (EL2794) ^Output]]></Comment>
 					<Type>BOOL</Type>
 				</Var>
 				<Var>
 					<Name>GVL_Devices.fb_AT1K0_GAS_GCC_110.q_xHV_DIS</Name>
-					<Comment>
-						<![CDATA[ Disable Gauge High Voltage when True // 'TcLinkTo' (EL2794) ^Output]]>
-					</Comment>
+					<Comment><![CDATA[ Disable Gauge High Voltage when True // 'TcLinkTo' (EL2794) ^Output]]></Comment>
 					<Type>BOOL</Type>
 				</Var>
 				<Var>
 					<Name>GVL_Devices.fb_AT1K0_GAS_GCC_120.q_xHV_DIS</Name>
-					<Comment>
-						<![CDATA[ Disable Gauge High Voltage when True // 'TcLinkTo' (EL2794) ^Output]]>
-					</Comment>
+					<Comment><![CDATA[ Disable Gauge High Voltage when True // 'TcLinkTo' (EL2794) ^Output]]></Comment>
 					<Type>BOOL</Type>
 				</Var>
 				<Var>
 					<Name>GVL_Devices.fb_AT1K0_GAS_GCC_130.q_xHV_DIS</Name>
-					<Comment>
-						<![CDATA[ Disable Gauge High Voltage when True // 'TcLinkTo' (EL2794) ^Output]]>
-					</Comment>
+					<Comment><![CDATA[ Disable Gauge High Voltage when True // 'TcLinkTo' (EL2794) ^Output]]></Comment>
 					<Type>BOOL</Type>
 				</Var>
 				<Var>
 					<Name>GVL_Devices.fb_AT1K0_GAS_GCC_140.q_xHV_DIS</Name>
-					<Comment>
-						<![CDATA[ Disable Gauge High Voltage when True // 'TcLinkTo' (EL2794) ^Output]]>
-					</Comment>
+					<Comment><![CDATA[ Disable Gauge High Voltage when True // 'TcLinkTo' (EL2794) ^Output]]></Comment>
 					<Type>BOOL</Type>
 				</Var>
 				<Var>
@@ -2700,16 +2074,12 @@ IO]]>
 				</Var>
 				<Var>
 					<Name>GVL_Devices.fb_AT1K0_GAS_PTM_10.q_xStart</Name>
-					<Comment>
-						<![CDATA[ link to output]]>
-					</Comment>
+					<Comment><![CDATA[ link to output]]></Comment>
 					<Type>BOOL</Type>
 				</Var>
 				<Var>
 					<Name>GVL_Devices.fb_AT1K0_GAS_PTM_10.q_xStop</Name>
-					<Comment>
-						<![CDATA[Link to output]]>
-					</Comment>
+					<Comment><![CDATA[Link to output]]></Comment>
 					<Type>BOOL</Type>
 				</Var>
 				<Var>
@@ -2726,23 +2096,17 @@ IO]]>
 				</Var>
 				<Var>
 					<Name>GVL_Devices.fb_AT1K0_GAS_PTM_10.q_iSpeedSet</Name>
-					<Comment>
-						<![CDATA[Link to analog Output]]>
-					</Comment>
+					<Comment><![CDATA[Link to analog Output]]></Comment>
 					<Type>INT</Type>
 				</Var>
 				<Var>
 					<Name>GVL_Devices.fb_AT1K0_GAS_PTM_20.q_xStart</Name>
-					<Comment>
-						<![CDATA[ link to output]]>
-					</Comment>
+					<Comment><![CDATA[ link to output]]></Comment>
 					<Type>BOOL</Type>
 				</Var>
 				<Var>
 					<Name>GVL_Devices.fb_AT1K0_GAS_PTM_20.q_xStop</Name>
-					<Comment>
-						<![CDATA[Link to output]]>
-					</Comment>
+					<Comment><![CDATA[Link to output]]></Comment>
 					<Type>BOOL</Type>
 				</Var>
 				<Var>
@@ -2759,23 +2123,17 @@ IO]]>
 				</Var>
 				<Var>
 					<Name>GVL_Devices.fb_AT1K0_GAS_PTM_20.q_iSpeedSet</Name>
-					<Comment>
-						<![CDATA[Link to analog Output]]>
-					</Comment>
+					<Comment><![CDATA[Link to analog Output]]></Comment>
 					<Type>INT</Type>
 				</Var>
 				<Var>
 					<Name>GVL_Devices.fb_AT1K0_GAS_PTM_30.q_xStart</Name>
-					<Comment>
-						<![CDATA[ link to output]]>
-					</Comment>
+					<Comment><![CDATA[ link to output]]></Comment>
 					<Type>BOOL</Type>
 				</Var>
 				<Var>
 					<Name>GVL_Devices.fb_AT1K0_GAS_PTM_30.q_xStop</Name>
-					<Comment>
-						<![CDATA[Link to output]]>
-					</Comment>
+					<Comment><![CDATA[Link to output]]></Comment>
 					<Type>BOOL</Type>
 				</Var>
 				<Var>
@@ -2792,23 +2150,17 @@ IO]]>
 				</Var>
 				<Var>
 					<Name>GVL_Devices.fb_AT1K0_GAS_PTM_30.q_iSpeedSet</Name>
-					<Comment>
-						<![CDATA[Link to analog Output]]>
-					</Comment>
+					<Comment><![CDATA[Link to analog Output]]></Comment>
 					<Type>INT</Type>
 				</Var>
 				<Var>
 					<Name>GVL_Devices.fb_AT1K0_GAS_PTM_40.q_xStart</Name>
-					<Comment>
-						<![CDATA[ link to output]]>
-					</Comment>
+					<Comment><![CDATA[ link to output]]></Comment>
 					<Type>BOOL</Type>
 				</Var>
 				<Var>
 					<Name>GVL_Devices.fb_AT1K0_GAS_PTM_40.q_xStop</Name>
-					<Comment>
-						<![CDATA[Link to output]]>
-					</Comment>
+					<Comment><![CDATA[Link to output]]></Comment>
 					<Type>BOOL</Type>
 				</Var>
 				<Var>
@@ -2825,30 +2177,22 @@ IO]]>
 				</Var>
 				<Var>
 					<Name>GVL_Devices.fb_AT1K0_GAS_PTM_40.q_iSpeedSet</Name>
-					<Comment>
-						<![CDATA[Link to analog Output]]>
-					</Comment>
+					<Comment><![CDATA[Link to analog Output]]></Comment>
 					<Type>INT</Type>
 				</Var>
 				<Var>
 					<Name>GVL_Devices.fb_AT1K0_GAS_PTM_80.q_RunDO</Name>
-					<Comment>
-						<![CDATA[ Start/Stop]]>
-					</Comment>
+					<Comment><![CDATA[ Start/Stop]]></Comment>
 					<Type>BOOL</Type>
 				</Var>
 				<Var>
 					<Name>GVL_Devices.fb_AT1K0_GAS_PTM_120.q_xStart</Name>
-					<Comment>
-						<![CDATA[ link to output]]>
-					</Comment>
+					<Comment><![CDATA[ link to output]]></Comment>
 					<Type>BOOL</Type>
 				</Var>
 				<Var>
 					<Name>GVL_Devices.fb_AT1K0_GAS_PTM_120.q_xStop</Name>
-					<Comment>
-						<![CDATA[Link to output]]>
-					</Comment>
+					<Comment><![CDATA[Link to output]]></Comment>
 					<Type>BOOL</Type>
 				</Var>
 				<Var>
@@ -2865,23 +2209,17 @@ IO]]>
 				</Var>
 				<Var>
 					<Name>GVL_Devices.fb_AT1K0_GAS_PTM_120.q_iSpeedSet</Name>
-					<Comment>
-						<![CDATA[Link to analog Output]]>
-					</Comment>
+					<Comment><![CDATA[Link to analog Output]]></Comment>
 					<Type>INT</Type>
 				</Var>
 				<Var>
 					<Name>GVL_Devices.fb_AT1K0_GAS_PTM_130.q_xStart</Name>
-					<Comment>
-						<![CDATA[ link to output]]>
-					</Comment>
+					<Comment><![CDATA[ link to output]]></Comment>
 					<Type>BOOL</Type>
 				</Var>
 				<Var>
 					<Name>GVL_Devices.fb_AT1K0_GAS_PTM_130.q_xStop</Name>
-					<Comment>
-						<![CDATA[Link to output]]>
-					</Comment>
+					<Comment><![CDATA[Link to output]]></Comment>
 					<Type>BOOL</Type>
 				</Var>
 				<Var>
@@ -2898,23 +2236,17 @@ IO]]>
 				</Var>
 				<Var>
 					<Name>GVL_Devices.fb_AT1K0_GAS_PTM_130.q_iSpeedSet</Name>
-					<Comment>
-						<![CDATA[Link to analog Output]]>
-					</Comment>
+					<Comment><![CDATA[Link to analog Output]]></Comment>
 					<Type>INT</Type>
 				</Var>
 				<Var>
 					<Name>GVL_Devices.fb_AT1K0_GAS_PTM_140.q_xStart</Name>
-					<Comment>
-						<![CDATA[ link to output]]>
-					</Comment>
+					<Comment><![CDATA[ link to output]]></Comment>
 					<Type>BOOL</Type>
 				</Var>
 				<Var>
 					<Name>GVL_Devices.fb_AT1K0_GAS_PTM_140.q_xStop</Name>
-					<Comment>
-						<![CDATA[Link to output]]>
-					</Comment>
+					<Comment><![CDATA[Link to output]]></Comment>
 					<Type>BOOL</Type>
 				</Var>
 				<Var>
@@ -2931,23 +2263,17 @@ IO]]>
 				</Var>
 				<Var>
 					<Name>GVL_Devices.fb_AT1K0_GAS_PTM_140.q_iSpeedSet</Name>
-					<Comment>
-						<![CDATA[Link to analog Output]]>
-					</Comment>
+					<Comment><![CDATA[Link to analog Output]]></Comment>
 					<Type>INT</Type>
 				</Var>
 				<Var>
 					<Name>GVL_Devices.fb_AT1K0_GAS_PTM_110.q_xStart</Name>
-					<Comment>
-						<![CDATA[ link to output]]>
-					</Comment>
+					<Comment><![CDATA[ link to output]]></Comment>
 					<Type>BOOL</Type>
 				</Var>
 				<Var>
 					<Name>GVL_Devices.fb_AT1K0_GAS_PTM_110.q_xStop</Name>
-					<Comment>
-						<![CDATA[Link to output]]>
-					</Comment>
+					<Comment><![CDATA[Link to output]]></Comment>
 					<Type>BOOL</Type>
 				</Var>
 				<Var>
@@ -2964,137 +2290,104 @@ IO]]>
 				</Var>
 				<Var>
 					<Name>GVL_Devices.fb_AT1K0_GAS_PTM_110.q_iSpeedSet</Name>
-					<Comment>
-						<![CDATA[Link to analog Output]]>
-					</Comment>
+					<Comment><![CDATA[Link to analog Output]]></Comment>
 					<Type>INT</Type>
 				</Var>
 				<Var>
 					<Name>GVL_Devices.fb_AT1K0_GAS_PMF_10.q_xRunDo</Name>
-					<Comment>
-						<![CDATA[Previous_RunSW : BOOL;
- Digital Output to be linked]]>
-					</Comment>
+					<Comment><![CDATA[Previous_RunSW : BOOL;
+ Digital Output to be linked]]></Comment>
 					<Type>BOOL</Type>
 				</Var>
 				<Var>
 					<Name>GVL_Devices.fb_AT1K0_GAS_PMF_60.q_xRunDo</Name>
-					<Comment>
-						<![CDATA[Previous_RunSW : BOOL;
- Digital Output to be linked]]>
-					</Comment>
+					<Comment><![CDATA[Previous_RunSW : BOOL;
+ Digital Output to be linked]]></Comment>
 					<Type>BOOL</Type>
 				</Var>
 				<Var>
 					<Name>GVL_Devices.fb_AT1K0_GAS_PMF_90.q_xMPStart</Name>
-					<Comment>
-						<![CDATA[Main Pump start]]>
-					</Comment>
+					<Comment><![CDATA[Main Pump start]]></Comment>
 					<Type>BOOL</Type>
 				</Var>
 				<Var>
 					<Name>GVL_Devices.fb_AT1K0_GAS_PMF_90.q_xBPStart</Name>
-					<Comment>
-						<![CDATA[ Booster Pump start (this can be started by the pump automatically)]]>
-					</Comment>
+					<Comment><![CDATA[ Booster Pump start (this can be started by the pump automatically)]]></Comment>
 					<Type>BOOL</Type>
 				</Var>
 				<Var>
 					<Name>GVL_Devices.fb_AT1K0_GAS_PMF_100.q_xMPStart</Name>
-					<Comment>
-						<![CDATA[Main Pump start]]>
-					</Comment>
+					<Comment><![CDATA[Main Pump start]]></Comment>
 					<Type>BOOL</Type>
 				</Var>
 				<Var>
 					<Name>GVL_Devices.fb_AT1K0_GAS_PMF_100.q_xBPStart</Name>
-					<Comment>
-						<![CDATA[ Booster Pump start (this can be started by the pump automatically)]]>
-					</Comment>
+					<Comment><![CDATA[ Booster Pump start (this can be started by the pump automatically)]]></Comment>
 					<Type>BOOL</Type>
 				</Var>
 				<Var>
 					<Name>GVL_Devices.fb_AT1K0_GAS_PMF_110.q_xRunDo</Name>
-					<Comment>
-						<![CDATA[ Output signal]]>
-					</Comment>
+					<Comment><![CDATA[ Output signal]]></Comment>
 					<Type>BOOL</Type>
 				</Var>
 				<Var>
 					<Name>GVL_Devices.fb_AT1K0_GAS_PMF_110.q_xRemote</Name>
-					<Comment>
-						<![CDATA[ Remote/Local Control]]>
-					</Comment>
+					<Comment><![CDATA[ Remote/Local Control]]></Comment>
 					<Type>BOOL</Type>
 				</Var>
 				<Var>
 					<Name>GVL_Devices.fb_AT1K0_GAS_PMF_110.q_xResetAlarm</Name>
-					<Comment>
-						<![CDATA[ Remote/Local Control]]>
-					</Comment>
+					<Comment><![CDATA[ Remote/Local Control]]></Comment>
 					<Type>BOOL</Type>
 				</Var>
 				<Var>
 					<Name>GVL_Devices.fb_AT1K0_GAS_PMF_120.q_xRunDo</Name>
-					<Comment>
-						<![CDATA[ Output signal]]>
-					</Comment>
+					<Comment><![CDATA[ Output signal]]></Comment>
 					<Type>BOOL</Type>
 				</Var>
 				<Var>
 					<Name>GVL_Devices.fb_AT1K0_GAS_PMF_120.q_xRemote</Name>
-					<Comment>
-						<![CDATA[ Remote/Local Control]]>
-					</Comment>
+					<Comment><![CDATA[ Remote/Local Control]]></Comment>
 					<Type>BOOL</Type>
 				</Var>
 				<Var>
 					<Name>GVL_Devices.fb_AT1K0_GAS_PMF_120.q_xResetAlarm</Name>
-					<Comment>
-						<![CDATA[ Remote/Local Control]]>
-					</Comment>
+					<Comment><![CDATA[ Remote/Local Control]]></Comment>
 					<Type>BOOL</Type>
 				</Var>
 				<Var>
 					<Name>GVL_Devices.fb_AT1K0_GAS_PMF_140.q_xRunDo</Name>
-					<Comment>
-						<![CDATA[ Output signal]]>
-					</Comment>
+					<Comment><![CDATA[ Output signal]]></Comment>
 					<Type>BOOL</Type>
 				</Var>
 				<Var>
 					<Name>GVL_Devices.fb_AT1K0_GAS_PMF_140.q_xRemote</Name>
-					<Comment>
-						<![CDATA[ Remote/Local Control]]>
-					</Comment>
+					<Comment><![CDATA[ Remote/Local Control]]></Comment>
 					<Type>BOOL</Type>
 				</Var>
 				<Var>
 					<Name>GVL_Devices.fb_AT1K0_GAS_PMF_140.q_xResetAlarm</Name>
-					<Comment>
-						<![CDATA[ Remote/Local Control]]>
-					</Comment>
+					<Comment><![CDATA[ Remote/Local Control]]></Comment>
 					<Type>BOOL</Type>
 				</Var>
 				<Var>
 					<Name>GVL_Devices.fb_AT1K0_GAS_VVC_110.q_xOPN_DO</Name>
-					<Comment>
-						<![CDATA[IO]]>
-					</Comment>
+					<Comment><![CDATA[IO]]></Comment>
 					<Type>BOOL</Type>
 				</Var>
 				<Var>
 					<Name>GVL_Devices.fb_AT1K0_GAS_VVC_120.q_xOPN_DO</Name>
-					<Comment>
-						<![CDATA[IO]]>
-					</Comment>
+					<Comment><![CDATA[IO]]></Comment>
 					<Type>BOOL</Type>
 				</Var>
 				<Var>
 					<Name>GVL_Devices.fb_AT1K0_GAS_VVC_140.q_xOPN_DO</Name>
-					<Comment>
-						<![CDATA[IO]]>
-					</Comment>
+					<Comment><![CDATA[IO]]></Comment>
+					<Type>BOOL</Type>
+				</Var>
+				<Var>
+					<Name>GVL_Devices.fb_AT1K0_GAS_VVC_80.q_xOPN_DO</Name>
+					<Comment><![CDATA[IO]]></Comment>
 					<Type>BOOL</Type>
 				</Var>
 				<Var>
@@ -3111,9 +2404,7 @@ IO]]>
 				</Var>
 				<Var>
 					<Name>Main.M1.bBrakeRelease</Name>
-					<Comment>
-						<![CDATA[ NC Brake Output: TRUE to release brake]]>
-					</Comment>
+					<Comment><![CDATA[ NC Brake Output: TRUE to release brake]]></Comment>
 					<Type>BOOL</Type>
 				</Var>
 				<Var>
@@ -3122,9 +2413,7 @@ IO]]>
 				</Var>
 				<Var>
 					<Name>Main.M2.bBrakeRelease</Name>
-					<Comment>
-						<![CDATA[ NC Brake Output: TRUE to release brake]]>
-					</Comment>
+					<Comment><![CDATA[ NC Brake Output: TRUE to release brake]]></Comment>
 					<Type>BOOL</Type>
 				</Var>
 				<Var>
@@ -3133,9 +2422,7 @@ IO]]>
 				</Var>
 				<Var>
 					<Name>Main.M3.bBrakeRelease</Name>
-					<Comment>
-						<![CDATA[ NC Brake Output: TRUE to release brake]]>
-					</Comment>
+					<Comment><![CDATA[ NC Brake Output: TRUE to release brake]]></Comment>
 					<Type>BOOL</Type>
 				</Var>
 				<Var>
@@ -3144,9 +2431,7 @@ IO]]>
 				</Var>
 				<Var>
 					<Name>Main.M4.bBrakeRelease</Name>
-					<Comment>
-						<![CDATA[ NC Brake Output: TRUE to release brake]]>
-					</Comment>
+					<Comment><![CDATA[ NC Brake Output: TRUE to release brake]]></Comment>
 					<Type>BOOL</Type>
 				</Var>
 				<Var>
@@ -3155,9 +2440,7 @@ IO]]>
 				</Var>
 				<Var>
 					<Name>Main.M5.bBrakeRelease</Name>
-					<Comment>
-						<![CDATA[ NC Brake Output: TRUE to release brake]]>
-					</Comment>
+					<Comment><![CDATA[ NC Brake Output: TRUE to release brake]]></Comment>
 					<Type>BOOL</Type>
 				</Var>
 				<Var>
@@ -3166,9 +2449,7 @@ IO]]>
 				</Var>
 				<Var>
 					<Name>Main.M6.bBrakeRelease</Name>
-					<Comment>
-						<![CDATA[ NC Brake Output: TRUE to release brake]]>
-					</Comment>
+					<Comment><![CDATA[ NC Brake Output: TRUE to release brake]]></Comment>
 					<Type>BOOL</Type>
 				</Var>
 				<Var>
@@ -3177,9 +2458,7 @@ IO]]>
 				</Var>
 				<Var>
 					<Name>Main.M7.bBrakeRelease</Name>
-					<Comment>
-						<![CDATA[ NC Brake Output: TRUE to release brake]]>
-					</Comment>
+					<Comment><![CDATA[ NC Brake Output: TRUE to release brake]]></Comment>
 					<Type>BOOL</Type>
 				</Var>
 				<Var>
@@ -3188,9 +2467,7 @@ IO]]>
 				</Var>
 				<Var>
 					<Name>Main.M8.bBrakeRelease</Name>
-					<Comment>
-						<![CDATA[ NC Brake Output: TRUE to release brake]]>
-					</Comment>
+					<Comment><![CDATA[ NC Brake Output: TRUE to release brake]]></Comment>
 					<Type>BOOL</Type>
 				</Var>
 			</Vars>
@@ -3198,17 +2475,13 @@ IO]]>
 				<Name>PlcTask Retains</Name>
 				<Var>
 					<Name>PMPS_GVL.SuccessfulPreemption</Name>
-					<Comment>
-						<![CDATA[ Any time BPTM applies a new BP request which is confirmed]]>
-					</Comment>
+					<Comment><![CDATA[ Any time BPTM applies a new BP request which is confirmed]]></Comment>
 					<Type>ULINT</Type>
 					<InOut>7</InOut>
 				</Var>
 				<Var>
 					<Name>PMPS_GVL.AccumulatedFF</Name>
-					<Comment>
-						<![CDATA[ Any time a FF occurs]]>
-					</Comment>
+					<Comment><![CDATA[ Any time a FF occurs]]></Comment>
 					<Type>ULINT</Type>
 					<InOut>7</InOut>
 				</Var>
@@ -3221,25 +2494,25 @@ IO]]>
 	<Mappings>
 		<OwnerA Name="plc_kfe_gatt Instance">
 			<OwnerB Name="TIID^=+-CX2020/EtherCAT1^=+-EK1100_01_00^=+-EL2798_01_03">
-				<Link VarA="PlcTask Outputs^GVL_Devices.fb_AT1K0_GAS_GCC_10.q_xHV_DIS" VarB="Channel 1^fb_AT1K0_GAS_GCC_10.q_xHV_DIS"/>
-				<Link VarA="PlcTask Outputs^GVL_Devices.fb_AT1K0_GAS_GCC_20.q_xHV_DIS" VarB="Channel 2^fb_AT1K0_GAS_GCC_20.q_xHV_DIS"/>
-				<Link VarA="PlcTask Outputs^GVL_Devices.fb_AT1K0_GAS_GCC_30.q_xHV_DIS" VarB="Channel 5^fb_AT1K0_GAS_GCC_30.q_xHV_DIS"/>
-				<Link VarA="PlcTask Outputs^GVL_Devices.fb_AT1K0_GAS_GCC_40.q_xHV_DIS" VarB="Channel 6^fb_AT1K0_GAS_GCC_40.q_xHV_DIS"/>
+				<Link VarA="PlcTask Outputs^GVL_Devices.fb_AT1K0_GAS_GCC_10.q_xHV_DIS" VarB="Channel 1^fb_AT1K0_GAS_GCC_10.q_xHV_DIS" Size="1"/>
+				<Link VarA="PlcTask Outputs^GVL_Devices.fb_AT1K0_GAS_GCC_20.q_xHV_DIS" VarB="Channel 2^fb_AT1K0_GAS_GCC_20.q_xHV_DIS" Size="1"/>
+				<Link VarA="PlcTask Outputs^GVL_Devices.fb_AT1K0_GAS_GCC_30.q_xHV_DIS" VarB="Channel 5^fb_AT1K0_GAS_GCC_30.q_xHV_DIS" Size="1"/>
+				<Link VarA="PlcTask Outputs^GVL_Devices.fb_AT1K0_GAS_GCC_40.q_xHV_DIS" VarB="Channel 6^fb_AT1K0_GAS_GCC_40.q_xHV_DIS" Size="1"/>
 			</OwnerB>
 			<OwnerB Name="TIID^=+-CX2020/EtherCAT1^=+-EK1100_01_00^=+-EL2798_01_08">
-				<Link VarA="PlcTask Outputs^GVL_Devices.fb_AT1K0_GAS_GCC_50.q_xHV_DIS" VarB="Channel 1^fb_AT1K0_GAS_GCC_50.q_xHV_DIS"/>
-				<Link VarA="PlcTask Outputs^GVL_Devices.fb_AT1K0_GAS_GCC_60.q_xHV_DIS" VarB="Channel 2^fb_AT1K0_GAS_GCC_60.q_xHV_DIS"/>
-				<Link VarA="PlcTask Outputs^GVL_Devices.fb_AT1K0_GAS_GCC_80.q_xHV_DIS" VarB="Channel 5^fb_AT1K0_GAS_GCC_80.q_xHV_DIS"/>
+				<Link VarA="PlcTask Outputs^GVL_Devices.fb_AT1K0_GAS_GCC_50.q_xHV_DIS" VarB="Channel 1^fb_AT1K0_GAS_GCC_50.q_xHV_DIS" Size="1"/>
+				<Link VarA="PlcTask Outputs^GVL_Devices.fb_AT1K0_GAS_GCC_60.q_xHV_DIS" VarB="Channel 2^fb_AT1K0_GAS_GCC_60.q_xHV_DIS" Size="1"/>
+				<Link VarA="PlcTask Outputs^GVL_Devices.fb_AT1K0_GAS_GCC_80.q_xHV_DIS" VarB="Channel 5^fb_AT1K0_GAS_GCC_80.q_xHV_DIS" Size="1"/>
 			</OwnerB>
 			<OwnerB Name="TIID^=+-CX2020/EtherCAT1^=+-EK1100_01_00^=+-EL2798_01_14">
-				<Link VarA="PlcTask Outputs^GVL_Devices.fb_AT1K0_GAS_GCC_100.q_xHV_DIS" VarB="Channel 2^fb_AT1K0_GAS_GCC_100.q_xHV_DIS"/>
-				<Link VarA="PlcTask Outputs^GVL_Devices.fb_AT1K0_GAS_GCC_110.q_xHV_DIS" VarB="Channel 5^fb_AT1K0_GAS_GCC_110.q_xHV_DIS"/>
-				<Link VarA="PlcTask Outputs^GVL_Devices.fb_AT1K0_GAS_GCC_120.q_xHV_DIS" VarB="Channel 6^fb_AT1K0_GAS_GCC_120.q_xHV_DIS"/>
-				<Link VarA="PlcTask Outputs^GVL_Devices.fb_AT1K0_GAS_GCC_90.q_xHV_DIS" VarB="Channel 1^fb_AT1K0_GAS_GCC_90.q_xHV_DIS"/>
+				<Link VarA="PlcTask Outputs^GVL_Devices.fb_AT1K0_GAS_GCC_100.q_xHV_DIS" VarB="Channel 2^fb_AT1K0_GAS_GCC_100.q_xHV_DIS" Size="1"/>
+				<Link VarA="PlcTask Outputs^GVL_Devices.fb_AT1K0_GAS_GCC_110.q_xHV_DIS" VarB="Channel 5^fb_AT1K0_GAS_GCC_110.q_xHV_DIS" Size="1"/>
+				<Link VarA="PlcTask Outputs^GVL_Devices.fb_AT1K0_GAS_GCC_120.q_xHV_DIS" VarB="Channel 6^fb_AT1K0_GAS_GCC_120.q_xHV_DIS" Size="1"/>
+				<Link VarA="PlcTask Outputs^GVL_Devices.fb_AT1K0_GAS_GCC_90.q_xHV_DIS" VarB="Channel 1^fb_AT1K0_GAS_GCC_90.q_xHV_DIS" Size="1"/>
 			</OwnerB>
 			<OwnerB Name="TIID^=+-CX2020/EtherCAT1^=+-EK1100_01_00^=+-EL2798_01_19">
-				<Link VarA="PlcTask Outputs^GVL_Devices.fb_AT1K0_GAS_GCC_130.q_xHV_DIS" VarB="Channel 1^Output"/>
-				<Link VarA="PlcTask Outputs^GVL_Devices.fb_AT1K0_GAS_GCC_140.q_xHV_DIS" VarB="Channel 2^Output"/>
+				<Link VarA="PlcTask Outputs^GVL_Devices.fb_AT1K0_GAS_GCC_130.q_xHV_DIS" VarB="Channel 1^Output" Size="1"/>
+				<Link VarA="PlcTask Outputs^GVL_Devices.fb_AT1K0_GAS_GCC_140.q_xHV_DIS" VarB="Channel 2^Output" Size="1"/>
 			</OwnerB>
 			<OwnerB Name="TIID^=+-CX2020/EtherCAT1^=+-EK1100_01_00^=+-ES3064_01_01">
 				<Link VarA="PlcTask Inputs^GVL_Devices.fb_AT1K0_GAS_GCC_10.i_iPRESS_R" VarB="AI Standard Channel 1^fb_AT1K0_GAS_GCC_10.i_iPRESS_R"/>
@@ -3298,120 +2571,120 @@ IO]]>
 				<Link VarA="PlcTask Inputs^GVL_Devices.fb_AT1K0_GAS_GPI_140.i_iPRESS_R" VarB="AI Standard Channel 2^fb_AT1K0_GAS_GPI_140.i_iPRESS_R"/>
 			</OwnerB>
 			<OwnerB Name="TIID^=+-CX2020/EtherCAT1^=+-EK1100_02_00^=+-ES1004_02_02">
-				<Link VarA="PlcTask Inputs^GVL_Devices.fb_AT1K0_GAS_VRC_10.i_xClsLS" VarB="Channel 2^fb_AT1K0_GAS_VRC_10.i_xClsLS"/>
-				<Link VarA="PlcTask Inputs^GVL_Devices.fb_AT1K0_GAS_VRC_10.i_xOpnLS" VarB="Channel 1^fb_AT1K0_GAS_VRC_10.i_xOpnLS"/>
-				<Link VarA="PlcTask Inputs^GVL_Devices.fb_AT1K0_GAS_VRC_20.i_xClsLS" VarB="Channel 4^fb_AT1K0_GAS_VRC_20.i_xClsLS"/>
-				<Link VarA="PlcTask Inputs^GVL_Devices.fb_AT1K0_GAS_VRC_20.i_xOpnLS" VarB="Channel 3^fb_AT1K0_GAS_VRC_20.i_xOpnLS"/>
+				<Link VarA="PlcTask Inputs^GVL_Devices.fb_AT1K0_GAS_VRC_10.i_xClsLS" VarB="Channel 2^fb_AT1K0_GAS_VRC_10.i_xClsLS" Size="1"/>
+				<Link VarA="PlcTask Inputs^GVL_Devices.fb_AT1K0_GAS_VRC_10.i_xOpnLS" VarB="Channel 1^fb_AT1K0_GAS_VRC_10.i_xOpnLS" Size="1"/>
+				<Link VarA="PlcTask Inputs^GVL_Devices.fb_AT1K0_GAS_VRC_20.i_xClsLS" VarB="Channel 4^fb_AT1K0_GAS_VRC_20.i_xClsLS" Size="1"/>
+				<Link VarA="PlcTask Inputs^GVL_Devices.fb_AT1K0_GAS_VRC_20.i_xOpnLS" VarB="Channel 3^fb_AT1K0_GAS_VRC_20.i_xOpnLS" Size="1"/>
 			</OwnerB>
 			<OwnerB Name="TIID^=+-CX2020/EtherCAT1^=+-EK1100_02_00^=+-ES1004_02_04">
-				<Link VarA="PlcTask Inputs^GVL_Devices.fb_AT1K0_GAS_VRC_30.i_xClsLS" VarB="Channel 2^fb_AT1K0_GAS_VRC_30.i_xClsLS"/>
-				<Link VarA="PlcTask Inputs^GVL_Devices.fb_AT1K0_GAS_VRC_30.i_xOpnLS" VarB="Channel 1^fb_AT1K0_GAS_VRC_30.i_xOpnLS"/>
-				<Link VarA="PlcTask Inputs^GVL_Devices.fb_AT1K0_GAS_VRC_40.i_xClsLS" VarB="Channel 4^fb_AT1K0_GAS_VRC_40.i_xClsLS"/>
-				<Link VarA="PlcTask Inputs^GVL_Devices.fb_AT1K0_GAS_VRC_40.i_xOpnLS" VarB="Channel 3^fb_AT1K0_GAS_VRC_40.i_xOpnLS"/>
+				<Link VarA="PlcTask Inputs^GVL_Devices.fb_AT1K0_GAS_VRC_30.i_xClsLS" VarB="Channel 2^fb_AT1K0_GAS_VRC_30.i_xClsLS" Size="1"/>
+				<Link VarA="PlcTask Inputs^GVL_Devices.fb_AT1K0_GAS_VRC_30.i_xOpnLS" VarB="Channel 1^fb_AT1K0_GAS_VRC_30.i_xOpnLS" Size="1"/>
+				<Link VarA="PlcTask Inputs^GVL_Devices.fb_AT1K0_GAS_VRC_40.i_xClsLS" VarB="Channel 4^fb_AT1K0_GAS_VRC_40.i_xClsLS" Size="1"/>
+				<Link VarA="PlcTask Inputs^GVL_Devices.fb_AT1K0_GAS_VRC_40.i_xOpnLS" VarB="Channel 3^fb_AT1K0_GAS_VRC_40.i_xOpnLS" Size="1"/>
 			</OwnerB>
 			<OwnerB Name="TIID^=+-CX2020/EtherCAT1^=+-EK1100_02_00^=+-ES1004_02_08">
-				<Link VarA="PlcTask Inputs^GVL_Devices.fb_AT1K0_GAS_VRC_50.i_xClsLS" VarB="Channel 2^Input"/>
-				<Link VarA="PlcTask Inputs^GVL_Devices.fb_AT1K0_GAS_VRC_50.i_xOpnLS" VarB="Channel 1^Input"/>
-				<Link VarA="PlcTask Inputs^GVL_Devices.fb_AT1K0_GAS_VRC_60.i_xClsLS" VarB="Channel 4^Input"/>
-				<Link VarA="PlcTask Inputs^GVL_Devices.fb_AT1K0_GAS_VRC_60.i_xOpnLS" VarB="Channel 3^Input"/>
+				<Link VarA="PlcTask Inputs^GVL_Devices.fb_AT1K0_GAS_VRC_50.i_xClsLS" VarB="Channel 2^Input" Size="1"/>
+				<Link VarA="PlcTask Inputs^GVL_Devices.fb_AT1K0_GAS_VRC_50.i_xOpnLS" VarB="Channel 1^Input" Size="1"/>
+				<Link VarA="PlcTask Inputs^GVL_Devices.fb_AT1K0_GAS_VRC_60.i_xClsLS" VarB="Channel 4^Input" Size="1"/>
+				<Link VarA="PlcTask Inputs^GVL_Devices.fb_AT1K0_GAS_VRC_60.i_xOpnLS" VarB="Channel 3^Input" Size="1"/>
 			</OwnerB>
 			<OwnerB Name="TIID^=+-CX2020/EtherCAT1^=+-EK1100_02_00^=+-ES2004_02_01">
-				<Link VarA="PlcTask Outputs^GVL_Devices.fb_AT1K0_GAS_VRC_10.q_xOPN_DO" VarB="Channel 1^fb_AT1K0_GAS_VRC_10.q_xOPN_DO"/>
-				<Link VarA="PlcTask Outputs^GVL_Devices.fb_AT1K0_GAS_VRC_10.q_xOPN_DO_2" VarB="Channel 2^fb_AT1K0_GAS_VRC_10.q_xOPN_DO"/>
-				<Link VarA="PlcTask Outputs^GVL_Devices.fb_AT1K0_GAS_VRC_20.q_xOPN_DO" VarB="Channel 3^fb_AT1K0_GAS_VRC_20.q_xOPN_DO"/>
-				<Link VarA="PlcTask Outputs^GVL_Devices.fb_AT1K0_GAS_VRC_20.q_xOPN_DO_2" VarB="Channel 4^fb_AT1K0_GAS_VRC_20.q_xOPN_DO"/>
+				<Link VarA="PlcTask Outputs^GVL_Devices.fb_AT1K0_GAS_VRC_10.q_xOPN_DO" VarB="Channel 1^fb_AT1K0_GAS_VRC_10.q_xOPN_DO" Size="1"/>
+				<Link VarA="PlcTask Outputs^GVL_Devices.fb_AT1K0_GAS_VRC_10.q_xOPN_DO_2" VarB="Channel 2^fb_AT1K0_GAS_VRC_10.q_xOPN_DO" Size="1"/>
+				<Link VarA="PlcTask Outputs^GVL_Devices.fb_AT1K0_GAS_VRC_20.q_xOPN_DO" VarB="Channel 3^fb_AT1K0_GAS_VRC_20.q_xOPN_DO" Size="1"/>
+				<Link VarA="PlcTask Outputs^GVL_Devices.fb_AT1K0_GAS_VRC_20.q_xOPN_DO_2" VarB="Channel 4^fb_AT1K0_GAS_VRC_20.q_xOPN_DO" Size="1"/>
 			</OwnerB>
 			<OwnerB Name="TIID^=+-CX2020/EtherCAT1^=+-EK1100_02_00^=+-ES2004_02_03">
-				<Link VarA="PlcTask Outputs^GVL_Devices.fb_AT1K0_GAS_VRC_30.q_xOPN_DO" VarB="Channel 1^fb_AT1K0_GAS_VRC_30.q_xOPN_DO"/>
-				<Link VarA="PlcTask Outputs^GVL_Devices.fb_AT1K0_GAS_VRC_30.q_xOPN_DO_2" VarB="Channel 2^fb_AT1K0_GAS_VRC_30.q_xOPN_DO"/>
-				<Link VarA="PlcTask Outputs^GVL_Devices.fb_AT1K0_GAS_VRC_40.q_xOPN_DO" VarB="Channel 3^fb_AT1K0_GAS_VRC_40.q_xOPN_DO"/>
-				<Link VarA="PlcTask Outputs^GVL_Devices.fb_AT1K0_GAS_VRC_40.q_xOPN_DO_2" VarB="Channel 4^fb_AT1K0_GAS_VRC_40.q_xOPN_DO"/>
+				<Link VarA="PlcTask Outputs^GVL_Devices.fb_AT1K0_GAS_VRC_30.q_xOPN_DO" VarB="Channel 1^fb_AT1K0_GAS_VRC_30.q_xOPN_DO" Size="1"/>
+				<Link VarA="PlcTask Outputs^GVL_Devices.fb_AT1K0_GAS_VRC_30.q_xOPN_DO_2" VarB="Channel 2^fb_AT1K0_GAS_VRC_30.q_xOPN_DO" Size="1"/>
+				<Link VarA="PlcTask Outputs^GVL_Devices.fb_AT1K0_GAS_VRC_40.q_xOPN_DO" VarB="Channel 3^fb_AT1K0_GAS_VRC_40.q_xOPN_DO" Size="1"/>
+				<Link VarA="PlcTask Outputs^GVL_Devices.fb_AT1K0_GAS_VRC_40.q_xOPN_DO_2" VarB="Channel 4^fb_AT1K0_GAS_VRC_40.q_xOPN_DO" Size="1"/>
 			</OwnerB>
 			<OwnerB Name="TIID^=+-CX2020/EtherCAT1^=+-EK1100_02_00^=+-ES2004_02_07">
-				<Link VarA="PlcTask Outputs^GVL_Devices.fb_AT1K0_GAS_VRC_50.q_xOPN_DO" VarB="Channel 1^Output"/>
-				<Link VarA="PlcTask Outputs^GVL_Devices.fb_AT1K0_GAS_VRC_60.q_xOPN_DO" VarB="Channel 2^Output"/>
-				<Link VarA="PlcTask Outputs^Main.M2.bBrakeRelease" VarB="Channel 3^Output" AutoLink="true"/>
-				<Link VarA="PlcTask Outputs^Main.M4.bBrakeRelease" VarB="Channel 4^Output" AutoLink="true"/>
+				<Link VarA="PlcTask Outputs^GVL_Devices.fb_AT1K0_GAS_VRC_50.q_xOPN_DO" VarB="Channel 1^Output" Size="1"/>
+				<Link VarA="PlcTask Outputs^GVL_Devices.fb_AT1K0_GAS_VRC_60.q_xOPN_DO" VarB="Channel 2^Output" Size="1"/>
+				<Link VarA="PlcTask Outputs^Main.M2.bBrakeRelease" VarB="Channel 3^Output" AutoLink="true" Size="1"/>
+				<Link VarA="PlcTask Outputs^Main.M4.bBrakeRelease" VarB="Channel 4^Output" AutoLink="true" Size="1"/>
 			</OwnerB>
 			<OwnerB Name="TIID^=+-CX2020/EtherCAT1^=+-EK1100_02_00^=+-ES7041_02_05">
-				<Link VarA="PlcTask Inputs^Main.M1.bLimitBackwardEnable" VarB="STM Status^Status^Digital input 2" AutoLink="true"/>
-				<Link VarA="PlcTask Inputs^Main.M1.bLimitForwardEnable" VarB="STM Status^Status^Digital input 1" AutoLink="true"/>
+				<Link VarA="PlcTask Inputs^Main.M1.bLimitBackwardEnable" VarB="STM Status^Status^Digital input 2" AutoLink="true" Size="1"/>
+				<Link VarA="PlcTask Inputs^Main.M1.bLimitForwardEnable" VarB="STM Status^Status^Digital input 1" AutoLink="true" Size="1"/>
 			</OwnerB>
 			<OwnerB Name="TIID^=+-CX2020/EtherCAT1^=+-EK1100_02_00^=+-ES7041_02_06">
-				<Link VarA="PlcTask Inputs^Main.M2.bLimitBackwardEnable" VarB="STM Status^Status^Digital input 1" AutoLink="true"/>
-				<Link VarA="PlcTask Inputs^Main.M2.bLimitForwardEnable" VarB="STM Status^Status^Digital input 2" AutoLink="true"/>
+				<Link VarA="PlcTask Inputs^Main.M2.bLimitBackwardEnable" VarB="STM Status^Status^Digital input 1" AutoLink="true" Size="1"/>
+				<Link VarA="PlcTask Inputs^Main.M2.bLimitForwardEnable" VarB="STM Status^Status^Digital input 2" AutoLink="true" Size="1"/>
 			</OwnerB>
 			<OwnerB Name="TIID^=+-CX2020/EtherCAT1^=+-EK1100_02_00^=+-ES7041_02_09">
-				<Link VarA="PlcTask Inputs^Main.M3.bLimitBackwardEnable" VarB="STM Status^Status^Digital input 2" AutoLink="true"/>
-				<Link VarA="PlcTask Inputs^Main.M3.bLimitForwardEnable" VarB="STM Status^Status^Digital input 1" AutoLink="true"/>
+				<Link VarA="PlcTask Inputs^Main.M3.bLimitBackwardEnable" VarB="STM Status^Status^Digital input 2" AutoLink="true" Size="1"/>
+				<Link VarA="PlcTask Inputs^Main.M3.bLimitForwardEnable" VarB="STM Status^Status^Digital input 1" AutoLink="true" Size="1"/>
 			</OwnerB>
 			<OwnerB Name="TIID^=+-CX2020/EtherCAT1^=+-EK1100_02_00^=+-ES7041_02_10">
-				<Link VarA="PlcTask Inputs^Main.M4.bLimitBackwardEnable" VarB="STM Status^Status^Digital input 1" AutoLink="true"/>
-				<Link VarA="PlcTask Inputs^Main.M4.bLimitForwardEnable" VarB="STM Status^Status^Digital input 2" AutoLink="true"/>
+				<Link VarA="PlcTask Inputs^Main.M4.bLimitBackwardEnable" VarB="STM Status^Status^Digital input 1" AutoLink="true" Size="1"/>
+				<Link VarA="PlcTask Inputs^Main.M4.bLimitForwardEnable" VarB="STM Status^Status^Digital input 2" AutoLink="true" Size="1"/>
 			</OwnerB>
 			<OwnerB Name="TIID^=+-CX2020/EtherCAT1^=+-EK1100_03_00^=+-EL2798_03_03">
-				<Link VarA="PlcTask Outputs^GVL_Devices.fb_AT1K0_GAS_PTM_10.q_xProtection" VarB="Channel 4^fb_AT1K0_GAS_PTM_10.q_xProtection"/>
-				<Link VarA="PlcTask Outputs^GVL_Devices.fb_AT1K0_GAS_PTM_10.q_xReset" VarB="Channel 1^fb_AT1K0_GAS_PTM_10.q_xReset"/>
-				<Link VarA="PlcTask Outputs^GVL_Devices.fb_AT1K0_GAS_PTM_10.q_xSetSpeed" VarB="Channel 5^fb_AT1K0_GAS_PTM_10.q_xSetSpeed"/>
-				<Link VarA="PlcTask Outputs^GVL_Devices.fb_AT1K0_GAS_PTM_10.q_xStart" VarB="Channel 2^fb_AT1K0_GAS_PTM_10.q_xStart"/>
-				<Link VarA="PlcTask Outputs^GVL_Devices.fb_AT1K0_GAS_PTM_10.q_xStop" VarB="Channel 3^fb_AT1K0_GAS_PTM_10.q_xStop"/>
+				<Link VarA="PlcTask Outputs^GVL_Devices.fb_AT1K0_GAS_PTM_10.q_xProtection" VarB="Channel 4^fb_AT1K0_GAS_PTM_10.q_xProtection" Size="1"/>
+				<Link VarA="PlcTask Outputs^GVL_Devices.fb_AT1K0_GAS_PTM_10.q_xReset" VarB="Channel 1^fb_AT1K0_GAS_PTM_10.q_xReset" Size="1"/>
+				<Link VarA="PlcTask Outputs^GVL_Devices.fb_AT1K0_GAS_PTM_10.q_xSetSpeed" VarB="Channel 5^fb_AT1K0_GAS_PTM_10.q_xSetSpeed" Size="1"/>
+				<Link VarA="PlcTask Outputs^GVL_Devices.fb_AT1K0_GAS_PTM_10.q_xStart" VarB="Channel 2^fb_AT1K0_GAS_PTM_10.q_xStart" Size="1"/>
+				<Link VarA="PlcTask Outputs^GVL_Devices.fb_AT1K0_GAS_PTM_10.q_xStop" VarB="Channel 3^fb_AT1K0_GAS_PTM_10.q_xStop" Size="1"/>
 			</OwnerB>
 			<OwnerB Name="TIID^=+-CX2020/EtherCAT1^=+-EK1100_03_00^=+-EL2798_03_07">
-				<Link VarA="PlcTask Outputs^GVL_Devices.fb_AT1K0_GAS_PTM_20.q_xProtection" VarB="Channel 4^fb_AT1K0_GAS_PTM_20.q_xProtection"/>
-				<Link VarA="PlcTask Outputs^GVL_Devices.fb_AT1K0_GAS_PTM_20.q_xReset" VarB="Channel 1^fb_AT1K0_GAS_PTM_20.q_xReset"/>
-				<Link VarA="PlcTask Outputs^GVL_Devices.fb_AT1K0_GAS_PTM_20.q_xSetSpeed" VarB="Channel 5^fb_AT1K0_GAS_PTM_20.q_xSetSpeed"/>
-				<Link VarA="PlcTask Outputs^GVL_Devices.fb_AT1K0_GAS_PTM_20.q_xStart" VarB="Channel 2^fb_AT1K0_GAS_PTM_20.q_xStart"/>
-				<Link VarA="PlcTask Outputs^GVL_Devices.fb_AT1K0_GAS_PTM_20.q_xStop" VarB="Channel 3^fb_AT1K0_GAS_PTM_20.q_xStop"/>
+				<Link VarA="PlcTask Outputs^GVL_Devices.fb_AT1K0_GAS_PTM_20.q_xProtection" VarB="Channel 4^fb_AT1K0_GAS_PTM_20.q_xProtection" Size="1"/>
+				<Link VarA="PlcTask Outputs^GVL_Devices.fb_AT1K0_GAS_PTM_20.q_xReset" VarB="Channel 1^fb_AT1K0_GAS_PTM_20.q_xReset" Size="1"/>
+				<Link VarA="PlcTask Outputs^GVL_Devices.fb_AT1K0_GAS_PTM_20.q_xSetSpeed" VarB="Channel 5^fb_AT1K0_GAS_PTM_20.q_xSetSpeed" Size="1"/>
+				<Link VarA="PlcTask Outputs^GVL_Devices.fb_AT1K0_GAS_PTM_20.q_xStart" VarB="Channel 2^fb_AT1K0_GAS_PTM_20.q_xStart" Size="1"/>
+				<Link VarA="PlcTask Outputs^GVL_Devices.fb_AT1K0_GAS_PTM_20.q_xStop" VarB="Channel 3^fb_AT1K0_GAS_PTM_20.q_xStop" Size="1"/>
 			</OwnerB>
 			<OwnerB Name="TIID^=+-CX2020/EtherCAT1^=+-EK1100_03_00^=+-EL2798_03_13">
-				<Link VarA="PlcTask Outputs^GVL_Devices.fb_AT1K0_GAS_PTM_30.q_xProtection" VarB="Channel 4^fb_AT1K0_GAS_PTM_30.q_xProtection"/>
-				<Link VarA="PlcTask Outputs^GVL_Devices.fb_AT1K0_GAS_PTM_30.q_xReset" VarB="Channel 1^fb_AT1K0_GAS_PTM_30.q_xReset"/>
-				<Link VarA="PlcTask Outputs^GVL_Devices.fb_AT1K0_GAS_PTM_30.q_xSetSpeed" VarB="Channel 5^fb_AT1K0_GAS_PTM_30.q_xSetSpeed"/>
-				<Link VarA="PlcTask Outputs^GVL_Devices.fb_AT1K0_GAS_PTM_30.q_xStart" VarB="Channel 2^fb_AT1K0_GAS_PTM_30.q_xStart"/>
-				<Link VarA="PlcTask Outputs^GVL_Devices.fb_AT1K0_GAS_PTM_30.q_xStop" VarB="Channel 3^fb_AT1K0_GAS_PTM_30.q_xStop"/>
+				<Link VarA="PlcTask Outputs^GVL_Devices.fb_AT1K0_GAS_PTM_30.q_xProtection" VarB="Channel 4^fb_AT1K0_GAS_PTM_30.q_xProtection" Size="1"/>
+				<Link VarA="PlcTask Outputs^GVL_Devices.fb_AT1K0_GAS_PTM_30.q_xReset" VarB="Channel 1^fb_AT1K0_GAS_PTM_30.q_xReset" Size="1"/>
+				<Link VarA="PlcTask Outputs^GVL_Devices.fb_AT1K0_GAS_PTM_30.q_xSetSpeed" VarB="Channel 5^fb_AT1K0_GAS_PTM_30.q_xSetSpeed" Size="1"/>
+				<Link VarA="PlcTask Outputs^GVL_Devices.fb_AT1K0_GAS_PTM_30.q_xStart" VarB="Channel 2^fb_AT1K0_GAS_PTM_30.q_xStart" Size="1"/>
+				<Link VarA="PlcTask Outputs^GVL_Devices.fb_AT1K0_GAS_PTM_30.q_xStop" VarB="Channel 3^fb_AT1K0_GAS_PTM_30.q_xStop" Size="1"/>
 			</OwnerB>
 			<OwnerB Name="TIID^=+-CX2020/EtherCAT1^=+-EK1100_03_00^=+-EL2798_03_17">
-				<Link VarA="PlcTask Outputs^GVL_Devices.fb_AT1K0_GAS_PTM_40.q_xProtection" VarB="Channel 4^fb_AT1K0_GAS_PTM_40.q_xProtection"/>
-				<Link VarA="PlcTask Outputs^GVL_Devices.fb_AT1K0_GAS_PTM_40.q_xReset" VarB="Channel 1^fb_AT1K0_GAS_PTM_40.q_xReset"/>
-				<Link VarA="PlcTask Outputs^GVL_Devices.fb_AT1K0_GAS_PTM_40.q_xSetSpeed" VarB="Channel 5^fb_AT1K0_GAS_PTM_40.q_xSetSpeed"/>
-				<Link VarA="PlcTask Outputs^GVL_Devices.fb_AT1K0_GAS_PTM_40.q_xStart" VarB="Channel 2^fb_AT1K0_GAS_PTM_40.q_xStart"/>
-				<Link VarA="PlcTask Outputs^GVL_Devices.fb_AT1K0_GAS_PTM_40.q_xStop" VarB="Channel 3^fb_AT1K0_GAS_PTM_40.q_xStop"/>
+				<Link VarA="PlcTask Outputs^GVL_Devices.fb_AT1K0_GAS_PTM_40.q_xProtection" VarB="Channel 4^fb_AT1K0_GAS_PTM_40.q_xProtection" Size="1"/>
+				<Link VarA="PlcTask Outputs^GVL_Devices.fb_AT1K0_GAS_PTM_40.q_xReset" VarB="Channel 1^fb_AT1K0_GAS_PTM_40.q_xReset" Size="1"/>
+				<Link VarA="PlcTask Outputs^GVL_Devices.fb_AT1K0_GAS_PTM_40.q_xSetSpeed" VarB="Channel 5^fb_AT1K0_GAS_PTM_40.q_xSetSpeed" Size="1"/>
+				<Link VarA="PlcTask Outputs^GVL_Devices.fb_AT1K0_GAS_PTM_40.q_xStart" VarB="Channel 2^fb_AT1K0_GAS_PTM_40.q_xStart" Size="1"/>
+				<Link VarA="PlcTask Outputs^GVL_Devices.fb_AT1K0_GAS_PTM_40.q_xStop" VarB="Channel 3^fb_AT1K0_GAS_PTM_40.q_xStop" Size="1"/>
 			</OwnerB>
 			<OwnerB Name="TIID^=+-CX2020/EtherCAT1^=+-EK1100_03_00^=+-ES1004_03_01">
-				<Link VarA="PlcTask Inputs^GVL_Devices.fb_AT1K0_GAS_PTM_10.i_xAtSpd" VarB="Channel 2^fb_AT1K0_GAS_PTM_10.i_xAtSpd"/>
-				<Link VarA="PlcTask Inputs^GVL_Devices.fb_AT1K0_GAS_PTM_10.i_xDecel" VarB="Channel 1^fb_AT1K0_GAS_PTM_10.i_xDecel"/>
-				<Link VarA="PlcTask Inputs^GVL_Devices.fb_AT1K0_GAS_PTM_10.i_xNCFault" VarB="Channel 3^fb_AT1K0_GAS_PTM_10.i_xNCFault"/>
-				<Link VarA="PlcTask Inputs^GVL_Devices.fb_AT1K0_GAS_PTM_10.i_xRotate" VarB="Channel 4^fb_AT1K0_GAS_PTM_10.i_xRotate"/>
+				<Link VarA="PlcTask Inputs^GVL_Devices.fb_AT1K0_GAS_PTM_10.i_xAtSpd" VarB="Channel 2^fb_AT1K0_GAS_PTM_10.i_xAtSpd" Size="1"/>
+				<Link VarA="PlcTask Inputs^GVL_Devices.fb_AT1K0_GAS_PTM_10.i_xDecel" VarB="Channel 1^fb_AT1K0_GAS_PTM_10.i_xDecel" Size="1"/>
+				<Link VarA="PlcTask Inputs^GVL_Devices.fb_AT1K0_GAS_PTM_10.i_xNCFault" VarB="Channel 3^fb_AT1K0_GAS_PTM_10.i_xNCFault" Size="1"/>
+				<Link VarA="PlcTask Inputs^GVL_Devices.fb_AT1K0_GAS_PTM_10.i_xRotate" VarB="Channel 4^fb_AT1K0_GAS_PTM_10.i_xRotate" Size="1"/>
 			</OwnerB>
 			<OwnerB Name="TIID^=+-CX2020/EtherCAT1^=+-EK1100_03_00^=+-ES1004_03_02">
-				<Link VarA="PlcTask Inputs^GVL_Devices.fb_AT1K0_GAS_PTM_10.i_xAccel" VarB="Channel 1^fb_AT1K0_GAS_PTM_10.i_xAccel"/>
+				<Link VarA="PlcTask Inputs^GVL_Devices.fb_AT1K0_GAS_PTM_10.i_xAccel" VarB="Channel 1^fb_AT1K0_GAS_PTM_10.i_xAccel" Size="1"/>
 			</OwnerB>
 			<OwnerB Name="TIID^=+-CX2020/EtherCAT1^=+-EK1100_03_00^=+-ES1004_03_08">
-				<Link VarA="PlcTask Inputs^GVL_Devices.fb_AT1K0_GAS_PTM_20.i_xAtSpd" VarB="Channel 2^fb_AT1K0_GAS_PTM_20.i_xAtSpd"/>
-				<Link VarA="PlcTask Inputs^GVL_Devices.fb_AT1K0_GAS_PTM_20.i_xDecel" VarB="Channel 1^fb_AT1K0_GAS_PTM_20.i_xDecel"/>
-				<Link VarA="PlcTask Inputs^GVL_Devices.fb_AT1K0_GAS_PTM_20.i_xNCFault" VarB="Channel 3^fb_AT1K0_GAS_PTM_20.i_xNCFault"/>
-				<Link VarA="PlcTask Inputs^GVL_Devices.fb_AT1K0_GAS_PTM_20.i_xRotate" VarB="Channel 4^fb_AT1K0_GAS_PTM_20.i_xRotate"/>
+				<Link VarA="PlcTask Inputs^GVL_Devices.fb_AT1K0_GAS_PTM_20.i_xAtSpd" VarB="Channel 2^fb_AT1K0_GAS_PTM_20.i_xAtSpd" Size="1"/>
+				<Link VarA="PlcTask Inputs^GVL_Devices.fb_AT1K0_GAS_PTM_20.i_xDecel" VarB="Channel 1^fb_AT1K0_GAS_PTM_20.i_xDecel" Size="1"/>
+				<Link VarA="PlcTask Inputs^GVL_Devices.fb_AT1K0_GAS_PTM_20.i_xNCFault" VarB="Channel 3^fb_AT1K0_GAS_PTM_20.i_xNCFault" Size="1"/>
+				<Link VarA="PlcTask Inputs^GVL_Devices.fb_AT1K0_GAS_PTM_20.i_xRotate" VarB="Channel 4^fb_AT1K0_GAS_PTM_20.i_xRotate" Size="1"/>
 			</OwnerB>
 			<OwnerB Name="TIID^=+-CX2020/EtherCAT1^=+-EK1100_03_00^=+-ES1004_03_09">
-				<Link VarA="PlcTask Inputs^GVL_Devices.fb_AT1K0_GAS_PTM_20.i_xAccel" VarB="Channel 1^fb_AT1K0_GAS_PTM_20.i_xAccel"/>
+				<Link VarA="PlcTask Inputs^GVL_Devices.fb_AT1K0_GAS_PTM_20.i_xAccel" VarB="Channel 1^fb_AT1K0_GAS_PTM_20.i_xAccel" Size="1"/>
 			</OwnerB>
 			<OwnerB Name="TIID^=+-CX2020/EtherCAT1^=+-EK1100_03_00^=+-ES1004_03_11">
-				<Link VarA="PlcTask Inputs^GVL_Devices.fb_AT1K0_GAS_PTM_30.i_xAtSpd" VarB="Channel 2^fb_AT1K0_GAS_PTM_30.i_xAtSpd"/>
-				<Link VarA="PlcTask Inputs^GVL_Devices.fb_AT1K0_GAS_PTM_30.i_xDecel" VarB="Channel 1^fb_AT1K0_GAS_PTM_30.i_xDecel"/>
-				<Link VarA="PlcTask Inputs^GVL_Devices.fb_AT1K0_GAS_PTM_30.i_xNCFault" VarB="Channel 3^fb_AT1K0_GAS_PTM_30.i_xNCFault"/>
-				<Link VarA="PlcTask Inputs^GVL_Devices.fb_AT1K0_GAS_PTM_30.i_xRotate" VarB="Channel 4^fb_AT1K0_GAS_PTM_30.i_xRotate"/>
+				<Link VarA="PlcTask Inputs^GVL_Devices.fb_AT1K0_GAS_PTM_30.i_xAtSpd" VarB="Channel 2^fb_AT1K0_GAS_PTM_30.i_xAtSpd" Size="1"/>
+				<Link VarA="PlcTask Inputs^GVL_Devices.fb_AT1K0_GAS_PTM_30.i_xDecel" VarB="Channel 1^fb_AT1K0_GAS_PTM_30.i_xDecel" Size="1"/>
+				<Link VarA="PlcTask Inputs^GVL_Devices.fb_AT1K0_GAS_PTM_30.i_xNCFault" VarB="Channel 3^fb_AT1K0_GAS_PTM_30.i_xNCFault" Size="1"/>
+				<Link VarA="PlcTask Inputs^GVL_Devices.fb_AT1K0_GAS_PTM_30.i_xRotate" VarB="Channel 4^fb_AT1K0_GAS_PTM_30.i_xRotate" Size="1"/>
 			</OwnerB>
 			<OwnerB Name="TIID^=+-CX2020/EtherCAT1^=+-EK1100_03_00^=+-ES1004_03_12">
-				<Link VarA="PlcTask Inputs^GVL_Devices.fb_AT1K0_GAS_PTM_30.i_xAccel" VarB="Channel 1^fb_AT1K0_GAS_PTM_30.i_xAccel"/>
+				<Link VarA="PlcTask Inputs^GVL_Devices.fb_AT1K0_GAS_PTM_30.i_xAccel" VarB="Channel 1^fb_AT1K0_GAS_PTM_30.i_xAccel" Size="1"/>
 			</OwnerB>
 			<OwnerB Name="TIID^=+-CX2020/EtherCAT1^=+-EK1100_03_00^=+-ES1004_03_18">
-				<Link VarA="PlcTask Inputs^GVL_Devices.fb_AT1K0_GAS_PTM_40.i_xAtSpd" VarB="Channel 2^fb_AT1K0_GAS_PTM_40.i_xAtSpd"/>
-				<Link VarA="PlcTask Inputs^GVL_Devices.fb_AT1K0_GAS_PTM_40.i_xDecel" VarB="Channel 1^fb_AT1K0_GAS_PTM_40.i_xDecel"/>
-				<Link VarA="PlcTask Inputs^GVL_Devices.fb_AT1K0_GAS_PTM_40.i_xNCFault" VarB="Channel 3^fb_AT1K0_GAS_PTM_40.i_xNCFault"/>
-				<Link VarA="PlcTask Inputs^GVL_Devices.fb_AT1K0_GAS_PTM_40.i_xRotate" VarB="Channel 4^fb_AT1K0_GAS_PTM_40.i_xRotate"/>
+				<Link VarA="PlcTask Inputs^GVL_Devices.fb_AT1K0_GAS_PTM_40.i_xAtSpd" VarB="Channel 2^fb_AT1K0_GAS_PTM_40.i_xAtSpd" Size="1"/>
+				<Link VarA="PlcTask Inputs^GVL_Devices.fb_AT1K0_GAS_PTM_40.i_xDecel" VarB="Channel 1^fb_AT1K0_GAS_PTM_40.i_xDecel" Size="1"/>
+				<Link VarA="PlcTask Inputs^GVL_Devices.fb_AT1K0_GAS_PTM_40.i_xNCFault" VarB="Channel 3^fb_AT1K0_GAS_PTM_40.i_xNCFault" Size="1"/>
+				<Link VarA="PlcTask Inputs^GVL_Devices.fb_AT1K0_GAS_PTM_40.i_xRotate" VarB="Channel 4^fb_AT1K0_GAS_PTM_40.i_xRotate" Size="1"/>
 			</OwnerB>
 			<OwnerB Name="TIID^=+-CX2020/EtherCAT1^=+-EK1100_03_00^=+-ES1004_03_19">
-				<Link VarA="PlcTask Inputs^GVL_Devices.fb_AT1K0_GAS_PTM_40.i_xAccel" VarB="Channel 1^fb_AT1K0_GAS_PTM_40.i_xAccel"/>
+				<Link VarA="PlcTask Inputs^GVL_Devices.fb_AT1K0_GAS_PTM_40.i_xAccel" VarB="Channel 1^fb_AT1K0_GAS_PTM_40.i_xAccel" Size="1"/>
 			</OwnerB>
 			<OwnerB Name="TIID^=+-CX2020/EtherCAT1^=+-EK1100_03_00^=+-ES3064_03_04">
 				<Link VarA="PlcTask Inputs^GVL_Devices.fb_AT1K0_GAS_PTM_10.i_iCurrentMon" VarB="AI Standard Channel 2^fb_AT1K0_GAS_PTM_10.i_iCurrentMon"/>
@@ -3447,56 +2720,56 @@ IO]]>
 				<Link VarA="PlcTask Inputs^GVL_Devices.GCM_81.i_iPRESS_R" VarB="AI Standard Channel 2^Value"/>
 			</OwnerB>
 			<OwnerB Name="TIID^=+-CX2020/EtherCAT1^=+-EK1100_04_00^=+-EL7041_04_07">
-				<Link VarA="PlcTask Inputs^Main.M5.bLimitBackwardEnable" VarB="STM Status^Status^Digital input 1" AutoLink="true"/>
-				<Link VarA="PlcTask Inputs^Main.M5.bLimitForwardEnable" VarB="STM Status^Status^Digital input 2" AutoLink="true"/>
+				<Link VarA="PlcTask Inputs^Main.M5.bLimitBackwardEnable" VarB="STM Status^Status^Digital input 1" AutoLink="true" Size="1"/>
+				<Link VarA="PlcTask Inputs^Main.M5.bLimitForwardEnable" VarB="STM Status^Status^Digital input 2" AutoLink="true" Size="1"/>
 			</OwnerB>
 			<OwnerB Name="TIID^=+-CX2020/EtherCAT1^=+-EK1100_04_00^=+-EL7041_04_08">
-				<Link VarA="PlcTask Inputs^Main.M6.bLimitBackwardEnable" VarB="STM Status^Status^Digital input 1" AutoLink="true"/>
-				<Link VarA="PlcTask Inputs^Main.M6.bLimitForwardEnable" VarB="STM Status^Status^Digital input 2" AutoLink="true"/>
+				<Link VarA="PlcTask Inputs^Main.M6.bLimitBackwardEnable" VarB="STM Status^Status^Digital input 1" AutoLink="true" Size="1"/>
+				<Link VarA="PlcTask Inputs^Main.M6.bLimitForwardEnable" VarB="STM Status^Status^Digital input 2" AutoLink="true" Size="1"/>
 			</OwnerB>
 			<OwnerB Name="TIID^=+-CX2020/EtherCAT1^=+-EK1100_04_00^=+-EL7041_04_10">
-				<Link VarA="PlcTask Inputs^Main.M7.bLimitBackwardEnable" VarB="STM Status^Status^Digital input 1" AutoLink="true"/>
-				<Link VarA="PlcTask Inputs^Main.M7.bLimitForwardEnable" VarB="STM Status^Status^Digital input 2" AutoLink="true"/>
+				<Link VarA="PlcTask Inputs^Main.M7.bLimitBackwardEnable" VarB="STM Status^Status^Digital input 1" AutoLink="true" Size="1"/>
+				<Link VarA="PlcTask Inputs^Main.M7.bLimitForwardEnable" VarB="STM Status^Status^Digital input 2" AutoLink="true" Size="1"/>
 			</OwnerB>
 			<OwnerB Name="TIID^=+-CX2020/EtherCAT1^=+-EK1100_04_00^=+-EL7041_04_11">
-				<Link VarA="PlcTask Inputs^Main.M8.bLimitBackwardEnable" VarB="STM Status^Status^Digital input 1" AutoLink="true"/>
-				<Link VarA="PlcTask Inputs^Main.M8.bLimitForwardEnable" VarB="STM Status^Status^Digital input 2" AutoLink="true"/>
+				<Link VarA="PlcTask Inputs^Main.M8.bLimitBackwardEnable" VarB="STM Status^Status^Digital input 1" AutoLink="true" Size="1"/>
+				<Link VarA="PlcTask Inputs^Main.M8.bLimitForwardEnable" VarB="STM Status^Status^Digital input 2" AutoLink="true" Size="1"/>
 			</OwnerB>
 			<OwnerB Name="TIID^=+-CX2020/EtherCAT1^=+-EK1100_04_00^=+-ES1084_04_06">
-				<Link VarA="PlcTask Inputs^GVL_Devices.fb_AT1K0_GAS_PTM_80.i_xAtSpd" VarB="Channel 1^fb_AT1K0_GAS_PTM_80.i_xAtSpd"/>
-				<Link VarA="PlcTask Inputs^GVL_Devices.fb_AT1K0_GAS_PTM_80.i_xFault" VarB="Channel 2^fb_AT1K0_GAS_PTM_80.i_xFault"/>
+				<Link VarA="PlcTask Inputs^GVL_Devices.fb_AT1K0_GAS_PTM_80.i_xAtSpd" VarB="Channel 1^fb_AT1K0_GAS_PTM_80.i_xAtSpd" Size="1"/>
+				<Link VarA="PlcTask Inputs^GVL_Devices.fb_AT1K0_GAS_PTM_80.i_xFault" VarB="Channel 2^fb_AT1K0_GAS_PTM_80.i_xFault" Size="1"/>
 			</OwnerB>
 			<OwnerB Name="TIID^=+-CX2020/EtherCAT1^=+-EK1100_04_00^=+-ES2004_04_01">
-				<Link VarA="PlcTask Outputs^GVL_Devices.VVC_71.q_xOPN_DO" VarB="Channel 1^VVC_71.q_xOPN_DO"/>
-				<Link VarA="PlcTask Outputs^GVL_Devices.VVC_72.q_xOPN_DO" VarB="Channel 2^VVC_72.q_xOPN_DO"/>
-				<Link VarA="PlcTask Outputs^GVL_Devices.fb_AT1K0_GAS_PTM_80.q_RunDO" VarB="Channel 3^fb_AT1K0_GAS_PTM_80.q_RunDO"/>
+				<Link VarA="PlcTask Outputs^GVL_Devices.VVC_71.q_xOPN_DO" VarB="Channel 1^VVC_71.q_xOPN_DO" Size="1"/>
+				<Link VarA="PlcTask Outputs^GVL_Devices.VVC_72.q_xOPN_DO" VarB="Channel 2^VVC_72.q_xOPN_DO" Size="1"/>
+				<Link VarA="PlcTask Outputs^GVL_Devices.fb_AT1K0_GAS_PTM_80.q_RunDO" VarB="Channel 3^fb_AT1K0_GAS_PTM_80.q_RunDO" Size="1"/>
 			</OwnerB>
 			<OwnerB Name="TIID^=+-CX2020/EtherCAT1^=+-EK1100_04_00^=+-ES2004_04_09">
-				<Link VarA="PlcTask Outputs^Main.M5.bBrakeRelease" VarB="Channel 1^Output" AutoLink="true"/>
-				<Link VarA="PlcTask Outputs^Main.M6.bBrakeRelease" VarB="Channel 2^Output" AutoLink="true"/>
-				<Link VarA="PlcTask Outputs^Main.M7.bBrakeRelease" VarB="Channel 3^Output" AutoLink="true"/>
-				<Link VarA="PlcTask Outputs^Main.M8.bBrakeRelease" VarB="Channel 4^Output" AutoLink="true"/>
+				<Link VarA="PlcTask Outputs^Main.M5.bBrakeRelease" VarB="Channel 1^Output" AutoLink="true" Size="1"/>
+				<Link VarA="PlcTask Outputs^Main.M6.bBrakeRelease" VarB="Channel 2^Output" AutoLink="true" Size="1"/>
+				<Link VarA="PlcTask Outputs^Main.M7.bBrakeRelease" VarB="Channel 3^Output" AutoLink="true" Size="1"/>
+				<Link VarA="PlcTask Outputs^Main.M8.bBrakeRelease" VarB="Channel 4^Output" AutoLink="true" Size="1"/>
 			</OwnerB>
 			<OwnerB Name="TIID^=+-CX2020/EtherCAT1^=+-EK1100_04_00^=+-ES4004_04_02">
 				<Link VarA="PlcTask Outputs^GVL_Devices.VCN_70.q_iRawPosition" VarB="AO Outputs Channel 1^VCN_70.q_iRawPosition"/>
 			</OwnerB>
 			<OwnerB Name="TIID^=+-CX2020/EtherCAT1^=+-EK1100_05_00^=+-EL1084_05_12">
-				<Link VarA="PlcTask Inputs^GVL_Devices.fb_AT1K0_GAS_PMF_110.i_xAlarmOK" VarB="Channel 2^fb_AT1K0_GAS_PMF_110.i_xAlarmOK"/>
-				<Link VarA="PlcTask Inputs^GVL_Devices.fb_AT1K0_GAS_PMF_110.i_xIsRun" VarB="Channel 1^fb_AT1K0_GAS_PMF_110.i_xIsRun"/>
-				<Link VarA="PlcTask Inputs^GVL_Devices.fb_AT1K0_GAS_PMF_120.i_xAlarmOK" VarB="Channel 4^fb_AT1K0_GAS_PMF_120.i_xAlarmOK"/>
-				<Link VarA="PlcTask Inputs^GVL_Devices.fb_AT1K0_GAS_PMF_120.i_xIsRun" VarB="Channel 3^fb_AT1K0_GAS_PMF_120.i_xIsRun"/>
+				<Link VarA="PlcTask Inputs^GVL_Devices.fb_AT1K0_GAS_PMF_110.i_xAlarmOK" VarB="Channel 2^fb_AT1K0_GAS_PMF_110.i_xAlarmOK" Size="1"/>
+				<Link VarA="PlcTask Inputs^GVL_Devices.fb_AT1K0_GAS_PMF_110.i_xIsRun" VarB="Channel 1^fb_AT1K0_GAS_PMF_110.i_xIsRun" Size="1"/>
+				<Link VarA="PlcTask Inputs^GVL_Devices.fb_AT1K0_GAS_PMF_120.i_xAlarmOK" VarB="Channel 4^fb_AT1K0_GAS_PMF_120.i_xAlarmOK" Size="1"/>
+				<Link VarA="PlcTask Inputs^GVL_Devices.fb_AT1K0_GAS_PMF_120.i_xIsRun" VarB="Channel 3^fb_AT1K0_GAS_PMF_120.i_xIsRun" Size="1"/>
 			</OwnerB>
 			<OwnerB Name="TIID^=+-CX2020/EtherCAT1^=+-EK1100_05_00^=+-EL1084_05_13">
-				<Link VarA="PlcTask Inputs^GVL_Devices.fb_AT1K0_GAS_PMF_140.i_xAlarmOK" VarB="Channel 2^fb_AT1K0_GAS_PMF_140.i_xAlarmOK"/>
-				<Link VarA="PlcTask Inputs^GVL_Devices.fb_AT1K0_GAS_PMF_140.i_xIsRun" VarB="Channel 1^fb_AT1K0_GAS_PMF_140.i_xIsRun"/>
+				<Link VarA="PlcTask Inputs^GVL_Devices.fb_AT1K0_GAS_PMF_140.i_xAlarmOK" VarB="Channel 2^fb_AT1K0_GAS_PMF_140.i_xAlarmOK" Size="1"/>
+				<Link VarA="PlcTask Inputs^GVL_Devices.fb_AT1K0_GAS_PMF_140.i_xIsRun" VarB="Channel 1^fb_AT1K0_GAS_PMF_140.i_xIsRun" Size="1"/>
 			</OwnerB>
 			<OwnerB Name="TIID^=+-CX2020/EtherCAT1^=+-EK1100_05_00^=+-EL2798_05_10">
-				<Link VarA="PlcTask Outputs^GVL_Devices.fb_AT1K0_GAS_PMF_110.q_xResetAlarm" VarB="Channel 2^fb_AT1K0_GAS_PMF_110.q_xResetAlarm"/>
-				<Link VarA="PlcTask Outputs^GVL_Devices.fb_AT1K0_GAS_PMF_110.q_xRunDo" VarB="Channel 1^fb_AT1K0_GAS_PMF_110.q_xRunDo"/>
-				<Link VarA="PlcTask Outputs^GVL_Devices.fb_AT1K0_GAS_PMF_120.q_xResetAlarm" VarB="Channel 4^fb_AT1K0_GAS_PMF_120.q_xResetAlarm"/>
-				<Link VarA="PlcTask Outputs^GVL_Devices.fb_AT1K0_GAS_PMF_120.q_xRunDo" VarB="Channel 3^fb_AT1K0_GAS_PMF_120.q_xRunDo"/>
-				<Link VarA="PlcTask Outputs^GVL_Devices.fb_AT1K0_GAS_PMF_140.q_xResetAlarm" VarB="Channel 6^fb_AT1K0_GAS_PMF_140.q_xResetAlarm"/>
-				<Link VarA="PlcTask Outputs^GVL_Devices.fb_AT1K0_GAS_PMF_140.q_xRunDo" VarB="Channel 5^fb_AT1K0_GAS_PMF_140.q_xRunDo"/>
+				<Link VarA="PlcTask Outputs^GVL_Devices.fb_AT1K0_GAS_PMF_110.q_xResetAlarm" VarB="Channel 2^fb_AT1K0_GAS_PMF_110.q_xResetAlarm" Size="1"/>
+				<Link VarA="PlcTask Outputs^GVL_Devices.fb_AT1K0_GAS_PMF_110.q_xRunDo" VarB="Channel 1^fb_AT1K0_GAS_PMF_110.q_xRunDo" Size="1"/>
+				<Link VarA="PlcTask Outputs^GVL_Devices.fb_AT1K0_GAS_PMF_120.q_xResetAlarm" VarB="Channel 4^fb_AT1K0_GAS_PMF_120.q_xResetAlarm" Size="1"/>
+				<Link VarA="PlcTask Outputs^GVL_Devices.fb_AT1K0_GAS_PMF_120.q_xRunDo" VarB="Channel 3^fb_AT1K0_GAS_PMF_120.q_xRunDo" Size="1"/>
+				<Link VarA="PlcTask Outputs^GVL_Devices.fb_AT1K0_GAS_PMF_140.q_xResetAlarm" VarB="Channel 6^fb_AT1K0_GAS_PMF_140.q_xResetAlarm" Size="1"/>
+				<Link VarA="PlcTask Outputs^GVL_Devices.fb_AT1K0_GAS_PMF_140.q_xRunDo" VarB="Channel 5^fb_AT1K0_GAS_PMF_140.q_xRunDo" Size="1"/>
 			</OwnerB>
 			<OwnerB Name="TIID^=+-CX2020/EtherCAT1^=+-EK1100_05_00^=+-EL3174_05_16">
 				<Link VarA="PlcTask Inputs^GVL_Devices.fb_AT1K0_GAS_GPI_111.i_iPRESS_R" VarB="AI Standard Channel 1^fb_AT1K0_GAS_GPI_111.i_iPRESS_R"/>
@@ -3504,135 +2777,136 @@ IO]]>
 				<Link VarA="PlcTask Inputs^GVL_Devices.fb_AT1K0_GAS_GPI_141.i_iPRESS_R" VarB="AI Standard Channel 3^fb_AT1K0_GAS_GPI_141.i_iPRESS_R"/>
 			</OwnerB>
 			<OwnerB Name="TIID^=+-CX2020/EtherCAT1^=+-EK1100_05_00^=+-ES1004_05_01">
-				<Link VarA="PlcTask Inputs^GVL_Devices.fb_AT1K0_GAS_VRC_70.i_xClsLS" VarB="Channel 2^fb_AT1K0_GAS_VRC_70.i_xClsLS"/>
-				<Link VarA="PlcTask Inputs^GVL_Devices.fb_AT1K0_GAS_VRC_70.i_xOpnLS" VarB="Channel 1^fb_AT1K0_GAS_VRC_70.i_xOpnLS"/>
-				<Link VarA="PlcTask Inputs^GVL_Devices.fb_AT1K0_GAS_VRC_80.i_xClsLS" VarB="Channel 4^fb_AT1K0_GAS_VRC_80.i_xClsLS"/>
-				<Link VarA="PlcTask Inputs^GVL_Devices.fb_AT1K0_GAS_VRC_80.i_xOpnLS" VarB="Channel 3^fb_AT1K0_GAS_VRC_80.i_xOpnLS"/>
+				<Link VarA="PlcTask Inputs^GVL_Devices.fb_AT1K0_GAS_VRC_70.i_xClsLS" VarB="Channel 2^fb_AT1K0_GAS_VRC_70.i_xClsLS" Size="1"/>
+				<Link VarA="PlcTask Inputs^GVL_Devices.fb_AT1K0_GAS_VRC_70.i_xOpnLS" VarB="Channel 1^fb_AT1K0_GAS_VRC_70.i_xOpnLS" Size="1"/>
+				<Link VarA="PlcTask Inputs^GVL_Devices.fb_AT1K0_GAS_VRC_80.i_xClsLS" VarB="Channel 4^fb_AT1K0_GAS_VRC_80.i_xClsLS" Size="1"/>
+				<Link VarA="PlcTask Inputs^GVL_Devices.fb_AT1K0_GAS_VRC_80.i_xOpnLS" VarB="Channel 3^fb_AT1K0_GAS_VRC_80.i_xOpnLS" Size="1"/>
 			</OwnerB>
 			<OwnerB Name="TIID^=+-CX2020/EtherCAT1^=+-EK1100_05_00^=+-ES1004_05_03">
-				<Link VarA="PlcTask Inputs^GVL_Devices.fb_AT1K0_GAS_VRC_100.i_xClsLS" VarB="Channel 4^fb_AT1K0_GAS_VRC_100.i_xClsLS"/>
-				<Link VarA="PlcTask Inputs^GVL_Devices.fb_AT1K0_GAS_VRC_100.i_xOpnLS" VarB="Channel 3^fb_AT1K0_GAS_VRC_100.i_xOpnLS"/>
-				<Link VarA="PlcTask Inputs^GVL_Devices.fb_AT1K0_GAS_VRC_90.i_xClsLS" VarB="Channel 2^fb_AT1K0_GAS_VRC_90.i_xClsLS"/>
-				<Link VarA="PlcTask Inputs^GVL_Devices.fb_AT1K0_GAS_VRC_90.i_xOpnLS" VarB="Channel 1^fb_AT1K0_GAS_VRC_90.i_xOpnLS"/>
+				<Link VarA="PlcTask Inputs^GVL_Devices.fb_AT1K0_GAS_VRC_100.i_xClsLS" VarB="Channel 4^fb_AT1K0_GAS_VRC_100.i_xClsLS" Size="1"/>
+				<Link VarA="PlcTask Inputs^GVL_Devices.fb_AT1K0_GAS_VRC_100.i_xOpnLS" VarB="Channel 3^fb_AT1K0_GAS_VRC_100.i_xOpnLS" Size="1"/>
+				<Link VarA="PlcTask Inputs^GVL_Devices.fb_AT1K0_GAS_VRC_90.i_xClsLS" VarB="Channel 2^fb_AT1K0_GAS_VRC_90.i_xClsLS" Size="1"/>
+				<Link VarA="PlcTask Inputs^GVL_Devices.fb_AT1K0_GAS_VRC_90.i_xOpnLS" VarB="Channel 1^fb_AT1K0_GAS_VRC_90.i_xOpnLS" Size="1"/>
 			</OwnerB>
 			<OwnerB Name="TIID^=+-CX2020/EtherCAT1^=+-EK1100_05_00^=+-ES1004_05_06">
-				<Link VarA="PlcTask Inputs^GVL_Devices.fb_AT1K0_GAS_VRC_110.i_xClsLS" VarB="Channel 2^fb_AT1K0_GAS_VRC_110.i_xClsLS"/>
-				<Link VarA="PlcTask Inputs^GVL_Devices.fb_AT1K0_GAS_VRC_110.i_xOpnLS" VarB="Channel 1^fb_AT1K0_GAS_VRC_110.i_xOpnLS"/>
-				<Link VarA="PlcTask Inputs^GVL_Devices.fb_AT1K0_GAS_VRC_120.i_xClsLS" VarB="Channel 4^fb_AT1K0_GAS_VRC_120.i_xClsLS"/>
-				<Link VarA="PlcTask Inputs^GVL_Devices.fb_AT1K0_GAS_VRC_120.i_xOpnLS" VarB="Channel 3^fb_AT1K0_GAS_VRC_120.i_xOpnLS"/>
+				<Link VarA="PlcTask Inputs^GVL_Devices.fb_AT1K0_GAS_VRC_110.i_xClsLS" VarB="Channel 2^fb_AT1K0_GAS_VRC_110.i_xClsLS" Size="1"/>
+				<Link VarA="PlcTask Inputs^GVL_Devices.fb_AT1K0_GAS_VRC_110.i_xOpnLS" VarB="Channel 1^fb_AT1K0_GAS_VRC_110.i_xOpnLS" Size="1"/>
+				<Link VarA="PlcTask Inputs^GVL_Devices.fb_AT1K0_GAS_VRC_120.i_xClsLS" VarB="Channel 4^fb_AT1K0_GAS_VRC_120.i_xClsLS" Size="1"/>
+				<Link VarA="PlcTask Inputs^GVL_Devices.fb_AT1K0_GAS_VRC_120.i_xOpnLS" VarB="Channel 3^fb_AT1K0_GAS_VRC_120.i_xOpnLS" Size="1"/>
 			</OwnerB>
 			<OwnerB Name="TIID^=+-CX2020/EtherCAT1^=+-EK1100_05_00^=+-ES1004_05_08">
-				<Link VarA="PlcTask Inputs^GVL_Devices.fb_AT1K0_GAS_VRC_130.i_xClsLS" VarB="Channel 2^fb_AT1K0_GAS_VRC_130.i_xClsLS"/>
-				<Link VarA="PlcTask Inputs^GVL_Devices.fb_AT1K0_GAS_VRC_130.i_xOpnLS" VarB="Channel 1^fb_AT1K0_GAS_VRC_130.i_xOpnLS"/>
-				<Link VarA="PlcTask Inputs^GVL_Devices.fb_AT1K0_GAS_VRC_140.i_xClsLS" VarB="Channel 4^fb_AT1K0_GAS_VRC_140.i_xClsLS"/>
-				<Link VarA="PlcTask Inputs^GVL_Devices.fb_AT1K0_GAS_VRC_140.i_xOpnLS" VarB="Channel 3^fb_AT1K0_GAS_VRC_140.i_xOpnLS"/>
+				<Link VarA="PlcTask Inputs^GVL_Devices.fb_AT1K0_GAS_VRC_130.i_xClsLS" VarB="Channel 2^fb_AT1K0_GAS_VRC_130.i_xClsLS" Size="1"/>
+				<Link VarA="PlcTask Inputs^GVL_Devices.fb_AT1K0_GAS_VRC_130.i_xOpnLS" VarB="Channel 1^fb_AT1K0_GAS_VRC_130.i_xOpnLS" Size="1"/>
+				<Link VarA="PlcTask Inputs^GVL_Devices.fb_AT1K0_GAS_VRC_140.i_xClsLS" VarB="Channel 4^fb_AT1K0_GAS_VRC_140.i_xClsLS" Size="1"/>
+				<Link VarA="PlcTask Inputs^GVL_Devices.fb_AT1K0_GAS_VRC_140.i_xOpnLS" VarB="Channel 3^fb_AT1K0_GAS_VRC_140.i_xOpnLS" Size="1"/>
 			</OwnerB>
 			<OwnerB Name="TIID^=+-CX2020/EtherCAT1^=+-EK1100_05_00^=+-ES2004_05_02">
-				<Link VarA="PlcTask Outputs^GVL_Devices.fb_AT1K0_GAS_VRC_70.q_xOPN_DO" VarB="Channel 1^fb_AT1K0_GAS_VRC_70.q_xOPN_DO"/>
-				<Link VarA="PlcTask Outputs^GVL_Devices.fb_AT1K0_GAS_VRC_80.q_xOPN_DO" VarB="Channel 2^fb_AT1K0_GAS_VRC_80.q_xOPN_DO"/>
+				<Link VarA="PlcTask Outputs^GVL_Devices.fb_AT1K0_GAS_VRC_70.q_xOPN_DO" VarB="Channel 1^fb_AT1K0_GAS_VRC_70.q_xOPN_DO" Size="1"/>
+				<Link VarA="PlcTask Outputs^GVL_Devices.fb_AT1K0_GAS_VRC_80.q_xOPN_DO" VarB="Channel 2^fb_AT1K0_GAS_VRC_80.q_xOPN_DO" Size="1"/>
 			</OwnerB>
 			<OwnerB Name="TIID^=+-CX2020/EtherCAT1^=+-EK1100_05_00^=+-ES2004_05_04">
-				<Link VarA="PlcTask Outputs^GVL_Devices.fb_AT1K0_GAS_VRC_100.q_xOPN_DO" VarB="Channel 2^fb_AT1K0_GAS_VRC_100.q_xOPN_DO"/>
-				<Link VarA="PlcTask Outputs^GVL_Devices.fb_AT1K0_GAS_VRC_90.q_xOPN_DO" VarB="Channel 1^fb_AT1K0_GAS_VRC_90.q_xOPN_DO"/>
+				<Link VarA="PlcTask Outputs^GVL_Devices.fb_AT1K0_GAS_VRC_100.q_xOPN_DO" VarB="Channel 2^fb_AT1K0_GAS_VRC_100.q_xOPN_DO" Size="1"/>
+				<Link VarA="PlcTask Outputs^GVL_Devices.fb_AT1K0_GAS_VRC_90.q_xOPN_DO" VarB="Channel 1^fb_AT1K0_GAS_VRC_90.q_xOPN_DO" Size="1"/>
 			</OwnerB>
 			<OwnerB Name="TIID^=+-CX2020/EtherCAT1^=+-EK1100_05_00^=+-ES2004_05_05">
-				<Link VarA="PlcTask Outputs^GVL_Devices.fb_AT1K0_GAS_VRC_110.q_xOPN_DO" VarB="Channel 1^fb_AT1K0_GAS_VRC_110.q_xOPN_DO"/>
-				<Link VarA="PlcTask Outputs^GVL_Devices.fb_AT1K0_GAS_VRC_120.q_xOPN_DO" VarB="Channel 2^fb_AT1K0_GAS_VRC_120.q_xOPN_DO"/>
+				<Link VarA="PlcTask Outputs^GVL_Devices.fb_AT1K0_GAS_VRC_110.q_xOPN_DO" VarB="Channel 1^fb_AT1K0_GAS_VRC_110.q_xOPN_DO" Size="1"/>
+				<Link VarA="PlcTask Outputs^GVL_Devices.fb_AT1K0_GAS_VRC_120.q_xOPN_DO" VarB="Channel 2^fb_AT1K0_GAS_VRC_120.q_xOPN_DO" Size="1"/>
 			</OwnerB>
 			<OwnerB Name="TIID^=+-CX2020/EtherCAT1^=+-EK1100_05_00^=+-ES2004_05_07">
-				<Link VarA="PlcTask Outputs^GVL_Devices.fb_AT1K0_GAS_VRC_130.q_xOPN_DO" VarB="Channel 1^fb_AT1K0_GAS_VRC_130.q_xOPN_DO"/>
-				<Link VarA="PlcTask Outputs^GVL_Devices.fb_AT1K0_GAS_VRC_140.q_xOPN_DO" VarB="Channel 2^fb_AT1K0_GAS_VRC_140.q_xOPN_DO"/>
+				<Link VarA="PlcTask Outputs^GVL_Devices.fb_AT1K0_GAS_VRC_130.q_xOPN_DO" VarB="Channel 1^fb_AT1K0_GAS_VRC_130.q_xOPN_DO" Size="1"/>
+				<Link VarA="PlcTask Outputs^GVL_Devices.fb_AT1K0_GAS_VRC_140.q_xOPN_DO" VarB="Channel 2^fb_AT1K0_GAS_VRC_140.q_xOPN_DO" Size="1"/>
 			</OwnerB>
 			<OwnerB Name="TIID^=+-CX2020/EtherCAT1^=+-EK1100_06_00^=+-EL2212_06_25">
-				<Link VarA="PlcTask Outputs^GVL_Devices.fb_AT1K0_GAS_VVC_110.q_xOPN_DO" VarB="DOX Control Channel 1^Control^Output" AutoLink="true"/>
-				<Link VarA="PlcTask Outputs^GVL_Devices.fb_AT1K0_GAS_VVC_120.q_xOPN_DO" VarB="DOX Control Channel 2^Control^Output" AutoLink="true"/>
+				<Link VarA="PlcTask Outputs^GVL_Devices.fb_AT1K0_GAS_VVC_110.q_xOPN_DO" VarB="DOX Control Channel 1^Control^Output" AutoLink="true" Size="1"/>
+				<Link VarA="PlcTask Outputs^GVL_Devices.fb_AT1K0_GAS_VVC_120.q_xOPN_DO" VarB="DOX Control Channel 2^Control^Output" AutoLink="true" Size="1"/>
 			</OwnerB>
 			<OwnerB Name="TIID^=+-CX2020/EtherCAT1^=+-EK1100_06_00^=+-EL2212_06_26">
-				<Link VarA="PlcTask Outputs^GVL_Devices.fb_AT1K0_GAS_VVC_140.q_xOPN_DO" VarB="DOX Control Channel 1^Control^Output" AutoLink="true"/>
+				<Link VarA="PlcTask Outputs^GVL_Devices.fb_AT1K0_GAS_VVC_140.q_xOPN_DO" VarB="DOX Control Channel 1^Control^Output" AutoLink="true" Size="1"/>
+				<Link VarA="PlcTask Outputs^GVL_Devices.fb_AT1K0_GAS_VVC_80.q_xOPN_DO" VarB="DOX Control Channel 2^Control^Output" AutoLink="true" Size="1"/>
 			</OwnerB>
 			<OwnerB Name="TIID^=+-CX2020/EtherCAT1^=+-EK1100_06_00^=+-EL2794_06_22">
-				<Link VarA="PlcTask Outputs^GVL_Devices.fb_AT1K0_GAS_PMF_100.q_xBPStart" VarB="Channel 4^fb_AT1K0_GAS_PMF_100.q_xBPStart"/>
-				<Link VarA="PlcTask Outputs^GVL_Devices.fb_AT1K0_GAS_PMF_100.q_xMPStart" VarB="Channel 3^fb_AT1K0_GAS_PMF_100.q_xMPStart"/>
-				<Link VarA="PlcTask Outputs^GVL_Devices.fb_AT1K0_GAS_PMF_90.q_xBPStart" VarB="Channel 2^fb_AT1K0_GAS_PMF_90.q_xBPStart"/>
-				<Link VarA="PlcTask Outputs^GVL_Devices.fb_AT1K0_GAS_PMF_90.q_xMPStart" VarB="Channel 1^fb_AT1K0_GAS_PMF_90.q_xMPStart"/>
+				<Link VarA="PlcTask Outputs^GVL_Devices.fb_AT1K0_GAS_PMF_100.q_xBPStart" VarB="Channel 4^fb_AT1K0_GAS_PMF_100.q_xBPStart" Size="1"/>
+				<Link VarA="PlcTask Outputs^GVL_Devices.fb_AT1K0_GAS_PMF_100.q_xMPStart" VarB="Channel 3^fb_AT1K0_GAS_PMF_100.q_xMPStart" Size="1"/>
+				<Link VarA="PlcTask Outputs^GVL_Devices.fb_AT1K0_GAS_PMF_90.q_xBPStart" VarB="Channel 2^fb_AT1K0_GAS_PMF_90.q_xBPStart" Size="1"/>
+				<Link VarA="PlcTask Outputs^GVL_Devices.fb_AT1K0_GAS_PMF_90.q_xMPStart" VarB="Channel 1^fb_AT1K0_GAS_PMF_90.q_xMPStart" Size="1"/>
 			</OwnerB>
 			<OwnerB Name="TIID^=+-CX2020/EtherCAT1^=+-EK1100_06_00^=+-EL2798_06_03">
-				<Link VarA="PlcTask Outputs^GVL_Devices.fb_AT1K0_GAS_PTM_110.q_xProtection" VarB="Channel 5^fb_AT1K0_GAS_PTM_110.q_xProtection"/>
-				<Link VarA="PlcTask Outputs^GVL_Devices.fb_AT1K0_GAS_PTM_110.q_xReset" VarB="Channel 1^fb_AT1K0_GAS_PTM_110.q_xReset"/>
-				<Link VarA="PlcTask Outputs^GVL_Devices.fb_AT1K0_GAS_PTM_110.q_xSetSpeed" VarB="Channel 4^fb_AT1K0_GAS_PTM_110.q_xSetSpeed"/>
-				<Link VarA="PlcTask Outputs^GVL_Devices.fb_AT1K0_GAS_PTM_110.q_xStart" VarB="Channel 2^fb_AT1K0_GAS_PTM_110.q_xStart"/>
-				<Link VarA="PlcTask Outputs^GVL_Devices.fb_AT1K0_GAS_PTM_110.q_xStop" VarB="Channel 3^fb_AT1K0_GAS_PTM_110.q_xStop"/>
+				<Link VarA="PlcTask Outputs^GVL_Devices.fb_AT1K0_GAS_PTM_110.q_xProtection" VarB="Channel 5^fb_AT1K0_GAS_PTM_110.q_xProtection" Size="1"/>
+				<Link VarA="PlcTask Outputs^GVL_Devices.fb_AT1K0_GAS_PTM_110.q_xReset" VarB="Channel 1^fb_AT1K0_GAS_PTM_110.q_xReset" Size="1"/>
+				<Link VarA="PlcTask Outputs^GVL_Devices.fb_AT1K0_GAS_PTM_110.q_xSetSpeed" VarB="Channel 4^fb_AT1K0_GAS_PTM_110.q_xSetSpeed" Size="1"/>
+				<Link VarA="PlcTask Outputs^GVL_Devices.fb_AT1K0_GAS_PTM_110.q_xStart" VarB="Channel 2^fb_AT1K0_GAS_PTM_110.q_xStart" Size="1"/>
+				<Link VarA="PlcTask Outputs^GVL_Devices.fb_AT1K0_GAS_PTM_110.q_xStop" VarB="Channel 3^fb_AT1K0_GAS_PTM_110.q_xStop" Size="1"/>
 			</OwnerB>
 			<OwnerB Name="TIID^=+-CX2020/EtherCAT1^=+-EK1100_06_00^=+-EL2798_06_07">
-				<Link VarA="PlcTask Outputs^GVL_Devices.fb_AT1K0_GAS_PTM_120.q_xProtection" VarB="Channel 4^fb_AT1K0_GAS_PTM_120.q_xProtection"/>
-				<Link VarA="PlcTask Outputs^GVL_Devices.fb_AT1K0_GAS_PTM_120.q_xReset" VarB="Channel 1^fb_AT1K0_GAS_PTM_120.q_xReset"/>
-				<Link VarA="PlcTask Outputs^GVL_Devices.fb_AT1K0_GAS_PTM_120.q_xSetSpeed" VarB="Channel 5^fb_AT1K0_GAS_PTM_120.q_xSetSpeed"/>
-				<Link VarA="PlcTask Outputs^GVL_Devices.fb_AT1K0_GAS_PTM_120.q_xStart" VarB="Channel 2^fb_AT1K0_GAS_PTM_120.q_xStart"/>
-				<Link VarA="PlcTask Outputs^GVL_Devices.fb_AT1K0_GAS_PTM_120.q_xStop" VarB="Channel 3^fb_AT1K0_GAS_PTM_120.q_xStop"/>
+				<Link VarA="PlcTask Outputs^GVL_Devices.fb_AT1K0_GAS_PTM_120.q_xProtection" VarB="Channel 4^fb_AT1K0_GAS_PTM_120.q_xProtection" Size="1"/>
+				<Link VarA="PlcTask Outputs^GVL_Devices.fb_AT1K0_GAS_PTM_120.q_xReset" VarB="Channel 1^fb_AT1K0_GAS_PTM_120.q_xReset" Size="1"/>
+				<Link VarA="PlcTask Outputs^GVL_Devices.fb_AT1K0_GAS_PTM_120.q_xSetSpeed" VarB="Channel 5^fb_AT1K0_GAS_PTM_120.q_xSetSpeed" Size="1"/>
+				<Link VarA="PlcTask Outputs^GVL_Devices.fb_AT1K0_GAS_PTM_120.q_xStart" VarB="Channel 2^fb_AT1K0_GAS_PTM_120.q_xStart" Size="1"/>
+				<Link VarA="PlcTask Outputs^GVL_Devices.fb_AT1K0_GAS_PTM_120.q_xStop" VarB="Channel 3^fb_AT1K0_GAS_PTM_120.q_xStop" Size="1"/>
 			</OwnerB>
 			<OwnerB Name="TIID^=+-CX2020/EtherCAT1^=+-EK1100_06_00^=+-EL2798_06_13">
-				<Link VarA="PlcTask Outputs^GVL_Devices.fb_AT1K0_GAS_PTM_130.q_xProtection" VarB="Channel 4^fb_AT1K0_GAS_PTM_130.q_xProtection"/>
-				<Link VarA="PlcTask Outputs^GVL_Devices.fb_AT1K0_GAS_PTM_130.q_xReset" VarB="Channel 1^fb_AT1K0_GAS_PTM_130.q_xReset"/>
-				<Link VarA="PlcTask Outputs^GVL_Devices.fb_AT1K0_GAS_PTM_130.q_xSetSpeed" VarB="Channel 5^fb_AT1K0_GAS_PTM_130.q_xSetSpeed"/>
-				<Link VarA="PlcTask Outputs^GVL_Devices.fb_AT1K0_GAS_PTM_130.q_xStart" VarB="Channel 2^fb_AT1K0_GAS_PTM_130.q_xStart"/>
-				<Link VarA="PlcTask Outputs^GVL_Devices.fb_AT1K0_GAS_PTM_130.q_xStop" VarB="Channel 3^fb_AT1K0_GAS_PTM_130.q_xStop"/>
+				<Link VarA="PlcTask Outputs^GVL_Devices.fb_AT1K0_GAS_PTM_130.q_xProtection" VarB="Channel 4^fb_AT1K0_GAS_PTM_130.q_xProtection" Size="1"/>
+				<Link VarA="PlcTask Outputs^GVL_Devices.fb_AT1K0_GAS_PTM_130.q_xReset" VarB="Channel 1^fb_AT1K0_GAS_PTM_130.q_xReset" Size="1"/>
+				<Link VarA="PlcTask Outputs^GVL_Devices.fb_AT1K0_GAS_PTM_130.q_xSetSpeed" VarB="Channel 5^fb_AT1K0_GAS_PTM_130.q_xSetSpeed" Size="1"/>
+				<Link VarA="PlcTask Outputs^GVL_Devices.fb_AT1K0_GAS_PTM_130.q_xStart" VarB="Channel 2^fb_AT1K0_GAS_PTM_130.q_xStart" Size="1"/>
+				<Link VarA="PlcTask Outputs^GVL_Devices.fb_AT1K0_GAS_PTM_130.q_xStop" VarB="Channel 3^fb_AT1K0_GAS_PTM_130.q_xStop" Size="1"/>
 			</OwnerB>
 			<OwnerB Name="TIID^=+-CX2020/EtherCAT1^=+-EK1100_06_00^=+-EL2798_06_17">
-				<Link VarA="PlcTask Outputs^GVL_Devices.fb_AT1K0_GAS_PTM_140.q_xProtection" VarB="Channel 4^fb_AT1K0_GAS_PTM_140.q_xProtection"/>
-				<Link VarA="PlcTask Outputs^GVL_Devices.fb_AT1K0_GAS_PTM_140.q_xReset" VarB="Channel 1^fb_AT1K0_GAS_PTM_140.q_xReset"/>
-				<Link VarA="PlcTask Outputs^GVL_Devices.fb_AT1K0_GAS_PTM_140.q_xSetSpeed" VarB="Channel 5^fb_AT1K0_GAS_PTM_140.q_xSetSpeed"/>
-				<Link VarA="PlcTask Outputs^GVL_Devices.fb_AT1K0_GAS_PTM_140.q_xStart" VarB="Channel 2^fb_AT1K0_GAS_PTM_140.q_xStart"/>
-				<Link VarA="PlcTask Outputs^GVL_Devices.fb_AT1K0_GAS_PTM_140.q_xStop" VarB="Channel 3^fb_AT1K0_GAS_PTM_140.q_xStop"/>
+				<Link VarA="PlcTask Outputs^GVL_Devices.fb_AT1K0_GAS_PTM_140.q_xProtection" VarB="Channel 4^fb_AT1K0_GAS_PTM_140.q_xProtection" Size="1"/>
+				<Link VarA="PlcTask Outputs^GVL_Devices.fb_AT1K0_GAS_PTM_140.q_xReset" VarB="Channel 1^fb_AT1K0_GAS_PTM_140.q_xReset" Size="1"/>
+				<Link VarA="PlcTask Outputs^GVL_Devices.fb_AT1K0_GAS_PTM_140.q_xSetSpeed" VarB="Channel 5^fb_AT1K0_GAS_PTM_140.q_xSetSpeed" Size="1"/>
+				<Link VarA="PlcTask Outputs^GVL_Devices.fb_AT1K0_GAS_PTM_140.q_xStart" VarB="Channel 2^fb_AT1K0_GAS_PTM_140.q_xStart" Size="1"/>
+				<Link VarA="PlcTask Outputs^GVL_Devices.fb_AT1K0_GAS_PTM_140.q_xStop" VarB="Channel 3^fb_AT1K0_GAS_PTM_140.q_xStop" Size="1"/>
 			</OwnerB>
 			<OwnerB Name="TIID^=+-CX2020/EtherCAT1^=+-EK1100_06_00^=+-ES1004_06_01">
-				<Link VarA="PlcTask Inputs^GVL_Devices.fb_AT1K0_GAS_PTM_110.i_xAccel" VarB="Channel 4^fb_AT1K0_GAS_PTM_110.i_xAccel"/>
-				<Link VarA="PlcTask Inputs^GVL_Devices.fb_AT1K0_GAS_PTM_110.i_xAtSpd" VarB="Channel 1^fb_AT1K0_GAS_PTM_110.i_xAtSpd"/>
-				<Link VarA="PlcTask Inputs^GVL_Devices.fb_AT1K0_GAS_PTM_110.i_xFaultNC" VarB="Channel 2^fb_AT1K0_GAS_PTM_110.i_xFaultNC"/>
-				<Link VarA="PlcTask Inputs^GVL_Devices.fb_AT1K0_GAS_PTM_110.i_xRotate" VarB="Channel 3^fb_AT1K0_GAS_PTM_110.i_xRotate"/>
+				<Link VarA="PlcTask Inputs^GVL_Devices.fb_AT1K0_GAS_PTM_110.i_xAccel" VarB="Channel 4^fb_AT1K0_GAS_PTM_110.i_xAccel" Size="1"/>
+				<Link VarA="PlcTask Inputs^GVL_Devices.fb_AT1K0_GAS_PTM_110.i_xAtSpd" VarB="Channel 1^fb_AT1K0_GAS_PTM_110.i_xAtSpd" Size="1"/>
+				<Link VarA="PlcTask Inputs^GVL_Devices.fb_AT1K0_GAS_PTM_110.i_xFaultNC" VarB="Channel 2^fb_AT1K0_GAS_PTM_110.i_xFaultNC" Size="1"/>
+				<Link VarA="PlcTask Inputs^GVL_Devices.fb_AT1K0_GAS_PTM_110.i_xRotate" VarB="Channel 3^fb_AT1K0_GAS_PTM_110.i_xRotate" Size="1"/>
 			</OwnerB>
 			<OwnerB Name="TIID^=+-CX2020/EtherCAT1^=+-EK1100_06_00^=+-ES1004_06_02">
-				<Link VarA="PlcTask Inputs^GVL_Devices.fb_AT1K0_GAS_PTM_110.i_xDecel" VarB="Channel 1^fb_AT1K0_GAS_PTM_110.i_xDecel"/>
+				<Link VarA="PlcTask Inputs^GVL_Devices.fb_AT1K0_GAS_PTM_110.i_xDecel" VarB="Channel 1^fb_AT1K0_GAS_PTM_110.i_xDecel" Size="1"/>
 			</OwnerB>
 			<OwnerB Name="TIID^=+-CX2020/EtherCAT1^=+-EK1100_06_00^=+-ES1004_06_08">
-				<Link VarA="PlcTask Inputs^GVL_Devices.fb_AT1K0_GAS_PTM_120.i_xAtSpd" VarB="Channel 2^fb_AT1K0_GAS_PTM_120.i_xAtSpd"/>
-				<Link VarA="PlcTask Inputs^GVL_Devices.fb_AT1K0_GAS_PTM_120.i_xDecel" VarB="Channel 1^fb_AT1K0_GAS_PTM_120.i_xDecel"/>
-				<Link VarA="PlcTask Inputs^GVL_Devices.fb_AT1K0_GAS_PTM_120.i_xNCFault" VarB="Channel 3^fb_AT1K0_GAS_PTM_120.i_xNCFault"/>
-				<Link VarA="PlcTask Inputs^GVL_Devices.fb_AT1K0_GAS_PTM_120.i_xRotate" VarB="Channel 4^fb_AT1K0_GAS_PTM_120.i_xRotate"/>
+				<Link VarA="PlcTask Inputs^GVL_Devices.fb_AT1K0_GAS_PTM_120.i_xAtSpd" VarB="Channel 2^fb_AT1K0_GAS_PTM_120.i_xAtSpd" Size="1"/>
+				<Link VarA="PlcTask Inputs^GVL_Devices.fb_AT1K0_GAS_PTM_120.i_xDecel" VarB="Channel 1^fb_AT1K0_GAS_PTM_120.i_xDecel" Size="1"/>
+				<Link VarA="PlcTask Inputs^GVL_Devices.fb_AT1K0_GAS_PTM_120.i_xNCFault" VarB="Channel 3^fb_AT1K0_GAS_PTM_120.i_xNCFault" Size="1"/>
+				<Link VarA="PlcTask Inputs^GVL_Devices.fb_AT1K0_GAS_PTM_120.i_xRotate" VarB="Channel 4^fb_AT1K0_GAS_PTM_120.i_xRotate" Size="1"/>
 			</OwnerB>
 			<OwnerB Name="TIID^=+-CX2020/EtherCAT1^=+-EK1100_06_00^=+-ES1004_06_09">
-				<Link VarA="PlcTask Inputs^GVL_Devices.fb_AT1K0_GAS_PTM_120.i_xAccel" VarB="Channel 1^fb_AT1K0_GAS_PTM_120.i_xAccel"/>
+				<Link VarA="PlcTask Inputs^GVL_Devices.fb_AT1K0_GAS_PTM_120.i_xAccel" VarB="Channel 1^fb_AT1K0_GAS_PTM_120.i_xAccel" Size="1"/>
 			</OwnerB>
 			<OwnerB Name="TIID^=+-CX2020/EtherCAT1^=+-EK1100_06_00^=+-ES1004_06_11">
-				<Link VarA="PlcTask Inputs^GVL_Devices.fb_AT1K0_GAS_PTM_130.i_xAtSpd" VarB="Channel 2^fb_AT1K0_GAS_PTM_130.i_xAtSpd"/>
-				<Link VarA="PlcTask Inputs^GVL_Devices.fb_AT1K0_GAS_PTM_130.i_xDecel" VarB="Channel 1^fb_AT1K0_GAS_PTM_130.i_xDecel"/>
-				<Link VarA="PlcTask Inputs^GVL_Devices.fb_AT1K0_GAS_PTM_130.i_xNCFault" VarB="Channel 3^fb_AT1K0_GAS_PTM_130.i_xNCFault"/>
-				<Link VarA="PlcTask Inputs^GVL_Devices.fb_AT1K0_GAS_PTM_130.i_xRotate" VarB="Channel 4^fb_AT1K0_GAS_PTM_130.i_xRotate"/>
+				<Link VarA="PlcTask Inputs^GVL_Devices.fb_AT1K0_GAS_PTM_130.i_xAtSpd" VarB="Channel 2^fb_AT1K0_GAS_PTM_130.i_xAtSpd" Size="1"/>
+				<Link VarA="PlcTask Inputs^GVL_Devices.fb_AT1K0_GAS_PTM_130.i_xDecel" VarB="Channel 1^fb_AT1K0_GAS_PTM_130.i_xDecel" Size="1"/>
+				<Link VarA="PlcTask Inputs^GVL_Devices.fb_AT1K0_GAS_PTM_130.i_xNCFault" VarB="Channel 3^fb_AT1K0_GAS_PTM_130.i_xNCFault" Size="1"/>
+				<Link VarA="PlcTask Inputs^GVL_Devices.fb_AT1K0_GAS_PTM_130.i_xRotate" VarB="Channel 4^fb_AT1K0_GAS_PTM_130.i_xRotate" Size="1"/>
 			</OwnerB>
 			<OwnerB Name="TIID^=+-CX2020/EtherCAT1^=+-EK1100_06_00^=+-ES1004_06_12">
-				<Link VarA="PlcTask Inputs^GVL_Devices.fb_AT1K0_GAS_PTM_130.i_xAccel" VarB="Channel 1^fb_AT1K0_GAS_PTM_130.i_xAccel"/>
+				<Link VarA="PlcTask Inputs^GVL_Devices.fb_AT1K0_GAS_PTM_130.i_xAccel" VarB="Channel 1^fb_AT1K0_GAS_PTM_130.i_xAccel" Size="1"/>
 			</OwnerB>
 			<OwnerB Name="TIID^=+-CX2020/EtherCAT1^=+-EK1100_06_00^=+-ES1004_06_18">
-				<Link VarA="PlcTask Inputs^GVL_Devices.fb_AT1K0_GAS_PTM_140.i_xAtSpd" VarB="Channel 2^fb_AT1K0_GAS_PTM_140.i_xAtSpd"/>
-				<Link VarA="PlcTask Inputs^GVL_Devices.fb_AT1K0_GAS_PTM_140.i_xDecel" VarB="Channel 1^fb_AT1K0_GAS_PTM_140.i_xDecel"/>
-				<Link VarA="PlcTask Inputs^GVL_Devices.fb_AT1K0_GAS_PTM_140.i_xNCFault" VarB="Channel 3^fb_AT1K0_GAS_PTM_140.i_xNCFault"/>
-				<Link VarA="PlcTask Inputs^GVL_Devices.fb_AT1K0_GAS_PTM_140.i_xRotate" VarB="Channel 4^fb_AT1K0_GAS_PTM_140.i_xRotate"/>
+				<Link VarA="PlcTask Inputs^GVL_Devices.fb_AT1K0_GAS_PTM_140.i_xAtSpd" VarB="Channel 2^fb_AT1K0_GAS_PTM_140.i_xAtSpd" Size="1"/>
+				<Link VarA="PlcTask Inputs^GVL_Devices.fb_AT1K0_GAS_PTM_140.i_xDecel" VarB="Channel 1^fb_AT1K0_GAS_PTM_140.i_xDecel" Size="1"/>
+				<Link VarA="PlcTask Inputs^GVL_Devices.fb_AT1K0_GAS_PTM_140.i_xNCFault" VarB="Channel 3^fb_AT1K0_GAS_PTM_140.i_xNCFault" Size="1"/>
+				<Link VarA="PlcTask Inputs^GVL_Devices.fb_AT1K0_GAS_PTM_140.i_xRotate" VarB="Channel 4^fb_AT1K0_GAS_PTM_140.i_xRotate" Size="1"/>
 			</OwnerB>
 			<OwnerB Name="TIID^=+-CX2020/EtherCAT1^=+-EK1100_06_00^=+-ES1004_06_19">
-				<Link VarA="PlcTask Inputs^GVL_Devices.fb_AT1K0_GAS_PTM_140.i_xAccel" VarB="Channel 1^fb_AT1K0_GAS_PTM_140.i_xAccel"/>
+				<Link VarA="PlcTask Inputs^GVL_Devices.fb_AT1K0_GAS_PTM_140.i_xAccel" VarB="Channel 1^fb_AT1K0_GAS_PTM_140.i_xAccel" Size="1"/>
 			</OwnerB>
 			<OwnerB Name="TIID^=+-CX2020/EtherCAT1^=+-EK1100_06_00^=+-ES1088_06_20">
-				<Link VarA="PlcTask Inputs^GVL_Devices.fb_AT1K0_GAS_PMF_90.i_xAlarmOK" VarB="Channel 4^fb_AT1K0_GAS_PMF_90.i_xAlarmOK"/>
-				<Link VarA="PlcTask Inputs^GVL_Devices.fb_AT1K0_GAS_PMF_90.i_xBPStatus" VarB="Channel 2^fb_AT1K0_GAS_PMF_90.i_xBPStatus"/>
-				<Link VarA="PlcTask Inputs^GVL_Devices.fb_AT1K0_GAS_PMF_90.i_xMPStatus" VarB="Channel 1^fb_AT1K0_GAS_PMF_90.i_xMPStatus"/>
-				<Link VarA="PlcTask Inputs^GVL_Devices.fb_AT1K0_GAS_PMF_90.i_xRemote" VarB="Channel 5^fb_AT1K0_GAS_PMF_90.i_xRemote"/>
-				<Link VarA="PlcTask Inputs^GVL_Devices.fb_AT1K0_GAS_PMF_90.i_xWarning" VarB="Channel 3^fb_AT1K0_GAS_PMF_90.i_xWarning"/>
+				<Link VarA="PlcTask Inputs^GVL_Devices.fb_AT1K0_GAS_PMF_90.i_xAlarmOK" VarB="Channel 4^fb_AT1K0_GAS_PMF_90.i_xAlarmOK" Size="1"/>
+				<Link VarA="PlcTask Inputs^GVL_Devices.fb_AT1K0_GAS_PMF_90.i_xBPStatus" VarB="Channel 2^fb_AT1K0_GAS_PMF_90.i_xBPStatus" Size="1"/>
+				<Link VarA="PlcTask Inputs^GVL_Devices.fb_AT1K0_GAS_PMF_90.i_xMPStatus" VarB="Channel 1^fb_AT1K0_GAS_PMF_90.i_xMPStatus" Size="1"/>
+				<Link VarA="PlcTask Inputs^GVL_Devices.fb_AT1K0_GAS_PMF_90.i_xRemote" VarB="Channel 5^fb_AT1K0_GAS_PMF_90.i_xRemote" Size="1"/>
+				<Link VarA="PlcTask Inputs^GVL_Devices.fb_AT1K0_GAS_PMF_90.i_xWarning" VarB="Channel 3^fb_AT1K0_GAS_PMF_90.i_xWarning" Size="1"/>
 			</OwnerB>
 			<OwnerB Name="TIID^=+-CX2020/EtherCAT1^=+-EK1100_06_00^=+-ES1088_06_23">
-				<Link VarA="PlcTask Inputs^GVL_Devices.fb_AT1K0_GAS_PMF_100.i_xAlarmOK" VarB="Channel 4^fb_AT1K0_GAS_PMF_100.i_xAlarmOK"/>
-				<Link VarA="PlcTask Inputs^GVL_Devices.fb_AT1K0_GAS_PMF_100.i_xBPStatus" VarB="Channel 2^fb_AT1K0_GAS_PMF_100.i_xBPStatus"/>
-				<Link VarA="PlcTask Inputs^GVL_Devices.fb_AT1K0_GAS_PMF_100.i_xMPStatus" VarB="Channel 1^fb_AT1K0_GAS_PMF_100.i_xMPStatus"/>
-				<Link VarA="PlcTask Inputs^GVL_Devices.fb_AT1K0_GAS_PMF_100.i_xRemote" VarB="Channel 5^fb_AT1K0_GAS_PMF_100.i_xRemote"/>
-				<Link VarA="PlcTask Inputs^GVL_Devices.fb_AT1K0_GAS_PMF_100.i_xWarning" VarB="Channel 3^fb_AT1K0_GAS_PMF_100.i_xWarning"/>
+				<Link VarA="PlcTask Inputs^GVL_Devices.fb_AT1K0_GAS_PMF_100.i_xAlarmOK" VarB="Channel 4^fb_AT1K0_GAS_PMF_100.i_xAlarmOK" Size="1"/>
+				<Link VarA="PlcTask Inputs^GVL_Devices.fb_AT1K0_GAS_PMF_100.i_xBPStatus" VarB="Channel 2^fb_AT1K0_GAS_PMF_100.i_xBPStatus" Size="1"/>
+				<Link VarA="PlcTask Inputs^GVL_Devices.fb_AT1K0_GAS_PMF_100.i_xMPStatus" VarB="Channel 1^fb_AT1K0_GAS_PMF_100.i_xMPStatus" Size="1"/>
+				<Link VarA="PlcTask Inputs^GVL_Devices.fb_AT1K0_GAS_PMF_100.i_xRemote" VarB="Channel 5^fb_AT1K0_GAS_PMF_100.i_xRemote" Size="1"/>
+				<Link VarA="PlcTask Inputs^GVL_Devices.fb_AT1K0_GAS_PMF_100.i_xWarning" VarB="Channel 3^fb_AT1K0_GAS_PMF_100.i_xWarning" Size="1"/>
 			</OwnerB>
 			<OwnerB Name="TIID^=+-CX2020/EtherCAT1^=+-EK1100_06_00^=+-ES3064_06_04">
 				<Link VarA="PlcTask Inputs^GVL_Devices.fb_AT1K0_GAS_PTM_110.i_iRawSpeed" VarB="AI Standard Channel 1^fb_AT1K0_GAS_PTM_110.i_iRawSpeed"/>
@@ -3661,8 +2935,8 @@ IO]]>
 				<Link VarA="PlcTask Outputs^GVL_Devices.fb_AT1K0_GAS_PTM_140.q_iSpeedSet" VarB="AO Outputs Channel 3^fb_AT1K0_GAS_PTM_140.q_iSpeedSet"/>
 			</OwnerB>
 			<OwnerB Name="TIID^=+-CX2020/EtherCAT1^=+-EK1200_00_00^=+-ES2202_00_07">
-				<Link VarA="PlcTask Outputs^GVL_ILK.g_FastFaultOutput1.q_xFastFaultOut" VarB="Channel 1^Output" AutoLink="true"/>
-				<Link VarA="PlcTask Outputs^GVL_ILK.g_FastFaultOutput2.q_xFastFaultOut" VarB="Channel 2^Output" AutoLink="true"/>
+				<Link VarA="PlcTask Outputs^GVL_ILK.g_FastFaultOutput1.q_xFastFaultOut" VarB="Channel 1^Output" AutoLink="true" Size="1"/>
+				<Link VarA="PlcTask Outputs^GVL_ILK.g_FastFaultOutput2.q_xFastFaultOut" VarB="Channel 2^Output" AutoLink="true" Size="1"/>
 			</OwnerB>
 			<OwnerB Name="TINC^NC-Task 1 SAF^Axes^MA_1_X">
 				<Link VarA="PlcTask Inputs^Main.M1.Axis.NcToPlc" VarB="Outputs^ToPlc"/>

@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4022.18">
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.3">
   <GVL Name="GVL_Devices" Id="{8afe411c-db1d-4f82-9303-f6aed21ae785}">
     <Declaration><![CDATA[VAR_GLOBAL
 (*AT1K0*)
@@ -19,23 +19,18 @@
 	VGP_80 : FB_VGP;
 
 //Gauges	
-	{attribute 'pytmc' :=' pv: AT1K0:GAS:GMP:70 '}
+	{attribute 'pytmc' :=' pv: AT1K0:GAS:GCM:70 '}
 	GCM_70: FB_GCM;
-	
-	
-	{attribute 'pytmc' :=' pv: AT1K0:GAS:GMP:80 '}
+	{attribute 'pytmc' :=' pv: AT1K0:GAS:GCM:80 '}
 	GCM_80: FB_GCM;
-	
-	{attribute 'pytmc' :=' pv: AT1K0:GAS:GMP:81 '}
+	{attribute 'pytmc' :=' pv: AT1K0:GAS:GCM:81 '}
 	GCM_81: FB_GCM;
-	
-
-	
-	
-	
+	(*Pseudo gauge device Structure to combine the readings of two GCM gauges*)
+	{attribute 'pytmc' :=' pv: AT1K0:GAS:GCM:82  '}
+	GCM_82 : ST_VG;
 	
 	
-	/////////////////////////////
+/////////////////////////////
 	
 		
 	//////////////////////////////////
@@ -185,15 +180,20 @@ fb_AT1K0_GAS_PMF_120 : FB_EbaraEVA;
 fb_AT1K0_GAS_PMF_140 : FB_EbaraEVA;
 
 //Roughing DC Valves
-{attribute 'pytmc' := ' pv: AT1K0:GAS:VVC:110 '}
+{attribute 'pytmc' := ' pv: AT1K0:GAS:VCP:110 '}
 {attribute 'TcLinkTo' := 	'.q_xOPN_DO	:=	TIIB[=+-EL2212_06_25]^DOX Control Channel 1^Control^Output'}
 fb_AT1K0_GAS_VVC_110 : FB_VVC;
-{attribute 'pytmc' := ' pv: AT1K0:GAS:VVC:120 '}
+{attribute 'pytmc' := ' pv: AT1K0:GAS:VCP:120 '}
 {attribute 'TcLinkTo' := 	'.q_xOPN_DO	:=	TIIB[=+-EL2212_06_25]^DOX Control Channel 2^Control^Output'}
 fb_AT1K0_GAS_VVC_120 : FB_VVC;
-{attribute 'pytmc' := ' pv: AT1K0:GAS:VVC:140 '}
+{attribute 'pytmc' := ' pv: AT1K0:GAS:VCP:140 '}
 {attribute 'TcLinkTo' := 	'.q_xOPN_DO	:=	TIIB[=+-EL2212_06_26]^DOX Control Channel 1^Control^Output'}
 fb_AT1K0_GAS_VVC_140 : FB_VVC;
+
+//PTM 80 VRC back stream valve
+{attribute 'pytmc' := ' pv: AT1K0:GAS:VVC:80 '}
+{attribute 'TcLinkTo' := 	'.q_xOPN_DO	:=	TIIB[=+-EL2212_06_26]^DOX Control Channel 2^Control^Output'}
+fb_AT1K0_GAS_VVC_80 : FB_VVC;
 
 END_VAR]]></Declaration>
   </GVL>

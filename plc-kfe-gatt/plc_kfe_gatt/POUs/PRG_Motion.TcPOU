@@ -9,7 +9,7 @@ VAR
 	bAllGo : Bool := false;
 	
 	/////
-  fbMAX_1: FB_MotionStage;
+ (* fbMAX_1: FB_MotionStage;
   fbMAY_1: FB_MotionStage;
   
   fbMAX_2: FB_MotionStage;
@@ -19,7 +19,7 @@ VAR
   fbMAY_3: FB_MotionStage;
   
   fbMAX_4: FB_MotionStage;
-  fbMAY_4: FB_MotionStage;
+  fbMAY_4: FB_MotionStage;*)
 	
 	/////
 	{attribute 'pytmc' := '
@@ -49,6 +49,8 @@ END_VAR
       <ST><![CDATA[/// PMPS ???????????
 //LIMIT the array index
 iReqApperture := LIMIT(1,pv_iReqApperture,4);
+
+
 (*
 IF(bInit) THEN
 	// initialise all the values of pre defined positions for each apperture in the assembly array 
